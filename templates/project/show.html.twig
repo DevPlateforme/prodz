@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My project{% endblock %}
+
+{% block body %}
+<style>
+
+
+</style>
+
+<br>
+
+
+<label>Total worktime</label>
+
+<progress id="totalCnt" max="500" value="1"></progress>
+
+</br>
+
+
+
+<label>Daily worktime</label>
+
+<progress id="dailyCnt" max="100" value="1"></progress>
+
+</br>
+
+<button id="startBtn">start</button>
+
+
+ 
+{% endblock %}
+
+
+      {% block javascripts %}
+
+      <script>
+
+
+      var startBtn = document.getElementById('startBtn');
+      var totalCnt = document.getElementById('totalCnt');
+
+
+      startBtn.addEventListener('click', function(){
+
+          var myInterval;
+
+          if (startBtn.innerHTML == 'start'){
+
+             myInterval = setInterval(function(){ increaseCounts()}, 1000);
+
+             startBtn.innerHTML = 'stop';
+
+          }
+
+          else {
+
+             clearInterval(myInterval);
+            
+            startBtn.innerHTML = 'start';
+              
+          }
+
+          
+
+      })
+
+
+      function increaseCounts(){ 
+
+          totalCnt.value++;
+          dailyCnt.value++;
+
+       }
+
+
+     </script>
+
+
+        {% endblock %}
