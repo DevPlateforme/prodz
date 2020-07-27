@@ -8,7 +8,7 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-  <form id= 'registerForm'>
+  <form id= 'registerForm' method = 'post'>
 
   <label>Mail</label> </br>
 
@@ -17,14 +17,14 @@
   
   <label>Mot de passe</label> </br>
 
-  <input id = 'myPassword' type='text' name='myPassword' onkeyup = 'initErrorMsg()'> </br>
+  <input type = 'password' id = 'myPassword' type='text' name='myPassword' onkeyup = 'initErrorMsg()'> </br>
   
   <label>Confirmer le mot de passe </label> </br>
 
-  <input id= 'confirm_password' type='text' name='confirm_password' onkeyup = 'initErrorMsg()'> </br>
+  <input type = 'password' id= 'confirm_password' type='text' name='confirm_password' onkeyup = 'initErrorMsg()'> </br>
 
 
-  <input type='submit' value='créer un compte'>
+  <input type='submit' value='créer un compte' name= 'submit'>
 
   </br>
 
@@ -56,7 +56,7 @@
 
      e.preventDefault();
 
-     errorMsg.innerHTML = 'error';
+     errorMsg.innerHTML = 'Mot de passe non identique';
 
 
 

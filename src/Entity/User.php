@@ -8,10 +8,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity("mail")
+
  */
 class User implements UserInterface
 {
@@ -28,7 +32,7 @@ class User implements UserInterface
     private $userName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $mail;
 
@@ -45,9 +49,9 @@ class User implements UserInterface
     public $projects;
 
     /**
-     * @ORM\OneToMany(targetEntity=Notification::class, mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Notification::class, mappedBy="user", orphanRemoval=true, cascade={"persist", "remove"})
      */
-    private $notifications;
+    public $notifications;
 
  
 
@@ -55,6 +59,7 @@ class User implements UserInterface
     {
         $this->projects = new ArrayCollection();
         $this->notifications = new ArrayCollection();
+      
     }
 
 
@@ -157,14 +162,14 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Notification[]
+     * @return Collection|notification[]
      */
     public function getNotifications(): Collection
     {
         return $this->notifications;
     }
 
-    public function addNotification(Notification $notification): self
+    public function addNotification(notification $notification): self
     {
         if (!$this->notifications->contains($notification)) {
             $this->notifications[] = $notification;
@@ -174,7 +179,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeNotification(Notification $notification): self
+    public function removeNotification(notification $notification): self
     {
         if ($this->notifications->contains($notification)) {
             $this->notifications->removeElement($notification);
@@ -186,6 +191,8 @@ class User implements UserInterface
 
         return $this;
     }
+
+   
 
     
 

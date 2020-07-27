@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+
+use App\Entity\User;
 use App\Repository\NotificationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,6 +26,7 @@ class Notification
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="notifications")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
@@ -56,5 +59,7 @@ class Notification
 
         return $this;
     }
+
+
 
 }

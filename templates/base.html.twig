@@ -16,7 +16,12 @@
     <div class="bg-dark p-4">
 
      {% if app.user %}
-             <h5 class="text-white h4">Logout</h5>
+                
+              {% for notification in app.user.notifications %}
+
+                 <h5 class="text-white h4>{{notification.content}}</h5>
+
+              {%endfor%}
              
               <h5 class="text-white h4">Notifications</h5> </br>
 

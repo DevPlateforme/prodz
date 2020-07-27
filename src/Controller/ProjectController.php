@@ -70,9 +70,10 @@ class ProjectController extends AbstractController
 
         $totalCountDone = $project->getTotalCountDone();
 
+
         
 
-        return $this->render('project/show.html.twig', ['username' => $user->getUserName(), 'projectId' => $projectId ,  'projectName' => $project->getProjectName(), 'dailyCount' => $dailyCount, 'dailyLimit' => $dailyLimit , 'dailyCountDone' => $dailyCountDone  , 'totalCount' => $totalCount, 'totalCountDone' => $totalCountDone ,  'totalLimit' => $totalLimit]);
+        return $this->render('project/show.html.twig', ['user' => $user, 'username' => $user->getUserName(), 'projectId' => $projectId ,  'projectName' => $project->getProjectName(), 'dailyCount' => $dailyCount, 'dailyLimit' => $dailyLimit , 'dailyCountDone' => $dailyCountDone  , 'totalCount' => $totalCount, 'totalCountDone' => $totalCountDone ,  'totalLimit' => $totalLimit]);
 
     }
 
@@ -84,13 +85,16 @@ class ProjectController extends AbstractController
 
     public function dailyCountDone( EntityManagerInterface $manager, UserInterface $user){
 
-        $user->getNotifications()->add($notification = new Notification());
 
         $project = $this->getDoctrine()->getRepository(Project::class)->find($_POST['projectId']);
 
         $project->setDailyCountToDone();
 
-        $notification->setContent('Bravo, tu as atteint ton compte journalier!!');
+        
+        $user->addNotification($notification = new Notification());
+
+        $notification->setContent('Super, tu as atteint ton compte journalier, pour le projet nommé '. $project->getProjectName());
+
         
         $manager->persist($user);
 
@@ -106,17 +110,19 @@ class ProjectController extends AbstractController
 
     public function totalCountDone( EntityManagerInterface $manager, UserInterface $user){
 
-        $user->getNotifications()->add($notification = new Notification());
+        $project = $this->getDoctrine()->getRepository(Project::class)->find($_POST['projectId']);
 
-        $notification->setContent('Bravo, tu as réalisé ton projet!!');
+        $user->addNotification($notification = new Notification());
 
+
+        $notification->setContent('Super, tu es venu à bout de ton projet , intitulé : ' . $project->getProjectName() );
+
+        
         $manager->persist($user);
 
         $manager->flush();
 
-        return new JsonResponse(['data' => 'ok']);
-
-    
+        return $this->redirectToRoute('admin');
         
     }
 }

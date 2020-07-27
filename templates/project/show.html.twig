@@ -14,7 +14,7 @@
 <label>Total worktime</label>
 
 
-<progress id="totalCnt" max="500" value="1"></progress>
+<progress id="totalCnt" max="{{totalLimit}}" value="1"></progress>
 
 </br>
 
@@ -27,6 +27,19 @@
 </br>
 
 <button id="startBtn">start</button>
+
+</br>
+
+
+<form id='projectDone' method='post' action= '{{path("totalCountDonePath")}}'>
+
+
+ <input type='hidden' name = 'projectId' value = '{{ projectId}}'>
+
+ <input type='submit'>
+
+</form>
+
 
 
  
@@ -41,6 +54,15 @@
       var startBtn = document.getElementById('startBtn');
       var totalCnt = document.getElementById('totalCnt');
       var dailyCnt = document.getElementById('dailyCnt');
+      var dailyCountDone = {{dailyCountDone}};
+      var totalCountDone = {{totalCountDone}};
+      var projectDone = document.getElementById('projectDone');
+
+
+
+
+      
+   
 
 
 
@@ -68,8 +90,6 @@
           
 
       })
-
-     var dailyCountDone = {{dailyCountDone}};
 
      console.log(dailyCountDone);
      
@@ -104,11 +124,38 @@
           xrq.send('projectId=' + {{ projectId}});
 
          }
+
+   
+         
+         
+
+      if(totalCnt.value >= {{totalLimit}}){
+
+         if (totalCountDone == false){
+            
+          totalCountDone = true;
+          projectDone.submit(); 
+
+          console.log(totalCountDone);
+
+
+
+
+          }
+
+          
+
+         }
+
+
+   
+
+          
           
 
       }
 
-          totalCnt.value++;
+          totalCnt.value+=10000;
           dailyCnt.value++;
 
        }

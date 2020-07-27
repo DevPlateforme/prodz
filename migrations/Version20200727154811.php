@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200726215412 extends AbstractMigration
+final class Version20200727154811 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -20,12 +20,12 @@ final class Version20200726215412 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE project ADD daily_count_done TINYINT(1) NOT NULL, ADD total_count_done TINYINT(1) NOT NULL');
+        $this->addSql('ALTER TABLE notification CHANGE user_id user_id INT DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE project DROP daily_count_done, DROP total_count_done');
+        $this->addSql('ALTER TABLE notification CHANGE user_id user_id INT NOT NULL');
     }
 }

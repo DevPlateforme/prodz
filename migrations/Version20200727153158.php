@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200726191402 extends AbstractMigration
+final class Version20200727153158 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -20,12 +20,12 @@ final class Version20200726191402 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE project ADD total_worked_count INT DEFAULT NULL, ADD daily_worked_count INT DEFAULT NULL');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D6495126AC48 ON user (mail)');
     }
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE project DROP total_worked_count, DROP daily_worked_count');
+        $this->addSql('DROP INDEX UNIQ_8D93D6495126AC48 ON user');
     }
 }

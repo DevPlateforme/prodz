@@ -25,8 +25,18 @@ class UserController extends AbstractController
 
         if(isset($_POST['submit'])){
 
+            $user->setUsername('user');
+            $hash = $encoder->encodePassword($user, $_POST['myPassword']);
+            $user->setPassword($hash);
+            $user->setMail($_POST['email']);
 
-            
+            $manager->persist($user);
+            $manager->flush();
+
+
+            return $this->redirect('/');
+
+
         }
 
 
