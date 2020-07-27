@@ -13,6 +13,7 @@
 
 <label>Total worktime</label>
 
+
 <progress id="totalCnt" max="500" value="1"></progress>
 
 </br>
@@ -21,7 +22,7 @@
 
 <label>Daily worktime</label>
 
-<progress id="dailyCnt" max="100" value="1"></progress>
+<progress id="dailyCnt" max="{{dailyLimit}}" value="1"></progress>
 
 </br>
 
@@ -39,6 +40,9 @@
 
       var startBtn = document.getElementById('startBtn');
       var totalCnt = document.getElementById('totalCnt');
+      var dailyCnt = document.getElementById('dailyCnt');
+
+
 
 
       startBtn.addEventListener('click', function(){
@@ -65,8 +69,44 @@
 
       })
 
+     var dailyCountDone = {{dailyCountDone}};
+
+     console.log(dailyCountDone);
+     
+
+
 
       function increaseCounts(){ 
+
+
+         
+
+      if(dailyCnt.value >= {{dailyLimit}}){
+
+         if (dailyCountDone == false){
+
+
+          xrq = new XMLHttpRequest();
+
+          xrq.onload = function(){
+
+             console.log('ok');
+
+             dailyCountDone = true;
+
+          }
+
+
+          xrq.open('POST', '{{ path("dailyCountDonePath")}}', true);
+
+          xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+          xrq.send('projectId=' + {{ projectId}});
+
+         }
+          
+
+      }
 
           totalCnt.value++;
           dailyCnt.value++;

@@ -10,22 +10,26 @@
 
 <br>
 
-<form>
-
-<label>Comment se nomme le projet?</label> </br>
-
-<input type = 'text' placeholder='Nom du projet'>
+<form method='post'>
 
 
 </br>
 
+
+<label>Nom du projet</label> </br>
+
+
+<input name = 'projectName'> </br>
+
+
+
 <label>Type de projet</label> </br>
 
-<select name="projectDuration" id="projectForm">
+<select name="totalLimit" id="projectForm">
   <option>Type de projet</option>
   <option value="ponctual">Ponctuel (10 heures)</option>
-  <option value="midTerm">Moyen terme (100 heures)</option>
-  <option value="longTerm">Long terme (300 heures)</option>
+  <option value="midTerm">Moyen terme (50 heures)</option>
+  <option value="longTerm">Long terme (100 heures)</option>
 </select>
 
 </br>
@@ -33,17 +37,17 @@
 
 <label>Durée à réaliser chaque jour</label> </br>
 
-<select name="dailyWorkToDo" id="projectForm">
+<select name="dailyLimit" id="projectForm">
   <option>Compte journalier</option>
-  <option value="dailyCount1">15 min</option>
-  <option value="dailyCount2">45 min</option>
-  <option value="dailyCount3">2 heures</option>
+  <option value="dailyLimit1">10 min</option>
+  <option value="dailyLimit2">30 min</option>
+  <option value="dailyLimit3">1 h</option>
 </select>
 
 </br>
 </br>
 
-<button type = 'submit' class = 'btn btn-success'>Créer projet</button>
+<button type = 'submit' class = 'btn btn-success' name='submit'>Créer projet</button>
 
 
 </form>
