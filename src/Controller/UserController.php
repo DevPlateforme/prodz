@@ -23,22 +23,15 @@ class UserController extends AbstractController
     {
         $user = new User();
 
-        $form = $this->createForm(UserType::class, $user);
-
-        $form->handleRequest($request);
+        if(isset($_POST['submit'])){
 
 
-        if($form->isSubmitted() && $form->isValid()){
-
-            $hash = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($hash);
-            $manager->persist($user);
-            $manager->flush();
-
+            
         }
 
-        return $this->render('user/register.html.twig', ['userForm' => $form->createView()
-        ]);
+
+
+        return $this->render('user/register.html.twig');
     }
 
 
@@ -52,6 +45,18 @@ class UserController extends AbstractController
         return $this->render('user/login.html.twig');
 
     }
+
+      /**
+     * @Route("/logout", name="logoutPath")
+     */
+
+
+    public function logout(){
+       
+     //logout path
+    }
+
+
 
     
 }

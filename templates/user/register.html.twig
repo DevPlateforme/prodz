@@ -8,27 +8,73 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
+  <form id= 'registerForm'>
 
-    {{ form_start(userForm) }}
+  <label>Mail</label> </br>
 
-<div class="example-wrapper">
-    <h1>Register there</h1>
-</div>
+  <input type='email' name='email'> </br>
 
-<div class='form-group'>
-    <label for=''>UserName</label>
-    {{ form_widget(userForm.userName) }}
+  
+  <label>Mot de passe</label> </br>
 
-</div>
+  <input id = 'myPassword' type='text' name='myPassword' onkeyup = 'initErrorMsg()'> </br>
+  
+  <label>Confirmer le mot de passe </label> </br>
 
-<div class='form-group'>
-    <label for=''>Mail</label>
-    {{ form_widget(userForm.mail) }}
-</div>
+  <input id= 'confirm_password' type='text' name='confirm_password' onkeyup = 'initErrorMsg()'> </br>
 
 
+  <input type='submit' value='créer un compte'>
 
-{{ form_end(userForm)}}
+  </br>
 
+  <h5 style='color:red' id='errorMsg'></h5>
+
+
+
+
+
+  </form>
 
 {% endblock %}
+
+
+{% block javascripts %}
+  
+  <script>
+  var errorMsg = document.getElementById('errorMsg');
+
+  var form = document.getElementById('registerForm');
+
+  var mypassword = document.getElementById("myPassword") ;
+  var confirm_password = document.getElementById("confirm_password");
+ 
+
+ form.addEventListener('submit', function(e){
+
+     if(mypassword.value != confirm_password.value){
+
+     e.preventDefault();
+
+     errorMsg.innerHTML = 'error';
+
+
+
+     }
+
+
+
+ });
+
+ 
+     function initErrorMsg(){
+
+          errorMsg.innerHTML = '';
+
+     }
+
+
+   </script>
+
+{%endblock%}
+
