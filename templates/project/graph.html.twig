@@ -34,23 +34,44 @@
       <script>
 
       var nextWeekButton = document.getElementById('nextWeekButton');
+      var lastWeekButton = document.getElementById('lastWeekButton');
 
       var displayedWeek = {{displayedWeek}} ; 
 
 
       var currentWeek = displayedWeek ;
 
-      window.onload = function(){
+       function buttonsDisplay(){
+
+          if(displayedWeek == 0){
+
+             lastWeekButton.style.opacity = '0';
+
+          }
 
           if(displayedWeek  == currentWeek ){
 
              nextWeekButton.style.opacity = '0';
 
-             displayGraph();
+          } else if (displayedWeek  < currentWeek){
 
-          } 
+              nextWeekButton.style.opacity = '1';
+
+          }
 
       }
+
+
+
+      window.onload = function(){ 
+
+      displayGraph();
+          
+      buttonsDisplay() ;
+      
+    } 
+
+
 
      var ctx = document.getElementById('myChart').getContext('2d');
 
@@ -93,6 +114,28 @@
           xrq.onload = function(){
 
             console.log('ok');
+
+            var response = JSON.parse(this.responseText);
+
+
+
+            day1 = response.day1;
+            day2 = response.day2;
+            day3 = response.day3;
+            day4 = response.day4;
+            day5 = response.day5;
+            day6 = response.day6;
+            day7 = response.day7;
+
+            
+             displayedWeek = response.newDisplayedWeek;
+
+             buttonsDisplay();
+
+             displayGraph();
+
+
+
 
           }
 

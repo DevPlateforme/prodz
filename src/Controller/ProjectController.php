@@ -345,32 +345,44 @@ class ProjectController extends AbstractController
 
 
         $project = $this->getDoctrine()->getRepository(Project::class)->find($_POST['projectId']);
+         
+        
+        if(($displayedWeek -1) == 0){
 
-        if($displayedWeek == 0){
+          $newDisplayedWeek = $displayedWeek -1;
+
             
-        $day1 = $project->weeks[$displayedWeek]->days[0]->getDailyCount(); 
-        $day2 = $project->weeks[$displayedWeek]->days[1]->getDailyCount(); 
-        $day3 = $project->weeks[$displayedWeek]->days[2]->getDailyCount(); 
-        $day4 = $project->weeks[$displayedWeek]->days[3]->getDailyCount(); 
-        $day5 = $project->weeks[$displayedWeek]->days[4]->getDailyCount(); 
-        $day6 = $project->weeks[$displayedWeek]->days[5]->getDailyCount(); 
-        $day7 = $project->weeks[$displayedWeek]->days[6]->getDailyCount(); 
+        $day1 = $project->weeks[$newDisplayedWeek]->days[0]->getDailyCount(); 
+        $day2 = $project->weeks[$newDisplayedWeek]->days[1]->getDailyCount(); 
+        $day3 = $project->weeks[$newDisplayedWeek]->days[2]->getDailyCount(); 
+        $day4 = $project->weeks[$newDisplayedWeek]->days[3]->getDailyCount(); 
+        $day5 = $project->weeks[$newDisplayedWeek]->days[4]->getDailyCount(); 
+        $day6 = $project->weeks[$newDisplayedWeek]->days[5]->getDailyCount(); 
+        $day7 = $project->weeks[$newDisplayedWeek]->days[6]->getDailyCount(); 
 
 
-           return new JsonResponse(['lastWeekButton' => 'no' , 'nextWeekButton' => 'yes'   , 'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
+
+
+           return new JsonResponse(['newDisplayedWeek' => $newDisplayedWeek ,  'displayLastWeekButton' => 'no' , 'nextWeekButton' => 'yes'   , 'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
             
         } else {
 
-        $day1 = $project->weeks[$displayedWeek]->days[0]->getDailyCount(); 
-        $day2 = $project->weeks[$displayedWeek]->days[1]->getDailyCount(); 
-        $day3 = $project->weeks[$displayedWeek]->days[2]->getDailyCount(); 
-        $day4 = $project->weeks[$displayedWeek]->days[3]->getDailyCount(); 
-        $day5 = $project->weeks[$displayedWeek]->days[4]->getDailyCount(); 
-        $day6 = $project->weeks[$displayedWeek]->days[5]->getDailyCount(); 
-        $day7 = $project->weeks[$displayedWeek]->days[6]->getDailyCount(); 
+            $newDisplayedWeek = $displayedWeek -1;
+
+            
+            
+        $day1 = $project->weeks[$newDisplayedWeek]->days[0]->getDailyCount(); 
+        $day2 = $project->weeks[$newDisplayedWeek]->days[1]->getDailyCount(); 
+        $day3 = $project->weeks[$newDisplayedWeek]->days[2]->getDailyCount(); 
+        $day4 = $project->weeks[$newDisplayedWeek]->days[3]->getDailyCount(); 
+        $day5 = $project->weeks[$newDisplayedWeek]->days[4]->getDailyCount(); 
+        $day6 = $project->weeks[$newDisplayedWeek]->days[5]->getDailyCount(); 
+        $day7 = $project->weeks[$newDisplayedWeek]->days[6]->getDailyCount(); 
 
 
-        return new JsonResponse(['lastWeekButton' => 'yes' ,'nextWeekButton' => 'yes' , 'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
+
+
+        return new JsonResponse(['newDisplayedWeek' => $newDisplayedWeek , 'displayLastWeekButton' => 'yes' ,'nextWeekButton' => 'yes' , 'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
 
            }
 
