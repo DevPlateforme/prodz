@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -61,6 +63,21 @@ class Project
      */
     private $totalCountDone;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    public $currentDay = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $currentWeek;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Week::class, mappedBy="project")
+     */
+    private $weeks;
+
 
      function __construct(){
         $this->dailyCount = 0;
@@ -70,6 +87,7 @@ class Project
         $this->dailyCountDone = 'false';
 
         $this->totalCountDone = 'false';
+        $this->weeks = new ArrayCollection();
 
     }
 
@@ -196,6 +214,61 @@ class Project
     public function setTotalCountToDone()
     {
         $this->totalCountDone = 'true';
+
+        return $this;
+    }
+
+    public function getCurrentDay(): ?int
+    {
+        return $this->currentDay;
+    }
+
+    public function setCurrentDay(int $currentDay): self
+    {
+        $this->currentDay = $currentDay;
+
+        return $this;
+    }
+
+    public function getCurrentWeek(): ?int
+    {
+        return $this->currentWeek;
+    }
+
+    public function setCurrentWeek(int $currentWeek): self
+    {
+        $this->currentWeek = $currentWeek;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Week[]
+     */
+    public function getWeeks(): Collection
+    {
+        return $this->weeks;
+    }
+
+    public function addWeek(Week $week): self
+    {
+        if (!$this->weeks->contains($week)) {
+            $this->weeks[] = $week;
+            $week->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWeek(Week $week): self
+    {
+        if ($this->weeks->contains($week)) {
+            $this->weeks->removeElement($week);
+            // set the owning side to null (unless already changed)
+            if ($week->getProject() === $this) {
+                $week->setProject(null);
+            }
+        }
 
         return $this;
     }
