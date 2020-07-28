@@ -185,13 +185,13 @@ class ProjectController extends AbstractController
 
             $project->totalCount = $_POST['totalCount'];
 
-            $project->weeks[0]->days[0]->dailyCount = $_POST['dailyCount'];
+            $project->weeks[$currentWeek]->days[$currentDay]->dailyCount = $_POST['dailyCount'];
 
             $manager->persist($user);
 
             $manager->flush();
 
-            return new JsonResponse(['data' => 'ok']);            
+            return new JsonResponse(['count' => $project->weeks[$currentWeek]->days[$currentDay]->dailyCount ]);            
             
         }
        

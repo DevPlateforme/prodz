@@ -149,14 +149,14 @@ class Project
     {
         if($dailyLimit == 'dailyLimit1'){
 
-            $this->dailyLimit = 10;
+            $this->dailyLimit = 600;
         } elseif( $dailyLimit == 'dailyLimit2'){
  
-            $this->dailyLimit = 30;
+            $this->dailyLimit = 1800;
 
         } elseif( $dailyLimit == 'dailyLimit3'){
 
-            $this->dailyLimit = 60;
+            $this->dailyLimit = 3600;
         }
 
         return $this;
@@ -177,17 +177,7 @@ class Project
 
     }
 
-
-
-
-
-
-
     
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getDailyCountDone()
     {
@@ -266,5 +256,12 @@ class Project
         }
 
         return $this;
+    }
+
+
+    
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 }

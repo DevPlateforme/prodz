@@ -29,6 +29,10 @@
 <button id="startBtn">start</button>
 
 
+
+
+
+
 </br>
 
 
@@ -52,6 +56,8 @@
       {% block javascripts %}
 
       <script>
+      
+      console.log({{ dailyCount}})
 
       var startBtn = document.getElementById('startBtn');
       var totalCnt = document.getElementById('totalCnt');
@@ -82,7 +88,7 @@
          
          xrq.onload = function(){
 
-            console.log('ok')
+            console.log(JSON.parse(this.responseText).count)
          }
           xrq.open('POST', '{{ path("storeCountsPath")}}', true);
 
@@ -176,7 +182,7 @@
 
       }
 
-          totalCnt.value+=10000;
+          totalCnt.value++;
           dailyCnt.value++;
 
        }
