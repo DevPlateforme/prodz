@@ -14,7 +14,7 @@
 <label>Total worktime</label>
 
 
-<progress id="totalCnt" max="{{totalLimit}}" value="1"></progress>
+<progress id="totalCnt" max="{{totalLimit}}" value="{{totalCount}}"></progress>
 
 </br>
 
@@ -22,11 +22,12 @@
 
 <label>Daily worktime</label>
 
-<progress id="dailyCnt" max="{{dailyLimit}}" value="1"></progress>
+<progress id="dailyCnt" max="{{dailyLimit}}" value="{{dailyCount}}"></progress>
 
 </br>
 
 <button id="startBtn">start</button>
+
 
 </br>
 
@@ -36,20 +37,21 @@
 
  <input type='hidden' name = 'projectId' value = '{{ projectId}}'>
 
- <input type='submit'>
 
 </form>
 
 
+<button onclick='nextDay()'>next day</button>
 
- 
+
+<button>show graph</button>
+
+
 {% endblock %}
-
 
       {% block javascripts %}
 
       <script>
-
 
       var startBtn = document.getElementById('startBtn');
       var totalCnt = document.getElementById('totalCnt');
@@ -58,8 +60,38 @@
       var totalCountDone = {{totalCountDone}};
       var projectDone = document.getElementById('projectDone');
 
+     function nextDay(){
 
+        xrq = new XMLHttpRequest();
+         
+         xrq.onload = function(){
 
+            console.log('ok')
+         }
+          xrq.open('POST', '{{ path("nextDayPath")}}', true);
+
+          xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+          xrq.send('projectId=' + {{ projectId}});
+
+     }
+
+     window.onbeforeunload = function(){
+         
+              xrq = new XMLHttpRequest();
+         
+         xrq.onload = function(){
+
+            console.log('ok')
+         }
+          xrq.open('POST', '{{ path("storeCountsPath")}}', true);
+
+          xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+          xrq.send('projectId=' + {{ projectId}} + '&totalCount=' + totalCnt.value +'&dailyCount=' + dailyCnt.value);
+
+      }
+  
 
       startBtn.addEventListener('click', function(){
 

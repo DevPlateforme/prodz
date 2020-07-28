@@ -22,6 +22,11 @@ class Day
      */
     private $week;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    public $dailyCount = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +40,18 @@ class Day
     public function setWeek(?Week $week): self
     {
         $this->week = $week;
+
+        return $this;
+    }
+
+    public function getDailyCount(): ?int
+    {
+        return $this->dailyCount;
+    }
+
+    public function setDailyCount(int $dailyCount): self
+    {
+        $this->dailyCount = $dailyCount;
 
         return $this;
     }

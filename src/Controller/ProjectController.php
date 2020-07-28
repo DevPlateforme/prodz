@@ -7,6 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Entity\Notification;
 use App\Entity\Project;
+use App\Entity\Week;
+use App\Entity\Day;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,7 +37,17 @@ class ProjectController extends AbstractController
         $project->setDailyLimit($_POST['dailyLimit']);
         $project->setTotalLimit($_POST['totalLimit']);
 
+        $project->addWeek($week = new Week());
 
+             
+            $week->addDay(new Day());
+            $week->addDay(new Day());
+            $week->addDay(new Day());
+            $week->addDay(new Day());
+            $week->addDay(new Day());
+            $week->addDay(new Day());
+            $week->addDay(new Day());
+                    
 
         $manager->persist($user);
 
@@ -58,11 +70,17 @@ class ProjectController extends AbstractController
 
         $project = $this->getDoctrine()->getRepository(Project::class)->find($projectId);
 
+        $currentWeek = $project->currentWeek;
+
+        $currentDay = $project->currentDay;
+
+        
+
         $dailyLimit = $project->getDailyLimit();
 
         $totalLimit = $project->getTotalLimit();
 
-        $dailyCount = $project->getDailyCount();
+        $dailyCount = $project->weeks[$currentWeek]->days[$currentDay]->getDailyCount();
 
         $totalCount = $project->getTotalCount();
 
@@ -144,4 +162,98 @@ class ProjectController extends AbstractController
         return $this->render('project/showall.html.twig', ['projects' => $projects] );
 
     }
+
+
+    
+    /**
+     * @Route("/project/storeCounts" , name="storeCountsPath")
+     */
+
+
+    public function storeCounts(EntityManagerInterface $manager, UserInterface $user){
+
+
+        if(isset($_POST['projectId'])){
+
+            $project = $this->getDoctrine()->getRepository(Project::class)->find($_POST['projectId']);
+
+
+            $currentWeek = $project->currentWeek;
+
+            $currentDay = $project->currentDay;
+
+
+            $project->totalCount = $_POST['totalCount'];
+
+            $project->weeks[0]->days[0]->dailyCount = $_POST['dailyCount'];
+
+            $manager->persist($user);
+
+            $manager->flush();
+
+            return new JsonResponse(['data' => 'ok']);            
+            
+        }
+       
+    }
+
+
+    
+    /**
+     * @Route("/project/nextDay" , name="nextDayPath")
+     */
+
+
+    public function nextDayPath(EntityManagerInterface $manager, UserInterface $user){
+
+
+        if(isset($_POST['projectId'])){
+
+            $project = $this->getDoctrine()->getRepository(Project::class)->find($_POST['projectId']);
+            
+
+            if($project->currentWeek == 6){
+
+
+                $project->addWeek($week = new Week());                    
+                  $week->addDay(new Day());
+                  $week->addDay(new Day());
+                  $week->addDay(new Day());
+                  $week->addDay(new Day());
+                  $week->addDay(new Day());
+                  $week->addDay(new Day());
+                  $week->addDay(new Day());
+                  
+                 $project->currentWeek += 1;
+
+                 $project->currentDay = 0;
+
+
+
+                 $manager->persist($user);
+                 $manager->flush();
+
+                 return new JsonResponse(['data' => 'ok']);            
+
+
+            } else {
+
+                $project->currentDay += 1;
+
+                
+                $manager->persist($user);
+                $manager->flush();
+
+                return new JsonResponse(['data' => 'ok']);            
+
+
+            }
+
+
+        }
+
+
+
+    }
+
 }

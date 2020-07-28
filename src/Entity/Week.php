@@ -25,9 +25,9 @@ class Week
     private $project;
 
     /**
-     * @ORM\OneToMany(targetEntity=Day::class, mappedBy="week")
+     * @ORM\OneToMany(targetEntity=Day::class, mappedBy="week", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private $days;
+    public $days;
 
     public function __construct()
     {

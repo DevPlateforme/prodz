@@ -46,12 +46,7 @@ class Project
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $totalCount;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $dailyCount;
+    public $totalCount = 0;
 
     /**
      * @ORM\Column(type="string")
@@ -71,12 +66,12 @@ class Project
     /**
      * @ORM\Column(type="integer")
      */
-    private $currentWeek;
+    public $currentWeek = 0;
 
     /**
-     * @ORM\OneToMany(targetEntity=Week::class, mappedBy="project")
+     * @ORM\OneToMany(targetEntity=Week::class, mappedBy="project", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private $weeks;
+    public $weeks;
 
 
      function __construct(){
