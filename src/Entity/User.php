@@ -145,7 +145,7 @@ class User implements UserInterface
             $project->setUser($this);
         }
 
-        return $project;
+        return $this;
     }
 
     public function removeProject(Project $project): self

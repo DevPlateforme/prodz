@@ -26,7 +26,7 @@ class ProjectController extends AbstractController
 
     public function new(UserInterface $user, EntityManagerInterface $manager)
     {        
-        $user->projects->add($project = new Project());
+        $user->addProject($project = new Project());
 
         if(isset($_POST['submit'])){    
                 
@@ -112,6 +112,9 @@ class ProjectController extends AbstractController
 
         $project = $this->getDoctrine()->getRepository(Project::class)->find($_POST['projectId']);
 
+        $project->setTotalCountToDone();
+
+
         $user->addNotification($notification = new Notification());
 
 
@@ -124,5 +127,21 @@ class ProjectController extends AbstractController
 
         return $this->redirectToRoute('admin');
         
+    }
+
+
+    /**
+     * @Route("/project/showall" , name="showAllProjectsPath")
+     */
+
+
+    public function showAll(UserInterface $user){
+
+
+        $projects = $user->getProjects();
+        
+
+        return $this->render('project/showall.html.twig', ['projects' => $projects] );
+
     }
 }

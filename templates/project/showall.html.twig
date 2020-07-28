@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All my projects{% endblock %}
+
+{% block body %}
+<style>
+
+</style>
+
+{%for project in projects %}
+
+
+{{ project.projectName}} </br>
+
+
+<a href = '{{ path("showProjectPath", { "projectId" : project.id  })}}'><button>Voir projet</button></a>
+
+
+{%endfor%}
+
+
+
+
+
+
+{% endblock %}
+
+
+
+{%block javascripts %}
+  
+  <script>
+
+     console.log('ok');
+
+  </script>
+
+{%endblock%}

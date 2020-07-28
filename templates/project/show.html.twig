@@ -61,12 +61,6 @@
 
 
 
-      
-   
-
-
-
-
       startBtn.addEventListener('click', function(){
 
           var myInterval;
@@ -87,8 +81,6 @@
               
           }
 
-          
-
       })
 
      console.log(dailyCountDone);
@@ -97,13 +89,10 @@
 
 
       function increaseCounts(){ 
-
-
          
+        if(dailyCnt.value >= {{dailyLimit}}){
 
-      if(dailyCnt.value >= {{dailyLimit}}){
-
-         if (dailyCountDone == false){
+           if (dailyCountDone == false){
 
 
           xrq = new XMLHttpRequest();
