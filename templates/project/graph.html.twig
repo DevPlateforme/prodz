@@ -17,7 +17,7 @@
 
 <button onclick = 'lastWeekGraph()' id='lastWeekButton'>semaine précédente</button>
 
-<button id='nextWeekButton'>semaine suivante</button>
+<button onclick= 'nextWeekGraph()'id='nextWeekButton'>semaine suivante</button>
 
 
 
@@ -48,6 +48,13 @@
              lastWeekButton.style.opacity = '0';
 
           }
+
+            if(displayedWeek > 0){
+
+             lastWeekButton.style.opacity = '1';
+
+          }
+
 
           if(displayedWeek  == currentWeek ){
 
@@ -91,18 +98,41 @@
 
       function nextWeekGraph(){
 
+          
           xrq = new XMLHttpRequest();
 
           xrq.onload = function(){
-              day2 = 13;
 
-              displayGraph();
+            console.log('ok');
+
+            var response = JSON.parse(this.responseText);
+
+
+
+            day1 = response.day1;
+            day2 = response.day2;
+            day3 = response.day3;
+            day4 = response.day4;
+            day5 = response.day5;
+            day6 = response.day6;
+            day7 = response.day7;
+
+            
+             displayedWeek = response.newDisplayedWeek;
+
+             buttonsDisplay();
+
+             displayGraph();
 
           }
 
-          xrq.open('POST', '{{ path( "graphNextWeekPath")}} ', true);
+          xrq.open('POST', '{{ path( "graphNextWeekPath")}}' , true);
 
-          xrq.send('projectId =' + {{ projectId}} + '&displayedWeek=' + displayedWeek);
+          xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+          xrq.send('projectId=' + {{ projectId}} + '&displayedWeek=' + displayedWeek);
+    
+
         
       }
 
@@ -133,8 +163,6 @@
              buttonsDisplay();
 
              displayGraph();
-
-
 
 
           }
