@@ -44,7 +44,7 @@
 <button onclick='nextDay()'>next day</button>
 
 
-<button>show graph</button>
+<a href='{{ path("showGraphPath", {"projectId": projectId }) }}'<button>show graph</button>
 
 
 {% endblock %}
@@ -66,7 +66,7 @@
          
          xrq.onload = function(){
 
-            console.log('ok')
+           console.log(JSON.parse(this.responseText).day);
          }
           xrq.open('POST', '{{ path("nextDayPath")}}', true);
 

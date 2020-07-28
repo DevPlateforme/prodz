@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Graph{% endblock %}
+
+{% block body %}
+<style>
+
+
+</style>
+
+<br>
+
+
+<label>Graph</label>
+
+<canvas id="myChart"></canvas>
+
+
+</br>
+
+
+{% endblock %}
+
+      {% block javascripts %}
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+      <script>
+
+
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [{{day1}}, {{day2}}, {{day3}}, {{day4}}, {{day5}}, {{day6}}, {{day7}}]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+
+
+
+</script>
+
+
+
+
+
+
+      </script>
+
+
+        {% endblock %}
