@@ -275,11 +275,106 @@ class ProjectController extends AbstractController
         $day5 = $project->weeks[$displayedWeek]->days[4]->getDailyCount(); 
         $day6 = $project->weeks[$displayedWeek]->days[5]->getDailyCount(); 
         $day7 = $project->weeks[$displayedWeek]->days[6]->getDailyCount(); 
+        
+
+           return $this->render('project/graph.html.twig', ['projectId' => $projectId , 'displayedWeek' => $displayedWeek , 'nextWeekButton' => 'no' ,'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
 
 
-           return $this->render('project/graph.html.twig', ['day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
+    }
 
 
+    /**
+     * @Route("/project/graph/nextWeek" , name="graphNextWeekPath")
+     */
+
+    function graphNextWeek(){
+
+
+        if($_POST['projectId']){
+
+            $displayedWeek = $_POST['displayedWeek'];
+            
+
+        $project = $this->getDoctrine()->getRepository(Project::class)->find($_POST['projectId']);
+
+        if($displayedWeek < $project->currentWeek){
+            
+        $day1 = $project->weeks[$displayedWeek]->days[0]->getDailyCount(); 
+        $day2 = $project->weeks[$displayedWeek]->days[1]->getDailyCount(); 
+        $day3 = $project->weeks[$displayedWeek]->days[2]->getDailyCount(); 
+        $day4 = $project->weeks[$displayedWeek]->days[3]->getDailyCount(); 
+        $day5 = $project->weeks[$displayedWeek]->days[4]->getDailyCount(); 
+        $day6 = $project->weeks[$displayedWeek]->days[5]->getDailyCount(); 
+        $day7 = $project->weeks[$displayedWeek]->days[6]->getDailyCount(); 
+
+
+           return new JsonResponse(['nextWeekButton' => 'yes' , 'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
+            
+        } else {
+
+        $day1 = $project->weeks[$displayedWeek]->days[0]->getDailyCount(); 
+        $day2 = $project->weeks[$displayedWeek]->days[1]->getDailyCount(); 
+        $day3 = $project->weeks[$displayedWeek]->days[2]->getDailyCount(); 
+        $day4 = $project->weeks[$displayedWeek]->days[3]->getDailyCount(); 
+        $day5 = $project->weeks[$displayedWeek]->days[4]->getDailyCount(); 
+        $day6 = $project->weeks[$displayedWeek]->days[5]->getDailyCount(); 
+        $day7 = $project->weeks[$displayedWeek]->days[6]->getDailyCount(); 
+
+
+        return new JsonResponse(['nextWeekButton' => 'no' , 'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
+
+           }
+
+        }
+    }
+
+
+
+    
+    /**
+     * @Route("/project/graph/lastWeek" , name="graphLastWeekPath")
+     */
+
+    function graphLastWeek(){
+
+
+        if($_POST['projectId']){
+
+            $displayedWeek = $_POST['displayedWeek'];
+
+
+
+        $project = $this->getDoctrine()->getRepository(Project::class)->find($_POST['projectId']);
+
+        if($displayedWeek == 0){
+            
+        $day1 = $project->weeks[$displayedWeek]->days[0]->getDailyCount(); 
+        $day2 = $project->weeks[$displayedWeek]->days[1]->getDailyCount(); 
+        $day3 = $project->weeks[$displayedWeek]->days[2]->getDailyCount(); 
+        $day4 = $project->weeks[$displayedWeek]->days[3]->getDailyCount(); 
+        $day5 = $project->weeks[$displayedWeek]->days[4]->getDailyCount(); 
+        $day6 = $project->weeks[$displayedWeek]->days[5]->getDailyCount(); 
+        $day7 = $project->weeks[$displayedWeek]->days[6]->getDailyCount(); 
+
+
+           return new JsonResponse(['lastWeekButton' => 'no' , 'nextWeekButton' => 'yes'   , 'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
+            
+        } else {
+
+        $day1 = $project->weeks[$displayedWeek]->days[0]->getDailyCount(); 
+        $day2 = $project->weeks[$displayedWeek]->days[1]->getDailyCount(); 
+        $day3 = $project->weeks[$displayedWeek]->days[2]->getDailyCount(); 
+        $day4 = $project->weeks[$displayedWeek]->days[3]->getDailyCount(); 
+        $day5 = $project->weeks[$displayedWeek]->days[4]->getDailyCount(); 
+        $day6 = $project->weeks[$displayedWeek]->days[5]->getDailyCount(); 
+        $day7 = $project->weeks[$displayedWeek]->days[6]->getDailyCount(); 
+
+
+        return new JsonResponse(['lastWeekButton' => 'yes' ,'nextWeekButton' => 'yes' , 'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
+
+           }
+
+        }
     }
 
 }

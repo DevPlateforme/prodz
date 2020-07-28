@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Graph{% endblock %}
+{% block title %}Graph working version{% endblock %}
 
 {% block body %}
 <style>
@@ -15,6 +15,12 @@
 
 <canvas id="myChart"></canvas>
 
+<button onclick = 'lastWeekGraph()' id='lastWeekButton'>semaine précédente</button>
+
+<button id='nextWeekButton'>semaine suivante</button>
+
+
+
 
 </br>
 
@@ -27,10 +33,82 @@
 
       <script>
 
+      var nextWeekButton = document.getElementById('nextWeekButton');
+
+      var displayedWeek = {{displayedWeek}} ; 
 
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
+      var currentWeek = displayedWeek ;
+
+      window.onload = function(){
+
+          if(displayedWeek  == currentWeek ){
+
+             nextWeekButton.style.opacity = '0';
+
+             displayGraph();
+
+          } 
+
+      }
+
+     var ctx = document.getElementById('myChart').getContext('2d');
+
+  
+      var day1 = {{ day1 }}
+      var day2 = {{ day2 }}
+      var day3 = {{ day3 }}
+      var day4 = {{ day4 }}
+      var day5 = {{ day5 }}
+      var day6 = {{ day6 }}
+      var day7 = {{ day7 }}
+
+
+
+    
+
+
+      function nextWeekGraph(){
+
+          xrq = new XMLHttpRequest();
+
+          xrq.onload = function(){
+              day2 = 13;
+
+              displayGraph();
+
+          }
+
+          xrq.open('POST', '{{ path( "graphNextWeekPath")}} ', true);
+
+          xrq.send('projectId =' + {{ projectId}} + '&displayedWeek=' + displayedWeek);
+        
+      }
+
+      function lastWeekGraph(){
+
+          
+          xrq = new XMLHttpRequest();
+
+          xrq.onload = function(){
+
+            console.log('ok');
+
+          }
+
+          xrq.open('POST', '{{ path( "graphLastWeekPath")}}' , true);
+
+          xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+          xrq.send('projectId=' + {{ projectId}} + '&displayedWeek=' + displayedWeek);
+    
+
+      }
+
+
+function displayGraph(){
+
+    var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'line',
 
@@ -41,13 +119,20 @@ var chart = new Chart(ctx, {
             label: 'My First dataset',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
-            data: [{{day1}}, {{day2}}, {{day3}}, {{day4}}, {{day5}}, {{day6}}, {{day7}}]
+            data: [day1, day2, day3, day4, day5, day6, day7]
         }]
     },
 
     // Configuration options go here
     options: {}
 });
+
+
+
+
+}
+
+
 
 
 
