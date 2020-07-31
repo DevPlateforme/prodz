@@ -148,6 +148,43 @@ class ProjectController extends AbstractController
     }
 
 
+
+
+
+    
+
+    /**
+     * @Route("/project/delete/{projectId}" , name="deleteProjectPath")
+     */
+
+
+    public function deleteProject(UserInterface $user, $projectId, EntityManagerInterface $manager){
+
+
+
+        $project = $this->getDoctrine()->getRepository(Project::class)->find($projectId);
+
+
+        $manager->remove($project);
+
+
+        $manager->flush();
+
+
+
+
+
+        return $this->redirectToRoute('showAllProjectsPath');
+
+
+
+    
+    }
+
+
+
+
+
     /**
      * @Route("/project/showall" , name="showAllProjectsPath")
      */

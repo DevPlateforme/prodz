@@ -97,11 +97,14 @@
           xrq.send('projectId=' + {{ projectId}} + '&totalCount=' + totalCnt.value +'&dailyCount=' + dailyCnt.value);
 
       }
-  
+       
+      
+   
+      var myInterval;
+
 
       startBtn.addEventListener('click', function(){
 
-          var myInterval;
 
           if (startBtn.innerHTML == 'start'){
 
@@ -182,8 +185,8 @@
 
       }
 
-          totalCnt.value++;
-          dailyCnt.value++;
+          totalCnt.value+=1000;
+          dailyCnt.value+=100;
 
        }
 

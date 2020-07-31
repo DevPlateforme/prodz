@@ -21,22 +21,45 @@
               <i id='bellIcon' class="fa fa-bell fa-2x" aria-hidden="true" style="color:white"></i>
 
               <div id='notifContent'></div> </br>
+
+              <a href='{{ path("newProjectPath") }}'><button>Créer un projet</button></a>
+
+              
+              <a href='{{ path("showAllProjectsPath") }}'><button>Voir tes projets</button></a>
+
+
+
+              
               
              <a href='{{ path("logoutPath")}}'><button>Déconnexion</button></a>
 
            {%else%}
-              <a href='{{ path("registerPath")}}'><h5>Inscription</h5></a>
+              <a href='{{ path("registerPath")}}'><button>Inscription</button></a>
 
-                <a href='{{ path("loginPath")}}'><h5>Login</h5></a>
 
         {% endif %} 
 
     </div>
   </div>
   <nav class="navbar navbar-dark bg-dark">
+
+     
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <span class="navbar-toggler-icon"></span></button>
+
+
+      {%if app.user%}
+
+    
+    <a href='{{ path("logoutPath")}}'><button>Déconnexion</button></a>
+
+    {%else%}
+
+                    <a href='{{ path("loginPath")}}'><button>Connexion</button></a>
+
+
+
+    {%endif%}
   </nav>
 </div>
 

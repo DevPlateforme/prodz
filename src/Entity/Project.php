@@ -75,6 +75,7 @@ class Project
 
 
      function __construct(){
+         
         $this->dailyCount = 0;
 
         $this->totalCount = 0;
