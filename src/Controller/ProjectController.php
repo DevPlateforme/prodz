@@ -89,12 +89,108 @@ class ProjectController extends AbstractController
         $totalCountDone = $project->getTotalCountDone();
 
 
+        $pageReloaded = 'false';
+
+        $interval = 'off';
+
+
+        if(isset($_POST['pageReload'])){
+
+            $pageReloaded = 'true';
+
+            if($_POST['interval'] == 'on'){
+
+                $interval = 'on';
+            }
+
+
+
+        }
+
+
         
 
-        return $this->render('project/show.html.twig', ['user' => $user, 'username' => $user->getUserName(), 'projectId' => $projectId ,  'projectName' => $project->getProjectName(), 'dailyCount' => $dailyCount, 'dailyLimit' => $dailyLimit , 'dailyCountDone' => $dailyCountDone  , 'totalCount' => $totalCount, 'totalCountDone' => $totalCountDone ,  'totalLimit' => $totalLimit]);
+        return $this->render('project/show.html.twig', ['pageReloaded' => $pageReloaded, 'interval' => $interval,  'user' => $user, 'username' => $user->getUserName(), 'projectId' => $projectId ,  'projectName' => $project->getProjectName(), 'dailyCount' => $dailyCount, 'dailyLimit' => $dailyLimit , 'dailyCountDone' => $dailyCountDone  , 'totalCount' => $totalCount, 'totalCountDone' => $totalCountDone ,  'totalLimit' => $totalLimit]);
 
     }
 
+
+    
+     /**
+     * @Route("/notifPin/reset", name="resetNotifPinPath")
+     */
+
+    public function resetNotifPin( EntityManagerInterface $manager, UserInterface $user){
+                
+        $user->setPinCount(0);
+
+        $manager->persist($user);
+
+        $manager->flush();
+
+        return new JsonRespons(['ok' => 'ok']);
+
+
+    
+    }
+
+
+
+    
+    
+     /**
+     * @Route("/notifs/viewed", name="setNotifToViewedPath")
+     */
+
+    public function setNotifToViewed( EntityManagerInterface $manager, UserInterface $user){
+
+        if(isset($_POST["notifId"])){
+
+            $notif = $this->getDoctrine()->getRepository(Notification::class)->find($_POST['notifId']);
+
+            $notif->setViewed(true);
+
+            $unviewedNotifs = $this->getDoctrine()->getRepository(Notification::class)-> findBy(['viewed' => false]);
+            
+            
+            $notifContentArray = [];
+
+            $notifIdArray = [];
+
+            
+            
+            foreach($unviewedNotifs as $notification){
+
+                if($notification != $notif){
+
+                    $notifContentArray[] = $notification->getContent();
+
+                    $notifIdArray[] = $notification->getId();
+
+
+                }
+                
+            }
+
+
+    
+            $manager->persist($user);
+
+            $manager->flush();
+
+
+
+
+            return new JsonResponse(['notifContentArray' =>  $notifContentArray, "notifIdArray" =>$notifIdArray ]); 
+            
+            
+
+        }
+
+
+
+
+    }
 
     
      /**
@@ -111,8 +207,12 @@ class ProjectController extends AbstractController
         
         $user->addNotification($notification = new Notification());
 
-        $notification->setContent('Super, tu as atteint ton compte journalier, pour le projet nommé '. $project->getProjectName());
+        $pinCount = $user->getPinCount();
 
+        $user->setPinCount($pinCount+1);
+
+        $notification->setContent('Super, tu as atteint ton compte journalier, pour le projet nommé '. $project->getProjectName());
+       
         
         $manager->persist($user);
 
@@ -135,15 +235,21 @@ class ProjectController extends AbstractController
 
         $user->addNotification($notification = new Notification());
 
+        
+        $pinCount = $user->getPinCount();
+
+        $pinCount++;
+
 
         $notification->setContent('Super, tu es venu à bout de ton projet , intitulé : ' . $project->getProjectName() );
+        
 
         
         $manager->persist($user);
 
         $manager->flush();
 
-        return $this->redirectToRoute('admin');
+        return $this->redirectToRoute('showAllDoneProjectsPath');
         
     }
 
@@ -154,11 +260,11 @@ class ProjectController extends AbstractController
     
 
     /**
-     * @Route("/project/delete/{projectId}" , name="deleteProjectPath")
+     * @Route("/project/delete/{projectId}/{redirect}" , name="deleteProjectPath")
      */
 
 
-    public function deleteProject(UserInterface $user, $projectId, EntityManagerInterface $manager){
+    public function deleteProject(UserInterface $user, $projectId, EntityManagerInterface $manager, $redirect){
 
 
 
@@ -171,10 +277,18 @@ class ProjectController extends AbstractController
         $manager->flush();
 
 
+         
+        if($redirect == 'allProjects'){
 
+            return $this->redirectToRoute('showAllProjectsPath');
 
+        } else {
 
-        return $this->redirectToRoute('showAllProjectsPath');
+            return $this->redirectToRoute('showAllDoneProjectsPath');
+
+        }
+
+        
 
 
 
@@ -191,14 +305,33 @@ class ProjectController extends AbstractController
 
 
     public function showAll(UserInterface $user){
+       
 
-
-        $projects = $user->getProjects();
+        $projects = $this->getDoctrine()->getRepository(Project::class)->findBy(['user' => $user , 'totalCountDone' => 'false' ]);
         
 
         return $this->render('project/showall.html.twig', ['projects' => $projects] );
 
     }
+     
+
+
+    
+
+    /**
+     * @Route("/project/showallDone" , name="showAllDoneProjectsPath")
+     */
+
+
+    public function showAllDoneProjects(UserInterface $user){
+
+
+        $projects = $this->getDoctrine()->getRepository(Project::class)->findBy(['user' => $user , 'totalCountDone' => 'true' ]);
+    
+        
+        return $this->render('project/doneProjects.html.twig', ['projects' => $projects] );
+    }
+       
 
 
     
@@ -291,6 +424,34 @@ class ProjectController extends AbstractController
 
     }
 
+      
+    
+    
+    /**
+     * @Route("/project/notifs/show" , name="showNotifsPath")
+     */
+
+    function showNotifs(UserInterface $user){
+
+
+        $notifs = $user->getNotifications();
+
+
+         $content = [];
+
+         foreach($notifs as $notif){
+
+            $content[] = $notif->getContent();
+         }
+
+
+             
+
+    return new JsonResponse(['notifs' => $content]);
+
+
+    
+    }
 
     
     

@@ -16,22 +16,29 @@
   <div class="collapse" id="navbarToggleExternalContent">
     <div class="bg-dark p-4">
 
+    <a href="{{ path('admin') }}"><button>home</button></a>
+
      {% if app.user %}
 
               <i id='bellIcon' class="fa fa-bell fa-2x" aria-hidden="true" style="color:white"></i>
 
-              <div id='notifContent'></div> </br>
+              <div id='notifContent'> </div> </br>
+
+                <div id='notifPin'> {%if app.user.pinCount > 0%} {{ app.user.pinCount }}  {%endif%}</div> </br>
+
+              
 
               <a href='{{ path("newProjectPath") }}'><button>Créer un projet</button></a>
 
               
-              <a href='{{ path("showAllProjectsPath") }}'><button>Voir tes projets</button></a>
+              <a href='{{ path("showAllProjectsPath") }}'><button>Voir tes projets en cours</button></a>
+              <a href='{{ path("showAllDoneProjectsPath") }}'><button>Voir tes projets accomplis</button></a>
+
 
 
 
               
               
-             <a href='{{ path("logoutPath")}}'><button>Déconnexion</button></a>
 
            {%else%}
               <a href='{{ path("registerPath")}}'><button>Inscription</button></a>
@@ -88,15 +95,32 @@
 
         var notifContent = document.getElementById('notifContent');
 
+        var notifPin = document.getElementById('notifPin');
+
         icon.addEventListener('click', function(){
             
             if(notifDisplay == 'off'){
+
               
                 {% for notification in app.user.notifications %}  
+                     
+                     {%if notification.viewed == false%}
 
-                    notifContent.innerHTML += '{{ notification.content }}' + '</br>';
-
+                    notifContent.innerHTML += '<p style="color:white">{{ notification.content }}</p>' + '</br>' + '<a  onclick = "setNotifAsDone(event)"> <p value = "{{ notification.id }}">Marquer comme "vu"</p></a>' ;
+                    
+                     {%endif%}
                 {% endfor %} 
+
+
+                
+                //notifPin.innerHTML = '';
+
+                //xrq = new XMLHttpRequest();
+
+                //xrq.open('GET', '{{ path("resetNotifPinPath")}}' , true );
+
+                //xrq.send();
+                
 
                    notifDisplay = 'on';
 
@@ -116,6 +140,44 @@
           
 
         })
+
+
+
+
+
+        function setNotifAsDone(event){
+
+         var notifId = event.target.getAttribute('value');
+
+          xrq = new XMLHttpRequest();
+
+
+          xrq.onload = function(){
+
+           var notifContentArray = JSON.parse(this.responseText).notifContentArray;
+           
+           var notifIdArray = JSON.parse(this.responseText).notifIdArray;
+        
+            notifContent.innerHTML = '';
+
+
+            for(i=0; i < notifContentArray.length; i++){
+
+                  notifContent.innerHTML += '<p style="color:white">' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<p value =' + notifIdArray[i] + '>Marquer comme "vu"</p></a>' ;
+
+            }
+          }
+
+
+          xrq.open('POST','{{ path("setNotifToViewedPath") }} ' , true);
+
+          xrq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+
+          xrq.send("notifId=" + notifId);
+
+          }
+      
 
         {%endif%}
 

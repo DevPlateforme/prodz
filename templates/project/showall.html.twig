@@ -7,7 +7,19 @@
 
 </style>
 
+
+
+<h1>Liste de tes projets en cours</h1>
+
+
+
+
+
+
+
 {%for project in projects %}
+
+
 
 
 {{ project.projectName}} </br>
@@ -15,11 +27,20 @@
 
    <a href = '{{ path("showProjectPath", { "projectId" : project.id  })}}'><button>Voir projet</button></a>
 
-   <a href = '{{ path("deleteProjectPath", { "projectId" : project.id  })}}'><button>Supprimer projet</button></a>
+   <a href = '{{ path("deleteProjectPath", { "projectId" : project.id , "redirect" : 'allProjects' })}}'><button>Supprimer projet</button></a>
 
 
 
 {%endfor%}
+
+
+ </br>
+
+ </br>
+
+
+
+              <a href='{{ path("newProjectPath") }}'><button>Créer un projet</button></a>
 
 
 

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+<style>
+
+</style>
+
+
+
+<h1>Clique sur l'avatar de ton choix</h1>
+
+
+<a href='{{ path("associatedMailPath", {"avatar": "man1"}) }}'><img src='{{ asset("images/man1.png") }}' onclick = 'chooseAvatar(e)'></a>
+<a id='man2'><img  src='{{ asset("images/man2.png") }}'  onclick = 'chooseAvatar(e)'></a>
+<a id='man3' ><img src='{{ asset("images/man3.png") }}' onclick = 'chooseAvatar(e)'></a>
+<a id='man4'><img  src='{{ asset("images/man4.png") }}' onclick = 'chooseAvatar(e)'></a>
+<a id='woman1'><img id='woman1' src='{{ asset("images/woman1.png") }}' onclick = 'chooseAvatar(e)'></a>
+<a id='woman2' ><img src='{{ asset("images/woman2.png") }}' onclick = 'chooseAvatar(e)'></a>
+<a id='woman3'><img src='{{ asset("images/woman3.png") }}' onclick = 'chooseAvatar(e)'></a>
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+{%block javascripts %}
+
+<script>
+
+</script>
+
+
+{%endblock%}

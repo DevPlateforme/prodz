@@ -11,6 +11,7 @@
 <br>
 
 
+
 <label>Total worktime</label>
 
 
@@ -45,10 +46,32 @@
 </form>
 
 
+
+
+<form id ="intervalForm" action= '{{ path("showProjectPath", {"projectId": projectId })}}' method="post" >
+      <input id='intervalInput' type='hidden' name = 'interval' value = 'off'>
+      <input id='pageReload' type='hidden' name = 'pageReload'>
+      
+</form>
+
+
 <button onclick='nextDay()'>next day</button>
 
 
 <a href='{{ path("showGraphPath", {"projectId": projectId }) }}'<button>show graph</button>
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+   <a href = '{{ path("deleteProjectPath", { "projectId" : projectId , "redirect" : "allProjects"  })}}'><button>Supprimer projet</button></a>
 
 
 {% endblock %}
@@ -56,15 +79,103 @@
       {% block javascripts %}
 
       <script>
-      
-      console.log({{ dailyCount}})
+
+         //setInterval (function(){refreshAt(23,55,0)}, 10000000) ;
+
+         
+   
+            
+               window.onbeforeunload = function(){ storeValues()};
+
+               setInterval (function(){storeValues()}, 30000) ;
+
+            
+
+
+
 
       var startBtn = document.getElementById('startBtn');
       var totalCnt = document.getElementById('totalCnt');
       var dailyCnt = document.getElementById('dailyCnt');
       var dailyCountDone = {{dailyCountDone}};
       var totalCountDone = {{totalCountDone}};
+      var intervalInput = document.getElementById('intervalInput');
+      var intervalForm = document.getElementById('intervalForm');
       var projectDone = document.getElementById('projectDone');
+      
+      var done = false;
+
+      var interval = "{{interval}}";
+
+      var pageReloaded = {{ pageReloaded }}
+
+
+
+      if(interval == "on"){
+
+         countFunction();
+
+
+
+      }
+
+      
+       
+       function refreshAt(hours, minutes, seconds) {
+    var now = new Date();
+    var then = new Date();
+
+
+    if(now.getHours() > hours ||
+       (now.getHours() == hours && now.getMinutes() > minutes) ||
+        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
+        then.setDate(now.getDate() + 1);
+    }
+    then.setHours(hours);
+    then.setMinutes(minutes);
+    then.setSeconds(seconds);
+     
+
+        console.log(then - now);
+
+
+    
+    if((then - now) < 300000){    
+
+         
+
+                   if(startBtn.innerHTML == 'stop'){
+
+                      intervalInput.value = 'on';
+
+                      console.log('on!!');
+                          }
+
+        
+                  console.log('letsgo');
+
+                  storeValues();
+
+                  intervalForm.submit();
+
+
+
+
+            }
+
+
+      
+ }
+  
+
+     
+   
+         
+
+       
+
+
+       
 
      function nextDay(){
 
@@ -82,7 +193,9 @@
 
      }
 
-     window.onbeforeunload = function(){
+     
+     
+     function storeValues(){
          
               xrq = new XMLHttpRequest();
          
@@ -105,10 +218,22 @@
 
       startBtn.addEventListener('click', function(){
 
+         countFunction();
 
+      })
+
+
+      function countFunction(){
+
+         
           if (startBtn.innerHTML == 'start'){
 
              myInterval = setInterval(function(){ increaseCounts()}, 1000);
+                             
+             //doneInterval = setInterval(function(){ myfct()}, 1000);
+
+
+
 
              startBtn.innerHTML = 'stop';
 
@@ -122,7 +247,10 @@
               
           }
 
-      })
+
+
+      }
+
 
      console.log(dailyCountDone);
      
@@ -130,8 +258,18 @@
 
 
       function increaseCounts(){ 
+
+         if(totalCnt.value >= ({{totalLimit}}/90)*100 ){
+               if(totalCnt.value >= {{totalLimit}}){
+
+              myfct();
+            }
+
+         }
+
+   
          
-        if(dailyCnt.value >= {{dailyLimit}}){
+        if(dailyCnt.value >= {{dailyLimit}}) {
 
            if (dailyCountDone == false){
 
@@ -155,40 +293,52 @@
 
          }
 
-   
-         
-         
-
-      if(totalCnt.value >= {{totalLimit}}){
-
-         if (totalCountDone == false){
-            
-          totalCountDone = true;
-          projectDone.submit(); 
-
-          console.log(totalCountDone);
 
 
-
-
-          }
-
-          
-
-         }
-
-
-   
-
-          
-          
 
       }
 
-          totalCnt.value+=1000;
-          dailyCnt.value+=100;
+          totalCnt.value+=1;
+          dailyCnt.value+=200;
 
        }
+
+
+
+
+
+        
+        function myfct(){
+
+              if(done == false){
+
+
+           
+             if(totalCnt.value >= {{totalLimit}}){
+
+
+                     
+                   console.log('ok');
+
+
+                    clearInterval(myInterval);
+
+                    storeValues();
+
+                    projectDone.submit();
+
+                    done = true;
+
+
+
+                  }
+
+
+             }
+
+
+
+        }
 
 
      </script>

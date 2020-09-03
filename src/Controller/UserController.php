@@ -9,6 +9,7 @@ use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -16,6 +17,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
+
     /**
      * @Route("/register", name="registerPath")
      */
@@ -34,7 +36,7 @@ class UserController extends AbstractController
             $manager->flush();
 
 
-            return $this->redirect('/');
+            return $this->redirectToRoute('avatar');
 
 
         }
@@ -43,6 +45,38 @@ class UserController extends AbstractController
 
         return $this->render('user/register.html.twig');
     }
+
+
+
+
+     /**
+     * @Route("/avatar", name="avatar")
+     */
+    public function avatar()
+    {
+            return $this->render('user/avatar.html.twig');
+     }
+
+
+
+     /**
+     * @Route("/associatedMail", name="associatedMailPath")
+     */
+    public function associatedMail( EntityManagerInterface $manager, UserInterface $user)
+    {
+        if(isset($_POST['submit'])){
+
+            $user->setAssociatedMail($_POST['assocMail']);
+
+            $manager->persist($user);
+
+            $manager->flush();
+
+            return $this->redirectToRoute('admin');
+            
+        }
+            return $this->render('user/associatedMail.html.twig');
+     }
 
 
     /**
@@ -56,7 +90,7 @@ class UserController extends AbstractController
 
     }
 
-      /**
+    /**
      * @Route("/logout", name="logoutPath")
      */
 
@@ -65,6 +99,10 @@ class UserController extends AbstractController
        
      //logout path
     }
+
+
+    
+
 
 
 

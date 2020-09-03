@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All done projects{% endblock %}
+
+       {% block body %}
+
+
+
+       <h1>Liste de tes projets accomplis</h1>
+
+
+       {%for project in projects %}
+
+
+            
+              {{ project.projectName}} </br>
+
+
+   <a href = '{{ path("showProjectPath", { "projectId" : project.id  })}}'><button>Voir projet</button></a>
+
+   <a href = '{{ path("deleteProjectPath", { "projectId" : project.id , 'redirect' : 'allDoneProjects'  })}}'><button>Supprimer projet</button></a>
+
+
+
+       {%endfor%}
+
+ 
+
+        {% endblock %}

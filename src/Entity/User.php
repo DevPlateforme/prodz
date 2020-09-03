@@ -53,13 +53,24 @@ class User implements UserInterface
      */
     public $notifications;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $pinCount;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $associatedMail;
+
  
 
     public function __construct()
     {
         $this->projects = new ArrayCollection();
         $this->notifications = new ArrayCollection();
-      
+        $this->pinCount = 0;
+
     }
 
 
@@ -188,6 +199,30 @@ class User implements UserInterface
                 $notification->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPinCount(): ?int
+    {
+        return $this->pinCount;
+    }
+
+    public function setPinCount(int $pinCount): self
+    {
+        $this->pinCount = $pinCount;
+
+        return $this;
+    }
+
+    public function getAssociatedMail(): ?string
+    {
+        return $this->associatedMail;
+    }
+
+    public function setAssociatedMail(?string $associatedMail): self
+    {
+        $this->associatedMail = $associatedMail;
 
         return $this;
     }

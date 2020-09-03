@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mail{% endblock %}
+
+{% block body %}
+<style>
+
+</style>
+
+<h1>Ton avatar a bien été choisi!!</h1>
+
+
+<h1>Dernière étape avant de pouvoir créer tes projets :</h1>
+
+(facultatif)
+
+<h3 style='color:red'>Besoin d'un coup de pression?<h3> 
+<p>Saisis ici le mail d'une connaissance,<br> qui sera avertie à chaque fois que tu n'atteindra pas les objectifs que tu t'es fixé. </p>
+
+<form method='post' action=''>
+<input type='text' placeholder="email" id='assocMail' name='assocMail' onkeyup = 'initErrorMsg()' > 
+<input id='formSubmit' type='submit' value = 'ajouter un mail' name = 'submit' >
+<form>
+
+<br>
+<br>
+
+<a  href="{{ path('admin') }}"><button>Non, pour l'instant je ferais sans</button></a>
+
+<div id='errorMsg' style='color:red'></div>
+
+
+
+
+
+
+{% endblock %}
+
+
+
+{%block javascripts %}
+
+<script>
+
+  var errorMsg = document.getElementById('errorMsg');
+
+  var formButton = document.getElementById('formSubmit');
+
+  var errorMsg = document.getElementById('errorMsg');
+
+ 
+function validEmail(e) {
+    var filter = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
+    return String(e).search (filter) != -1;
+}
+
+
+
+ formButton.addEventListener('click', function(e){
+    let assocMail = document.getElementById('assocMail').value;
+
+     if(validEmail(assocMail) != true){
+
+     e.preventDefault();
+
+     errorMsg.innerHTML = 'Mail non conforme';
+
+     }
+
+ });
+
+ 
+     function initErrorMsg(){
+
+          errorMsg.innerHTML = '';
+
+     }
+
+
+</script>
+
+
+{%endblock%}
