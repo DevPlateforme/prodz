@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mail{% endblock %}
+
+{% block body %}
+<style>
+
+</style>
+
+<h1>Voici ton profil</h1>
+
+
+     {% if app.user %}
+
+     <h3>Ton avatar</h3>
+       
+       <img src='{{ asset( app.user.avatarAssetSrc ) }}'>
+
+
+    
+   
+    <h3>Ton statut</h3>
+
+    {{ app.user.level}}
+
+
+      
+    <h3>Tes points de compétence </h3>
+
+      {{ app.user.competencyPoints}}
+
+
+
+     {%endif%}
+
+
+
+{% endblock %}
+
+
+
+{%block javascripts %}
+
+
+
+{%endblock%}

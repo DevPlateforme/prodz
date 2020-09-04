@@ -60,9 +60,9 @@ class UserController extends AbstractController
 
 
      /**
-     * @Route("/associatedMail", name="associatedMailPath")
+     * @Route("/associatedMail/{avatar}", name="associatedMailPath")
      */
-    public function associatedMail( EntityManagerInterface $manager, UserInterface $user)
+    public function associatedMail( EntityManagerInterface $manager, UserInterface $user, $avatar)
     {
         if(isset($_POST['submit'])){
 
@@ -75,6 +75,15 @@ class UserController extends AbstractController
             return $this->redirectToRoute('admin');
             
         }
+
+            $user->setAvatar($avatar);
+            $user->setAvatarAssetSrc('images/'. $avatar . '.png');
+
+
+            $manager->persist($user);
+            $manager->flush();
+    
+
             return $this->render('user/associatedMail.html.twig');
      }
 
@@ -99,6 +108,24 @@ class UserController extends AbstractController
        
      //logout path
     }
+
+
+    /**
+     * @Route("/profilePage", name="profilePagePath")
+     */
+
+
+    public function profilePage(UserInterface $user){
+
+
+        return $this->render('user/profilePage.html.twig');
+
+       }
+
+   
+    
+
+
 
 
     

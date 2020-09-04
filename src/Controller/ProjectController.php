@@ -272,7 +272,10 @@ class ProjectController extends AbstractController
 
         $user->setPinCount($pinCount+1);
 
-        $notification->setContent('Super, tu as atteint ton compte journalier, pour le projet nommé '. $project->getProjectName());
+        $user->setCompetencyPoints($user->getCompetencyPoints()+50);
+
+
+        $notification->setContent('Super, tu as atteint ton compte journalier, pour le projet nommé '. $project->getProjectName() . 'tu gagnes 50 points de compétence!');
        
         
         $manager->persist($user);
@@ -283,6 +286,110 @@ class ProjectController extends AbstractController
     }
 
 
+
+
+    
+     /**
+     * @Route("/endOfDay" , name="endOfDayPath")
+     */
+
+    public function endOfDay( EntityManagerInterface $manager){
+
+        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+
+        foreach($users as $user){
+
+            
+            $projects = $user->getProjects();
+
+            foreach($projects as $project){
+
+                if($project->dailyCountDone == false){
+
+                  $user->addNotification($notification = new Notification());
+
+                  
+                  $user->setPinCount($pinCount+1);
+
+                  if( $user->getCompetencyPoints() != 0){
+
+                      if( $user->getCompetencyPoints() >= 50){
+
+                       $user->setCompetencyPoints($user->getCompetencyPoints()-50);
+
+                      } else{
+
+                        $user->setCompetencyPoints(0);
+
+                        $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "tu perds 50 points de compétence, et ton compteur est donc à 0...!");
+ 
+                      }
+
+                    $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "tu perds 50 points de compétence!");
+
+
+                  }
+
+                  $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "on va dire que tu as de la chance...tu ne perds de points de compétences, vu que ton compteur est déjà à 0...");
+               
+
+
+                }
+
+
+                if($project->currentDay == 6){
+
+                    $project->currentDay = 0;
+    
+                    $project->currentWeek += 1;
+    
+                    $project->addWeek($week = new Week());                    
+                      $week->addDay(new Day());
+                      $week->addDay(new Day());
+                      $week->addDay(new Day());
+                      $week->addDay(new Day());
+                      $week->addDay(new Day());
+                      $week->addDay(new Day());
+                      $week->addDay(new Day());
+                      
+
+                } else{
+
+                    $project->currentDay += 1;
+
+            }
+         }
+        //end of projects loop
+
+        if($user->getCompetencyPoints() >= 5000){
+
+            $user->setLevel('élément à fort potentiel');
+        } else  if($user->getCompetencyPoints() >= 10000){
+
+            $user->setLevel('loup de Wall Street');
+        } else if($user->getCompetencyPoints() >= 15000){
+
+            $user->setLevel('Jeff Bezzos');
+        } else {
+
+            $user->setLevel('novice');
+        }
+
+        
+
+        }
+        //end of users loop
+
+
+    
+        $manager->persist($user);
+
+        $manager->flush();
+
+        return new JsonResponse(['update' => 'ok']);
+
+
+    }
      /**
      * @Route("/totalCountDone" , name="totalCountDonePath")
      */
@@ -298,13 +405,15 @@ class ProjectController extends AbstractController
 
         $user->addNotification($notification = new Notification());
 
+        $user->setCompetencyPoints($user->getCompetencyPoints()+1000);
+
         
         $pinCount = $user->getPinCount();
 
         $pinCount++;
 
 
-        $notification->setContent('Super, tu es venu à bout de ton projet , intitulé : ' . $project->getProjectName() );
+        $notification->setContent('Super, tu es venu à bout de ton projet , intitulé : ' . $project->getProjectName() . 'tu gagnes 1000 points de compétence!!!' );
         
 
         

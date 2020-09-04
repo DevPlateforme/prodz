@@ -63,6 +63,26 @@ class User implements UserInterface
      */
     private $associatedMail;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $avatar;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $competencyPoints;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $level;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $avatarAssetSrc;
+
  
 
     public function __construct()
@@ -70,6 +90,11 @@ class User implements UserInterface
         $this->projects = new ArrayCollection();
         $this->notifications = new ArrayCollection();
         $this->pinCount = 0;
+        $this->competencyPoints = 0;
+        $this->level = 'novice';
+        $this->setAvatar('man1');
+
+        $this->setAvatarAssetSrc('images/man1.png');
 
     }
 
@@ -223,6 +248,54 @@ class User implements UserInterface
     public function setAssociatedMail(?string $associatedMail): self
     {
         $this->associatedMail = $associatedMail;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getCompetencyPoints(): ?int
+    {
+        return $this->competencyPoints;
+    }
+
+    public function setCompetencyPoints(int $competencyPoints): self
+    {
+        $this->competencyPoints = $competencyPoints;
+
+        return $this;
+    }
+
+    public function getLevel(): ?string
+    {
+        return $this->level;
+    }
+
+    public function setLevel(?string $level): self
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    public function getAvatarAssetSrc(): ?string
+    {
+        return $this->avatarAssetSrc;
+    }
+
+    public function setAvatarAssetSrc(string $avatarAssetSrc): self
+    {
+        $this->avatarAssetSrc = $avatarAssetSrc;
 
         return $this;
     }
