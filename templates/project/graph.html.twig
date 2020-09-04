@@ -11,7 +11,13 @@
 <br>
 
 
-<label>Graph</label>
+
+<div id='displayedWeekHTML'></div>
+
+<p>Temps journalier moyen sur ce projet : </p>
+
+
+
 
 <canvas id="myChart"></canvas>
 
@@ -25,6 +31,7 @@
 </br>
 
 
+
 {% endblock %}
 
       {% block javascripts %}
@@ -36,6 +43,15 @@
 
       var displayedWeek = {{displayedWeek}} ; 
 
+      var displayedWeekHTML = document.getElementById('displayedWeekHTML');
+
+       
+
+       function displayWeekHTML(){
+
+             displayedWeekHTML.innerHTML = 'Semaine' + (displayedWeek + 1) ;     
+           
+       }
 
       var currentWeek = displayedWeek ;
 
@@ -69,6 +85,8 @@
 
 
       window.onload = function(){ 
+
+      displayWeekHTML();
 
       displayGraph();
           
@@ -185,10 +203,10 @@ function displayGraph(){
     data: {
         labels: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
         datasets: [{
-            label: 'My First dataset',
+            label: 'temps travaillé/ jour (minutes)',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
-            data: [day1, day2, day3, day4, day5, day6, day7]
+            data: [day1/60, day2/60, day3/60, day4/60, day5/60, day6/60, day7/60]
         }]
     },
 
