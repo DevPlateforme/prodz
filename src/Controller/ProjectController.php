@@ -293,6 +293,8 @@ class ProjectController extends AbstractController
 
         $project->setTotalCountToDone();
 
+        $project->totalCount = $project->getTotalLimit();
+
 
         $user->addNotification($notification = new Notification());
 

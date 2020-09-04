@@ -260,7 +260,15 @@
 
       function increaseCounts(){ 
 
-         if(totalCnt.value >= ({{totalLimit}}/90)*100 ){
+         console.log(totalCnt.value);
+
+        console.log((totalCnt.max /100)*90);
+
+
+         console.log(totalCnt.max);
+
+
+         if(totalCnt.value >= ( (totalCnt.max/100)*90) ){
                if(totalCnt.value >= {{totalLimit}}){
 
               myfct();
@@ -305,8 +313,8 @@
 
       }
 
-          totalCnt.value+=1;
-          dailyCnt.value+=200;
+          totalCnt.value+=1000;
+          dailyCnt.value+=50;
 
        }
 
