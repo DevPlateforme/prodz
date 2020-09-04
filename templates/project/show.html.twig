@@ -39,7 +39,6 @@
 
 <form id='projectDone' method='post' action= '{{path("totalCountDonePath")}}'>
 
-
  <input type='hidden' name = 'projectId' value = '{{ projectId}}'>
 
 
@@ -78,7 +77,8 @@
 
       {% block javascripts %}
 
-      <script>
+
+      
 
          //setInterval (function(){refreshAt(23,55,0)}, 10000000) ;
 
@@ -118,6 +118,7 @@
 
 
       }
+
 
       
        
@@ -172,7 +173,7 @@
    
          
 
-       
+
 
 
        
@@ -274,11 +275,17 @@
            if (dailyCountDone == false){
 
 
+
           xrq = new XMLHttpRequest();
 
           xrq.onload = function(){
 
-             console.log('ok');
+             
+              updateNotifs();
+
+              updatePin();
+
+             console.log(JSON.parse(this.responseText).pin);
 
              dailyCountDone = true;
 
@@ -340,8 +347,6 @@
 
         }
 
-
-     </script>
 
 
         {% endblock %}

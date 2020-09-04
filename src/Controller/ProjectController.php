@@ -128,11 +128,25 @@ class ProjectController extends AbstractController
 
         $manager->flush();
 
-        return new JsonRespons(['ok' => 'ok']);
-
+        return new JsonResponse(['pinCount' => $user->getPinCount()]);
 
     
     }
+
+
+         /**
+     * @Route("/notifPin/getPin", name="getNotifPinPath")
+     */
+
+    public function getNotifPinPath( EntityManagerInterface $manager, UserInterface $user){
+                
+  
+        return new JsonResponse(['pinCount' => $user->getPinCount()]);
+
+    
+    }
+
+
 
 
 
@@ -188,9 +202,56 @@ class ProjectController extends AbstractController
         }
 
 
+    
+
+
 
 
     }
+
+
+
+
+
+    
+     /**
+     * @Route("/notifs/getNotifs", name="getNotifsPath")
+     */
+
+    public function getNotif( EntityManagerInterface $manager, UserInterface $user){
+
+
+
+        $unviewedNotifs = $this->getDoctrine()->getRepository(Notification::class)-> findBy(['viewed' => false]);
+
+        $notifContentArray = [];
+
+
+        $notifIdArray = [];
+
+
+
+
+
+        foreach($unviewedNotifs as $notif){
+
+        $notifContentArray[] = $notif->getContent();
+
+        $notifIdArray[] = $notif->getId();
+
+
+        }
+
+
+
+
+
+
+
+        return new JsonResponse(['notifContentArray' => $notifContentArray, 'notifIdArray' =>  $notifIdArray]);
+
+    }
+
 
     
      /**
@@ -218,7 +279,7 @@ class ProjectController extends AbstractController
 
         $manager->flush();
 
-        return new JsonResponse(['data' => 'ok']);
+        return new JsonResponse(['pin' => $user->getPinCount()]);
     }
 
 

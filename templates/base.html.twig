@@ -24,7 +24,7 @@
 
               <div id='notifContent'> </div> </br>
 
-                <div id='notifPin'> {%if app.user.pinCount > 0%} {{ app.user.pinCount }}  {%endif%}</div> </br>
+                <div id='notifPin'> {{ app.user.pinCount }} </div> </br>
 
               
 
@@ -81,11 +81,7 @@
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
-        {% block javascripts %}
-        {% endblock %}
-
      
-        
         <script>
         
         {% if app.user%}
@@ -97,30 +93,133 @@
 
         var notifPin = document.getElementById('notifPin');
 
-        icon.addEventListener('click', function(){
-            
-            if(notifDisplay == 'off'){
+        var loadedNotifs = '';
 
-              
+        var pin;
+
+
+        
+                function displayPin(){
+
+                 notifPin.innerHTML = pin;
+
+                  
+                }
+
+                 function resetPin(){
+
+                   xrq = new XMLHttpRequest();
+
+                   xrq.onload = function(){
+
+                      pin = JSON.parse(this.responseText).pinCount;
+
+                      displayPin();
+ 
+                   }
+
+                xrq.open('GET', '{{ path("resetNotifPinPath")}}' , true );
+
+                xrq.send();
+
+
+  
+
+                 }
+
+
+                 function updatePin(){
+
+                         xrq = new XMLHttpRequest();
+
+                         xrq.onload = function(){
+
+                      pin = JSON.parse(this.responseText).pinCount;
+
+                      displayPin();
+
+ 
+                   }
+
+                xrq.open('GET', '{{ path("getNotifPinPath")}}' , true );
+
+                xrq.send();
+
+
+                 }
+
+
+
+       function updateNotifs(){
+         
+
+         xrq = new XMLHttpRequest();
+
+         loadedNotifs = '';
+
+
+
+         xrq.onload = function(){
+
+            var notifContentArray = JSON.parse(this.responseText).notifContentArray;
+
+            var notifIdArray = JSON.parse(this.responseText).notifIdArray;
+
+            for(i=0; i<  notifIdArray.length; i++){
+
+               loadedNotifs += '<p style="color:white">' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<p value =' + notifIdArray[i] + '>Marquer comme "vu"</p></a>' ;
+
+            
+            }
+
+
+
+        }
+
+
+         xrq.open('GET', '{{path("getNotifsPath") }}', true);
+
+         xrq.send();
+
+
+
+
+      }
+                   
+
                 {% for notification in app.user.notifications %}  
                      
                      {%if notification.viewed == false%}
 
-                    notifContent.innerHTML += '<p style="color:white">{{ notification.content }}</p>' + '</br>' + '<a  onclick = "setNotifAsDone(event)"> <p value = "{{ notification.id }}">Marquer comme "vu"</p></a>' ;
+                    loadedNotifs += '<p style="color:white">{{ notification.content }}</p>' + '</br>' + '<a  onclick = "setNotifAsDone(event)"> <p value = "{{ notification.id }}">Marquer comme "vu"</p></a>' ;
                     
+                  
                      {%endif%}
                 {% endfor %} 
 
+                  
+
+
+                function displayNotifs(){
+
+                    notifContent.innerHTML = loadedNotifs;
+
+
+                }
+                
+          
+
+        icon.addEventListener('click', function(){
+            
+            if(notifDisplay == 'off'){
+
+
+              resetPin();
+        
+             displayNotifs();      
 
                 
-                //notifPin.innerHTML = '';
-
-                //xrq = new XMLHttpRequest();
-
-                //xrq.open('GET', '{{ path("resetNotifPinPath")}}' , true );
-
-                //xrq.send();
-                
+             
 
                    notifDisplay = 'on';
 
@@ -131,17 +230,9 @@
 
                    notifDisplay = 'off';
 
-
-            }
-
-              
-  
-            
-          
+              }
 
         })
-
-
 
 
 
@@ -151,21 +242,26 @@
 
           xrq = new XMLHttpRequest();
 
-
           xrq.onload = function(){
 
+           console.log('ok');
            var notifContentArray = JSON.parse(this.responseText).notifContentArray;
            
            var notifIdArray = JSON.parse(this.responseText).notifIdArray;
         
-            notifContent.innerHTML = '';
+            
+            loadedNotifs = '';
 
 
             for(i=0; i < notifContentArray.length; i++){
 
-                  notifContent.innerHTML += '<p style="color:white">' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<p value =' + notifIdArray[i] + '>Marquer comme "vu"</p></a>' ;
+
+                loadedNotifs += '<p style="color:white">' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<p value =' + notifIdArray[i] + '>Marquer comme "vu"</p></a>' ;
 
             }
+
+                      displayNotifs();
+
           }
 
 
@@ -176,10 +272,19 @@
 
           xrq.send("notifId=" + notifId);
 
+
+
           }
       
 
         {%endif%}
+
+
+        {% block javascripts %}
+        {% endblock %}
+
+     
+        
 
         </script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
