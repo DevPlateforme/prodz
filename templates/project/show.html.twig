@@ -83,14 +83,11 @@
          //setInterval (function(){refreshAt(23,55,0)}, 10000000) ;
 
       
-         
-
-         
    
             
                window.onbeforeunload = function(){ storeValues()};
 
-               setInterval (function(){storeValues()}, 10000) ;
+               setInterval (function(){storeValues()}, 5000) ;
 
             
 
@@ -205,7 +202,6 @@
          
          xrq.onload = function(){
 
-            console.log(JSON.parse(this.responseText).count)
          }
           xrq.open('POST', '{{ path("storeCountsPath")}}', true);
 
@@ -263,12 +259,7 @@
 
       function increaseCounts(){ 
 
-         console.log(totalCnt.value);
 
-        console.log((totalCnt.max /100)*90);
-
-
-         console.log(totalCnt.max);
 
 
          if(totalCnt.value >= ( (totalCnt.max/100)*90) ){

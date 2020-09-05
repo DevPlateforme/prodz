@@ -20,12 +20,15 @@
 <form method='post' action=''>
 <input type='text' placeholder="email" id='assocMail' name='assocMail' onkeyup = 'initErrorMsg()' > 
 <input id='formSubmit' type='submit' value = 'ajouter un mail' name = 'submit' >
-<form>
+</form>
 
-<br>
-<br>
+
 
 <a  href="{{ path('admin') }}"><button>Non, pour l'instant je ferais sans</button></a>
+
+
+<br>
+<br>
 
 <div id='errorMsg' style='color:red'></div>
 
@@ -40,7 +43,6 @@
 
 {%block javascripts %}
 
-<script>
 
   var errorMsg = document.getElementById('errorMsg');
 
@@ -77,7 +79,6 @@ function validEmail(e) {
      }
 
 
-</script>
 
 
 {%endblock%}

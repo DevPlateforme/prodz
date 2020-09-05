@@ -83,6 +83,11 @@ class User implements UserInterface
      */
     private $avatarAssetSrc;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $mailing;
+
  
 
     public function __construct()
@@ -93,6 +98,7 @@ class User implements UserInterface
         $this->competencyPoints = 0;
         $this->level = 'novice';
         $this->setAvatar('man1');
+        $this->mailing = 'off';
 
         $this->setAvatarAssetSrc('images/man1.png');
 
@@ -296,6 +302,18 @@ class User implements UserInterface
     public function setAvatarAssetSrc(string $avatarAssetSrc): self
     {
         $this->avatarAssetSrc = $avatarAssetSrc;
+
+        return $this;
+    }
+
+    public function getMailing(): ?string
+    {
+        return $this->mailing;
+    }
+
+    public function setMailing(string $mailing): self
+    {
+        $this->mailing = $mailing;
 
         return $this;
     }

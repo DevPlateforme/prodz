@@ -85,6 +85,8 @@ class UserController extends AbstractController
     {
         if(isset($_POST['submit'])){
 
+            $user->setMailing('on');
+
             $user->setAssociatedMail($_POST['assocMail']);
 
             $manager->persist($user);

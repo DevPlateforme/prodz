@@ -16,6 +16,14 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\NotificationRepository;
 
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+
+//mailing
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+
+
 
 
 
@@ -293,7 +301,7 @@ class ProjectController extends AbstractController
      * @Route("/endofday" , name="endOfDayPath")
      */
 
-    public function endOfDay( EntityManagerInterface $manager){
+    public function endOfDay( EntityManagerInterface $manager, MailerInterface $mailer, Request $request){
 
         $users = $this->getDoctrine()->getRepository(User::class)->findAll();
 
@@ -304,8 +312,33 @@ class ProjectController extends AbstractController
 
             foreach($projects as $project){
 
+                
+
+
                 if($project->getDailyCountDone() == 'false'){
 
+
+                    if($user->getMailing() == 'on'){
+
+
+                        $email = new Email();
+
+                        $email->from($user->getMail())
+                        ->to($user->getAssociatedMail())                     
+                        ->subject("Juste pour t'informer..." )
+                        ->text("...")
+                        ->html("bonjour, c'est : " . $user->getMail(). "<p>Juste pour t'informer qu'aujourd'hui , <br> je n'ai pas assez bossé sur mon projet : " . $project->getProjectName() . "</p>");
+                    
+            
+                         $mailer->send($email);
+    
+
+                    }
+
+                      //For each project, if the dailyCount is not done, send a mail
+
+
+           
 
                   $user->addNotification($notification = new Notification());
 
@@ -391,7 +424,11 @@ class ProjectController extends AbstractController
 
         $manager->flush();
 
+
+
         return new JsonResponse(['update' => 'ok']);
+
+        
 
 
     }
