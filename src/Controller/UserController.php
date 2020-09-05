@@ -13,6 +13,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 
 class UserController extends AbstractController
@@ -21,7 +24,7 @@ class UserController extends AbstractController
     /**
      * @Route("/register", name="registerPath")
      */
-    public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
+    public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $eventDispatcher)
     {
         $user = new User();
 
@@ -34,6 +37,22 @@ class UserController extends AbstractController
 
             $manager->persist($user);
             $manager->flush();
+
+
+
+        // Here, "public" is the name of the firewall in your security.yml
+        $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
+
+        // For older versions of Symfony, use security.context here
+        $this->get("security.token_storage")->setToken($token);
+
+        // Fire the login event
+        // Logging the user in above the way we do it doesn't do this automatically
+        $event = new InteractiveLoginEvent($request, $token);
+        $eventDispatcher->dispatch($event, "security.interactive_login");
+
+        // maybe redirect out here
+    
 
 
             return $this->redirectToRoute('avatar');
@@ -120,15 +139,12 @@ class UserController extends AbstractController
 
         return $this->render('user/profilePage.html.twig');
 
-       }
-
-   
-    
-
-
+    }
 
 
     
+ 
+
 
 
 

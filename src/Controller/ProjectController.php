@@ -290,7 +290,7 @@ class ProjectController extends AbstractController
 
     
      /**
-     * @Route("/endOfDay" , name="endOfDayPath")
+     * @Route("/endofday" , name="endOfDayPath")
      */
 
     public function endOfDay( EntityManagerInterface $manager){
@@ -304,10 +304,12 @@ class ProjectController extends AbstractController
 
             foreach($projects as $project){
 
-                if($project->dailyCountDone == false){
+                if($project->getDailyCountDone() == 'false'){
+
 
                   $user->addNotification($notification = new Notification());
 
+                  $pinCount = $user->getPinCount();
                   
                   $user->setPinCount($pinCount+1);
 
@@ -317,6 +319,9 @@ class ProjectController extends AbstractController
 
                        $user->setCompetencyPoints($user->getCompetencyPoints()-50);
 
+                       $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "tu perds 50 points de compétence!");
+
+
                       } else{
 
                         $user->setCompetencyPoints(0);
@@ -325,16 +330,15 @@ class ProjectController extends AbstractController
  
                       }
 
-                    $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "tu perds 50 points de compétence!");
+                  } else{
+
+                    $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "on va dire que tu as de la chance...tu ne perds de points de compétences, vu que ton compteur est déjà à 0...");
 
 
                   }
 
-                  $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "on va dire que tu as de la chance...tu ne perds de points de compétences, vu que ton compteur est déjà à 0...");
-               
 
-
-                }
+       }
 
 
                 if($project->currentDay == 6){
@@ -361,13 +365,14 @@ class ProjectController extends AbstractController
          }
         //end of projects loop
 
-        if($user->getCompetencyPoints() >= 5000){
+        if($user->getCompetencyPoints() >= 50 && $user->getCompetencyPoints() < 100){
 
             $user->setLevel('élément à fort potentiel');
-        } else  if($user->getCompetencyPoints() >= 10000){
+
+        } else  if($user->getCompetencyPoints() >= 100  && $user->getCompetencyPoints() < 150){
 
             $user->setLevel('loup de Wall Street');
-        } else if($user->getCompetencyPoints() >= 15000){
+        } else if($user->getCompetencyPoints() >= 150){
 
             $user->setLevel('Jeff Bezzos');
         } else {
