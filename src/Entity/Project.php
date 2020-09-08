@@ -6,13 +6,11 @@ use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
- *  @UniqueEntity("projectName")
  */
 class Project
 {
@@ -24,7 +22,7 @@ class Project
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $projectName;
 
@@ -73,6 +71,16 @@ class Project
      */
     public $weeks;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $dynamic;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $daysFromCreation;
+
 
      function __construct(){
          
@@ -84,6 +92,12 @@ class Project
 
         $this->totalCountDone = 'false';
         $this->weeks = new ArrayCollection();
+
+        $this->dynamic = 0;
+
+        $this->daysFromCreation = 0;
+
+
 
     }
 
@@ -264,5 +278,29 @@ class Project
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getDynamic(): ?int
+    {
+        return $this->dynamic;
+    }
+
+    public function setDynamic(?int $dynamic): self
+    {
+        $this->dynamic = $dynamic;
+
+        return $this;
+    }
+
+    public function getDaysFromCreation(): ?int
+    {
+        return $this->daysFromCreation;
+    }
+
+    public function setDaysFromCreation(?int $daysFromCreation): self
+    {
+        $this->daysFromCreation = $daysFromCreation;
+
+        return $this;
     }
 }

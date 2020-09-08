@@ -38,7 +38,7 @@ class ProjectController extends AbstractController
     {        
         $user->addProject($project = new Project());
 
-        if(isset($_POST['submit'])){    
+        if(isset($_POST['myNewProject'])){    
                 
         $project->setProjectName($_POST['projectName']);
 
@@ -69,6 +69,41 @@ class ProjectController extends AbstractController
             'controller_name' => 'ProjectController',
         ]);
     }
+
+
+
+    /**
+     * @Route("/project/show", name="checkProjectPath")
+     */
+
+    public function checkProject(UserInterface $user){
+
+       if(isset($_POST["projectName"])){
+
+        $projects = $user->getProjects();
+
+        foreach($projects as $project){
+
+            if($project->getProjectName() == $_POST["projectName"]){
+
+                return new JsonResponse(['validName' => false]);
+
+            }
+
+        }
+
+        return new JsonResponse(['validName' => true]);
+
+
+
+       }
+
+       return $this->redirectToRoute('admin');
+      
+    }
+
+
+
 
      /**
      * @Route("/project/show/{projectId}", name="showProjectPath")
@@ -306,16 +341,36 @@ class ProjectController extends AbstractController
         $users = $this->getDoctrine()->getRepository(User::class)->findAll();
 
         foreach($users as $user){
-
             
             $projects = $user->getProjects();
 
+            $userDynamic = $user->getDynamic();
+
+            $user->setDynamic($userDynamic+1);
+
+            $days = $user->getDaysOnTheApp();
+
+            $user->setDaysOnTheApp($days+1);
+
+
+            $totalWork = 0;
+
+            
             foreach($projects as $project){
 
-                
+            $totalWork += $project->getTotalCount();
+
+            $days = $project->getDaysFromCreation();
+
+            $project->setDaysFromCreation($days+1);
 
 
                 if($project->getDailyCountDone() == 'false'){
+
+                    $user->setDynamic(0);
+
+                    $project->setDynamic(0);
+
 
 
                     if($user->getMailing() == 'on'){
@@ -357,6 +412,7 @@ class ProjectController extends AbstractController
 
                       } else{
 
+
                         $user->setCompetencyPoints(0);
 
                         $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "tu perds 50 points de compétence, et ton compteur est donc à 0...!");
@@ -371,6 +427,12 @@ class ProjectController extends AbstractController
                   }
 
 
+       } else if ($project->getDailyCountDone() == 'true') {
+
+        $projectDynamic = $project->getDynamic();
+
+        $project->setDynamic($projectDynamic+1);
+        
        }
 
 
@@ -418,7 +480,7 @@ class ProjectController extends AbstractController
         }
         //end of users loop
 
-
+        $user->setTotalWork($totalWork);
     
         $manager->persist($user);
 

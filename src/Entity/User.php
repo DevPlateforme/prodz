@@ -88,6 +88,21 @@ class User implements UserInterface
      */
     private $mailing;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $dynamic;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $daysOnTheApp;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $totalWork;
+
  
 
     public function __construct()
@@ -99,6 +114,9 @@ class User implements UserInterface
         $this->level = 'novice';
         $this->setAvatar('man1');
         $this->mailing = 'off';
+        $this->daysOnTheApp = 0;
+        $this->dynamic = 0;
+        $this->totalWork = 0;
 
         $this->setAvatarAssetSrc('images/man1.png');
 
@@ -314,6 +332,42 @@ class User implements UserInterface
     public function setMailing(string $mailing): self
     {
         $this->mailing = $mailing;
+
+        return $this;
+    }
+
+    public function getDynamic(): ?int
+    {
+        return $this->dynamic;
+    }
+
+    public function setDynamic(?int $dynamic): self
+    {
+        $this->dynamic = $dynamic;
+
+        return $this;
+    }
+
+    public function getDaysOnTheApp(): ?int
+    {
+        return $this->daysOnTheApp;
+    }
+
+    public function setDaysOnTheApp(?int $daysOnTheApp): self
+    {
+        $this->daysOnTheApp = $daysOnTheApp;
+
+        return $this;
+    }
+
+    public function getTotalWork(): ?int
+    {
+        return $this->totalWork;
+    }
+
+    public function setTotalWork(?int $totalWork): self
+    {
+        $this->totalWork = $totalWork;
 
         return $this;
     }

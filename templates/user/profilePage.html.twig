@@ -16,18 +16,53 @@
        
        <img src='{{ asset( app.user.avatarAssetSrc ) }}'>
 
-
-    
+        
    
     <h3>Ton statut</h3>
 
     {{ app.user.level}}
 
-
       
     <h3>Tes points de compétence </h3>
 
       {{ app.user.competencyPoints}}
+
+
+
+    <h3>Nombre de projets finis</h3>
+
+    {{ finishedProjects }}
+
+
+    <h3>Nombre de projets en cours </h3>
+
+    {{ unfinishedProjects }}
+
+
+
+    <h3>Temps moyen travaillé/jour </h3>
+
+
+
+    
+    <h3>Dynamique actuelle (jours travaillés d'affilée)</h3>
+
+    {%if dynamic > 1 %}
+
+    {{ dynamic }} jours travaillés d'affilée 
+    
+     {%else%}
+
+          Pas de dynamique en cours (à partir de 2 jours)
+     {%endif%}
+    
+    <h3>Moyenne accomplissement compte journalier</h3>
+
+
+  
+        <h3>Mailing de suivi (coup de pression)</h3>
+
+    {{ app.user.mailing}}
 
 
 

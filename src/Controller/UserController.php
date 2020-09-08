@@ -138,8 +138,34 @@ class UserController extends AbstractController
 
     public function profilePage(UserInterface $user){
 
+       
+        $projects = $user->getProjects();
 
-        return $this->render('user/profilePage.html.twig');
+        $finishedProjects = 0;
+
+        $unfinishedProjects = 0;
+
+        $dynamic = $user->getDynamic();
+
+
+
+        foreach($projects as $project){
+
+            if( $project->getTotalCountDone() == 'true'){
+               
+                $finishedProjects+=1;
+
+            } elseif( $project->getTotalCountDone() == 'false'){
+
+                $unfinishedProjects += 1;
+
+            }
+        }
+
+
+
+
+        return $this->render('user/profilePage.html.twig',['finishedProjects' => $finishedProjects, 'unfinishedProjects' =>  $unfinishedProjects , 'dynamic' => $dynamic]);
 
     }
 

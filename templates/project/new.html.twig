@@ -10,8 +10,7 @@
 
 <br>
 
-<form method='post'>
-
+<form id='myForm' method='post'>
 
 </br>
 
@@ -19,8 +18,7 @@
 <label>Nom du projet</label> </br>
 
 
-<input name = 'projectName'> </br>
-
+<input  onkeyup = 'initErrorMsg()' id='projectName' name = 'projectName'> </br>
 
 
 <label>Type de projet</label> </br>
@@ -47,8 +45,72 @@
 </br>
 </br>
 
-<button type = 'submit' class = 'btn btn-success' name='submit'>Créer projet</button>
+<input onclick = 'checkProjectName(event)' type = 'submit' class = 'btn btn-success' name='newProject' value='Créer projet'/>
 
+<input type='hidden' name='myNewProject'>
 
 </form>
+
+
+<div id='errorMsg' style='color:red'></div>
+
+
+
 {% endblock %}
+
+
+   {% block javascripts %}
+
+
+   var projectName = document.getElementById('projectName');
+
+   var myForm = document.getElementById('myForm');
+
+   var errorMsg = document.getElementById('errorMsg');
+
+
+      function initErrorMsg(){
+
+        errorMsg.innerHTML = '';
+
+      }
+
+
+       function checkProjectName(event){
+
+                       event.preventDefault();
+
+         xrq = new XMLHttpRequest();
+
+
+         xrq.onload = function(){
+
+           var validName = JSON.parse(this.responseText).validName;
+
+           if(validName == true){
+             console.log("validName"); 
+
+             myForm.submit();
+
+
+
+           } else if(validName == false){
+
+
+
+             errorMsg.innerHTML = 'vous avez déjà attribué ce nom à un autre projet';
+
+           }
+
+         }
+
+         xrq.open('POST', '{{ path("checkProjectPath") }}', true);
+
+         xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+         xrq.send('projectName=' + projectName.value);
+        
+       }
+
+   
+   {% endblock %}
