@@ -101,7 +101,7 @@ class Project
 
         $this->dynamic = 0;
 
-        $this->daysFromCreation = 1;
+        $this->daysFromCreation = 0;
 
         $this->dailyCountsDoneCount = 0;
 

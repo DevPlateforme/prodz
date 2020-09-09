@@ -949,11 +949,33 @@ class ProjectController extends AbstractController
 
         $dynamic = $project->getDynamic();
 
+        $count = $project->getDailyCountsDoneCount();
+
+        $days = $project->getDaysFromCreation();
+
+
+        if($days != 0 ){
+
+            $averageRespectOfCount = floor(($count/$days)*100);
+    
+
+        } else {
+
+            $averageRespectOfCount  = 0;
+        }
         
 
-        
+        $totalWork = $project->getTotalCount();
 
-           return $this->render('project/graph.html.twig', ['dynamic'=> $dynamic , 'projectId' => $projectId , 'displayedWeek' => $displayedWeek , 'nextWeekButton' => 'no' ,'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
+    
+
+        $averageWorkTime = floor( (($totalWork/($days+1)))/60);
+
+
+    
+    
+
+           return $this->render('project/graph.html.twig', [ 'averageWorkTime' => $averageWorkTime ,  'averageDailyRespect' => $averageRespectOfCount , 'dynamic'=> $dynamic , 'projectId' => $projectId , 'displayedWeek' => $displayedWeek , 'nextWeekButton' => 'no' ,'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
 
 
     }
