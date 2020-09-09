@@ -23,7 +23,7 @@
 
 <label>Daily worktime</label>
 
-<progress id="dailyCntHTML" max="{{dailyLimit}}" value="{{dailyCount}}"></progress>
+<div id = 'progressDiv' ><progress id="dailyCntHTML" max="{{dailyLimit}}" value="{{dailyCount}}"></progress></div>
 
 </br>
 
@@ -82,7 +82,18 @@
          //setInterval (function(){refreshAt(23,55,0)}, 10000000) ;
 
       
-   
+            
+
+            window.onload = function(){
+
+               if(dailyCountDone == true){
+
+                    document.getElementById('progressDiv').innerHTML = "done :)";
+
+
+
+               }
+            }
             
                window.onbeforeunload = function(){ storeValues()};
 
@@ -254,11 +265,13 @@
 
            if (dailyCountDone == false){
 
-
+           
 
           xrq = new XMLHttpRequest();
 
           xrq.onload = function(){
+
+              document.getElementById('progressDiv').innerHTML = "done :)";
 
              
               updateNotifs();
@@ -281,13 +294,11 @@
          }
 
 
-
-
       }
 
           totalCnt.value+=1;
 
-          dailyCnt+=1;
+          dailyCnt+=150;
 
           dailyCntHTML.value=dailyCnt;
 
