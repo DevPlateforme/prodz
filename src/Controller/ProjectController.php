@@ -316,17 +316,81 @@ class ProjectController extends AbstractController
         $project->setDailyCountToDone();
 
         
-        $user->addNotification($notification = new Notification());
-
         $pinCount = $user->getPinCount();
 
         $user->setPinCount($pinCount+1);
+        
+
+
+        $user->addNotification($notification = new Notification());
+
+        $notification->setContent('Super, tu as atteint ton compte journalier, pour le projet nommé '. $project->getProjectName() . 'tu gagnes 50 points de compétence!');
+       
+    
+
+        $initialCompetencyPoints = $user->getCompetencyPoints();
+
+        $initialUserLevel = $user->getLevel();
+
 
         $user->setCompetencyPoints($user->getCompetencyPoints()+50);
 
 
-        $notification->setContent('Super, tu as atteint ton compte journalier, pour le projet nommé '. $project->getProjectName() . 'tu gagnes 50 points de compétence!');
-       
+
+        if($user->getCompetencyPoints() >= 50 && $user->getCompetencyPoints() < 100){
+
+            $user->setLevel('élément à fort potentiel');
+
+        } else  if($user->getCompetencyPoints() >= 100  && $user->getCompetencyPoints() < 150){
+
+            $user->setLevel('loup de Wall Street');
+        } else if($user->getCompetencyPoints() >= 150){
+
+            $user->setLevel('Jeff Bezzos');
+        } else {
+
+            $user->setLevel('novice');
+        }
+
+
+
+        $updatedUserLevel = $user->getLevel();
+
+        $updatedCompetencyPoints = $user->getCompetencyPoints();
+
+
+
+        if($updatedUserLevel !=  $initialUserLevel ){
+
+        
+            if($initialCompetencyPoints >  $updatedCompetencyPoints ){
+
+                $user->addNotification($notification = new Notification());
+
+                $pinCount = $user->getPinCount();
+                      
+                $user->setPinCount($pinCount+1);
+
+                $notification->setContent('Dommage!Tu baisse de niveau!! Tu passe au niveau ' . $updatedUserLevel);
+
+                } else if($initialCompetencyPoints <  $updatedCompetencyPoints ){
+
+                    $user->addNotification($notification = new Notification());
+
+                    $pinCount = $user->getPinCount();
+                          
+                    $user->setPinCount($pinCount+1);
+                
+                    $notification->setContent('Top!Tu monte de niveau!! Tu passe au niveau ' . $updatedUserLevel);
+
+                }
+            }
+
+
+
+
+    
+
         
         $manager->persist($user);
 
