@@ -81,8 +81,15 @@ class Project
      */
     private $daysFromCreation;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $dailyCountsDoneCount;
+
 
      function __construct(){
+
+        $this->weeks = new ArrayCollection();
          
         $this->dailyCount = 0;
 
@@ -91,12 +98,12 @@ class Project
         $this->dailyCountDone = 'false';
 
         $this->totalCountDone = 'false';
-        $this->weeks = new ArrayCollection();
 
         $this->dynamic = 0;
 
-        $this->daysFromCreation = 0;
+        $this->daysFromCreation = 1;
 
+        $this->dailyCountsDoneCount = 0;
 
 
     }
@@ -206,6 +213,13 @@ class Project
         return $this;
     }
 
+    public function initializeDailyCount()
+    {
+        $this->dailyCountDone = 'false';
+
+        return $this;
+    }
+
     public function getTotalCountDone()
     {
         return $this->totalCountDone;
@@ -300,6 +314,18 @@ class Project
     public function setDaysFromCreation(?int $daysFromCreation): self
     {
         $this->daysFromCreation = $daysFromCreation;
+
+        return $this;
+    }
+
+    public function getDailyCountsDoneCount(): ?int
+    {
+        return $this->dailyCountsDoneCount;
+    }
+
+    public function setDailyCountsDoneCount(?int $dailyCountsDoneCount): self
+    {
+        $this->dailyCountsDoneCount = $dailyCountsDoneCount;
 
         return $this;
     }

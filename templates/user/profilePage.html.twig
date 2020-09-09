@@ -43,6 +43,10 @@
     <h3>Temps moyen travaillé/jour </h3>
 
 
+            {{ averageWorkTime }} minutes
+
+
+
 
     
     <h3>Dynamique actuelle (jours travaillés d'affilée)</h3>
@@ -56,7 +60,9 @@
           Pas de dynamique en cours (à partir de 2 jours)
      {%endif%}
     
-    <h3>Moyenne accomplissement compte journalier</h3>
+    <h3>Pourcentage accomplissement compte journalier</h3>
+
+       {{ dailyCountAverage }} %
 
 
   

@@ -163,9 +163,41 @@ class UserController extends AbstractController
         }
 
 
+        $daysOnTheApp = $user->getDaysOnTheApp();
+
+        $daysWithCountDone = $user->getAllDailyCountsDone();
 
 
-        return $this->render('user/profilePage.html.twig',['finishedProjects' => $finishedProjects, 'unfinishedProjects' =>  $unfinishedProjects , 'dynamic' => $dynamic]);
+        if($daysOnTheApp != 0 ){
+
+            $dailyCountAverage = floor(($daysWithCountDone/$daysOnTheApp)*100);
+
+
+
+        } else {
+
+            $dailyCountAverage = 0;
+        }
+
+
+        $totalWork =  0;
+
+        
+        foreach($projects as $project){
+
+            $totalWork += $project->getTotalCount();
+        }
+
+
+        //contrary to the dailyCountAverage, we start the count as 1
+
+        $averageWorkTime = floor((($totalWork/($daysOnTheApp+1)))/60);
+
+       
+
+
+
+        return $this->render('user/profilePage.html.twig',['finishedProjects' => $finishedProjects, 'unfinishedProjects' =>  $unfinishedProjects , 'dynamic' => $dynamic, 'dailyCountAverage' => $dailyCountAverage, 'averageWorkTime' => $averageWorkTime]);
 
     }
 

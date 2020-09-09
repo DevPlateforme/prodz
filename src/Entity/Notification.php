@@ -30,11 +30,6 @@ class Notification
      */
     private $user;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $viewed = false;
-
 
     public function getId(): ?int
     {
@@ -65,18 +60,6 @@ class Notification
         return $this;
     }
 
-    public function getViewed(): ?bool
-    {
-        return $this->viewed;
-    }
-
-    public function setViewed(bool $viewed): self
-    {
-        $this->viewed = $viewed;
-
-        return $this;
-    }
-
-
+  
 
 }

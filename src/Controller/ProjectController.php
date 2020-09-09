@@ -203,12 +203,18 @@ class ProjectController extends AbstractController
 
         if(isset($_POST["notifId"])){
 
-            $notif = $this->getDoctrine()->getRepository(Notification::class)->find($_POST['notifId']);
+            $notifications = $user->getNotifications();
 
-            $notif->setViewed(true);
+            $notifToDelete;
 
-            $unviewedNotifs = $this->getDoctrine()->getRepository(Notification::class)-> findBy(['viewed' => false]);
-            
+            foreach($notifications as $notification){
+
+                if($notification->getId() == $_POST["notifId"]){
+
+                    $notifToDelete = $notification;
+                }
+
+            }            
             
             $notifContentArray = [];
 
@@ -216,9 +222,9 @@ class ProjectController extends AbstractController
 
             
             
-            foreach($unviewedNotifs as $notification){
+            foreach($notifications as $notification){
 
-                if($notification != $notif){
+                if($notification != $notifToDelete){
 
                     $notifContentArray[] = $notification->getContent();
 
@@ -229,10 +235,13 @@ class ProjectController extends AbstractController
                 
             }
 
+        
 
-    
+
+            $manager->remove($notifToDelete);
+            $manager->flush();
+
             $manager->persist($user);
-
             $manager->flush();
 
 
@@ -243,6 +252,10 @@ class ProjectController extends AbstractController
             
 
         }
+
+
+        return new JsonResponse(['error' =>  'error']); 
+
 
 
     
@@ -263,9 +276,7 @@ class ProjectController extends AbstractController
 
     public function getNotif( EntityManagerInterface $manager, UserInterface $user){
 
-
-
-        $unviewedNotifs = $this->getDoctrine()->getRepository(Notification::class)-> findBy(['viewed' => false]);
+        $notifications = $user->getNotifications();
 
         $notifContentArray = [];
 
@@ -274,18 +285,14 @@ class ProjectController extends AbstractController
 
 
 
+        foreach($notifications as $notification){
 
+        $notifContentArray[] = $notification->getContent();
 
-        foreach($unviewedNotifs as $notif){
-
-        $notifContentArray[] = $notif->getContent();
-
-        $notifIdArray[] = $notif->getId();
+        $notifIdArray[] = $notification->getId();
 
 
         }
-
-
 
 
 
@@ -339,18 +346,35 @@ class ProjectController extends AbstractController
     public function endOfDay( EntityManagerInterface $manager, MailerInterface $mailer, Request $request){
 
         $users = $this->getDoctrine()->getRepository(User::class)->findAll();
-
+        
         foreach($users as $user){
-            
+
+            //useful to check if there is a level change for each user
+        
+            $initialUserLevel = $user->getLevel();
+
+            $initialCompetencyPoints = $user->getCompetencyPoints();
+
+
             $projects = $user->getProjects();
+
+            //dynamic means days worked on a row
 
             $userDynamic = $user->getDynamic();
 
             $user->setDynamic($userDynamic+1);
 
+            //count of days from the creation of the User
+
             $days = $user->getDaysOnTheApp();
 
             $user->setDaysOnTheApp($days+1);
+
+            $initialCountOfDailyObjective = $user->getAllDailyCountsDone();
+
+            //increase the count by 1, and loop through all the projects, to possibly set it back to the initial count, if at least one daily count is not done
+
+            $user->setAllDailyCountsDone($initialCountOfDailyObjective + 1);
 
 
             $totalWork = 0;
@@ -366,12 +390,12 @@ class ProjectController extends AbstractController
 
 
                 if($project->getDailyCountDone() == 'false'){
+                    
+                    $user->setAllDailyCountsDone($initialCountOfDailyObjective);
 
                     $user->setDynamic(0);
 
                     $project->setDynamic(0);
-
-
 
                     if($user->getMailing() == 'on'){
 
@@ -433,6 +457,10 @@ class ProjectController extends AbstractController
 
         $project->setDynamic($projectDynamic+1);
         
+        $dailyCountsDoneCount = $project->getDailyCountsDoneCount();
+
+        $project->setDailyCountsDoneCount($dailyCountsDoneCount+1);
+
        }
 
 
@@ -457,8 +485,71 @@ class ProjectController extends AbstractController
                     $project->currentDay += 1;
 
             }
+
+            $project->initializeDailyCount();
+
+
+
+            if ($project->getDynamic() == 2 ){
+
+                
+                $user->setCompetencyPoints($user->getCompetencyPoints()+20);
+
+                $user->addNotification($notification = new Notification());
+
+                $pinCount = $user->getPinCount();
+                      
+                $user->setPinCount($pinCount+1);
+
+
+                $notification->setContent("Tu gagnes un bonus de 20 points de compétence, car tu as travaillé 2 jours d'affilée, sur ton projet: " . $project->getProjectName());
+
+            } 
+
+            else if ($project->getDynamic() == 3 ){
+
+                $user->setCompetencyPoints($user->getCompetencyPoints()+30);
+
+
+                $user->addNotification($notification = new Notification());
+
+                $pinCount = $user->getPinCount();
+                      
+                $user->setPinCount($pinCount+1);
+
+                $notification->setContent("Tu gagnes un bonus de 20 points de compétence, car tu as travaillé 3 jours d'affilée, sur ton projet: " . $project->getProjectName());
+
+            } else if ($project->getDynamic() == 4 ){
+
+                $user->setCompetencyPoints($user->getCompetencyPoints()+40);
+
+
+                $user->addNotification($notification = new Notification());
+
+                $pinCount = $user->getPinCount();
+                      
+                $user->setPinCount($pinCount+1);
+
+                $notification->setContent("Tu gagnes un bonus de 40 points de compétence, car tu as travaillé 4 jours d'affilée, sur ton projet: " . $project->getProjectName());
+
+            } else if ($project->getDynamic() == 5 ){
+
+                $user->setCompetencyPoints($user->getCompetencyPoints()+50);
+
+
+                $user->addNotification($notification = new Notification());
+
+                $pinCount = $user->getPinCount();
+                      
+                $user->setPinCount($pinCount+1);
+
+                $notification->setContent("Tu gagnes un bonus de 50 points de compétence, car tu as travaillé 5 jours d'affilée, sur ton projet: " . $project->getProjectName());
+
+            }
+
          }
         //end of projects loop
+
 
         if($user->getCompetencyPoints() >= 50 && $user->getCompetencyPoints() < 100){
 
@@ -475,10 +566,49 @@ class ProjectController extends AbstractController
             $user->setLevel('novice');
         }
 
+        $updatedUserLevel = $user->getLevel();
+
+        $updatedCompetencyPoints = $user->getCompetencyPoints();
+
+
+
+        if($updatedUserLevel !=  $initialUserLevel ){
+
         
+            if($initialCompetencyPoints >  $updatedCompetencyPoints ){
+
+                $user->addNotification($notification = new Notification());
+
+                $pinCount = $user->getPinCount();
+                      
+                $user->setPinCount($pinCount+1);
+
+                $notification->setContent('Dommage!Tu baisse de niveau!! Tu passe au niveau ' . $updatedUserLevel);
+
+                } else if($initialCompetencyPoints <  $updatedCompetencyPoints ){
+
+                    $user->addNotification($notification = new Notification());
+
+                    $pinCount = $user->getPinCount();
+                          
+                    $user->setPinCount($pinCount+1);
+                
+                    $notification->setContent('Top!Tu monte de niveau!! Tu passe au niveau ' . $updatedUserLevel);
+
+                }
+            }
+
+
+
 
         }
+
+
+
+
+    
         //end of users loop
+
 
         $user->setTotalWork($totalWork);
     
@@ -491,9 +621,10 @@ class ProjectController extends AbstractController
         return new JsonResponse(['update' => 'ok']);
 
         
-
-
     }
+
+
+
      /**
      * @Route("/totalCountDone" , name="totalCountDonePath")
      */
@@ -519,7 +650,7 @@ class ProjectController extends AbstractController
 
         $notification->setContent('Super, tu es venu à bout de ton projet , intitulé : ' . $project->getProjectName() . 'tu gagnes 1000 points de compétence!!!' );
         
-
+        
         
         $manager->persist($user);
 
@@ -749,9 +880,16 @@ class ProjectController extends AbstractController
         $day5 = $project->weeks[$displayedWeek]->days[4]->getDailyCount(); 
         $day6 = $project->weeks[$displayedWeek]->days[5]->getDailyCount(); 
         $day7 = $project->weeks[$displayedWeek]->days[6]->getDailyCount(); 
+
+
+
+        $dynamic = $project->getDynamic();
+
         
 
-           return $this->render('project/graph.html.twig', ['projectId' => $projectId , 'displayedWeek' => $displayedWeek , 'nextWeekButton' => 'no' ,'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
+        
+
+           return $this->render('project/graph.html.twig', ['dynamic'=> $dynamic , 'projectId' => $projectId , 'displayedWeek' => $displayedWeek , 'nextWeekButton' => 'no' ,'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
 
 
     }

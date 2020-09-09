@@ -23,7 +23,7 @@
 
 <label>Daily worktime</label>
 
-<progress id="dailyCnt" max="{{dailyLimit}}" value="{{dailyCount}}"></progress>
+<progress id="dailyCntHTML" max="{{dailyLimit}}" value="{{dailyCount}}"></progress>
 
 </br>
 
@@ -54,7 +54,6 @@
 </form>
 
 
-<button onclick='nextDay()'>next day</button>
 
 
 <a href='{{ path("showGraphPath", {"projectId": projectId }) }}'<button>show graph</button>
@@ -87,7 +86,6 @@
             
                window.onbeforeunload = function(){ storeValues()};
 
-               setInterval (function(){storeValues()}, 5000) ;
 
             
 
@@ -96,7 +94,8 @@
 
       var startBtn = document.getElementById('startBtn');
       var totalCnt = document.getElementById('totalCnt');
-      var dailyCnt = document.getElementById('dailyCnt');
+      var dailyCntHTML = document.getElementById('dailyCntHTML');
+      var dailyCnt = {{dailyCount}};
       var dailyCountDone = {{dailyCountDone}};
       var totalCountDone = {{totalCountDone}};
       var intervalInput = document.getElementById('intervalInput');
@@ -174,31 +173,10 @@
          
 
 
-
-
-       
-
-     function nextDay(){
-
-        xrq = new XMLHttpRequest();
-         
-         xrq.onload = function(){
-
-           console.log(JSON.parse(this.responseText).day);
-         }
-          xrq.open('POST', '{{ path("nextDayPath")}}', true);
-
-          xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-          xrq.send('projectId=' + {{ projectId}});
-
-     }
-
-     
      
      function storeValues(){
          
-              xrq = new XMLHttpRequest();
+         xrq = new XMLHttpRequest();
          
          xrq.onload = function(){
 
@@ -207,7 +185,7 @@
 
           xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-          xrq.send('projectId=' + {{ projectId}} + '&totalCount=' + totalCnt.value +'&dailyCount=' + dailyCnt.value);
+          xrq.send('projectId=' + {{ projectId}} + '&totalCount=' + totalCnt.value +'&dailyCount=' + dailyCnt);
 
       }
        
@@ -260,7 +238,7 @@
       function increaseCounts(){ 
 
 
-
+         storeValues();
 
          if(totalCnt.value >= ( (totalCnt.max/100)*90) ){
                if(totalCnt.value >= {{totalLimit}}){
@@ -272,7 +250,7 @@
 
    
          
-        if(dailyCnt.value >= {{dailyLimit}}) {
+        if(dailyCnt >= {{dailyLimit}}) {
 
            if (dailyCountDone == false){
 
@@ -308,7 +286,10 @@
       }
 
           totalCnt.value+=1;
-          dailyCnt.value+=1;
+
+          dailyCnt+=150;
+
+          dailyCntHTML.value=dailyCnt;
 
        }
 

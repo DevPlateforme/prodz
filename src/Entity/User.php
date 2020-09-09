@@ -103,6 +103,11 @@ class User implements UserInterface
      */
     private $totalWork;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $allDailyCountsDone;
+
  
 
     public function __construct()
@@ -115,6 +120,7 @@ class User implements UserInterface
         $this->setAvatar('man1');
         $this->mailing = 'off';
         $this->daysOnTheApp = 0;
+        $this->allDailyCountsDone = 0;
         $this->dynamic = 0;
         $this->totalWork = 0;
 
@@ -368,6 +374,18 @@ class User implements UserInterface
     public function setTotalWork(?int $totalWork): self
     {
         $this->totalWork = $totalWork;
+
+        return $this;
+    }
+
+    public function getAllDailyCountsDone(): ?int
+    {
+        return $this->allDailyCountsDone;
+    }
+
+    public function setAllDailyCountsDone(?int $allDailyCountsDone): self
+    {
+        $this->allDailyCountsDone = $allDailyCountsDone;
 
         return $this;
     }

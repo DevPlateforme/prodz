@@ -12,13 +12,25 @@
 
 
 
-<div id='displayedWeekHTML'></div>
+<h3><div id='displayedWeekHTML'></div></h3>
 
 <p>Temps journalier moyen sur ce projet : </p>
 
-<p>Dynamique actuelle : + 200 </p>
+<p>Dynamique actuelle : </p>
 
-<p>Frequence de réalisation des objectifs journaliers : 50% </p>
+
+    {%if dynamic > 1 %}
+
+    <h3>{{ dynamic }} jours travaillés d'affilée </h3>
+    
+     {%else%}
+
+          Pas de dynamique en cours (à partir de 2 jours)
+     {%endif%}
+
+<p>Frequence de réalisation des objectifs journaliers : </p>
+
+<h3>%</h3>
 
 
 
@@ -146,6 +158,9 @@
 
              displayGraph();
 
+             displayWeekHTML();
+
+
           }
 
           xrq.open('POST', '{{ path( "graphNextWeekPath")}}' , true);
@@ -185,6 +200,9 @@
              buttonsDisplay();
 
              displayGraph();
+
+             displayWeekHTML();
+
 
 
           }

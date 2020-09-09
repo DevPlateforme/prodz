@@ -10,19 +10,20 @@
           
         {% endblock %}
     </head>
+
     <body>
 
     <div class="fixed-top">
-  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="collapse" id="navbarToggleExternalContent">
     <div class="bg-dark p-4">
 
-    <a href="{{ path('admin') }}"><button>home</button></a>
+     <a href="{{ path('admin') }}"><button>home</button></a>
 
      {% if app.user %}
 
-              <i id='bellIcon' class="fa fa-bell fa-2x" aria-hidden="true" style="color:white"></i>
+               <i id='bellIcon' class="fa fa-bell fa-2x" aria-hidden="true" style="color:white"></i>
 
-              <div id='notifContent'> </div> </br>
+               <div id='notifContent'> </div> </br>
 
                 <div id='notifPin'> {{ app.user.pinCount }} </div> </br>
 
@@ -33,7 +34,6 @@
               
               <a href='{{ path("showAllProjectsPath") }}'><button>Voir tes projets en cours</button></a>
               <a href='{{ path("showAllDoneProjectsPath") }}'><button>Voir tes projets accomplis</button></a>
-
 
 
 
@@ -107,8 +107,7 @@
                 function displayPin(){
 
                  notifPin.innerHTML = pin;
-
-                  
+      
                 }
 
                  function resetPin(){
@@ -194,12 +193,10 @@
 
                 {% for notification in app.user.notifications %}  
                      
-                     {%if notification.viewed == false%}
 
                     loadedNotifs += '<p style="color:white">{{ notification.content }}</p>' + '</br>' + '<a  onclick = "setNotifAsDone(event)"> <p value = "{{ notification.id }}">Marquer comme "vu"</p></a>' ;
                     
                   
-                     {%endif%}
                 {% endfor %} 
 
                   
