@@ -6,21 +6,21 @@
     <h1>Login</h1>
 
 
-    <form action= "{{ path('loginPath') }}" method='post'>
+    <form id="myForm" action= "{{ path('loginPath') }}" method='post'>
 
          <div class = 'form-group'>
-             <input type='text' placeholder='username' required name='_username'>
+             <input onkeyup="initErrorMsg()" id='userMail' type='text' placeholder='username' required name='_username'>
           </div>
 
           
          <div class = 'form-group'>
-             <input type='password' placeholder='password' required name='_password'>
+             <input onkeyup="initErrorMsg()" id='userPass' type='password' placeholder='password' required name='_password'>
           </div>
 
 
 
           <div class = 'form-group'>
-               <button type = 'submit' class = 'btn btn-success'>Login</button>
+               <button type = 'submit' class = 'btn btn-success' onclick='checkUser(event)'>Login</button>
           </div>
 
 
@@ -29,4 +29,76 @@
 
 
 
+    <div id="errorMsg" style='color:red' ></div>
+
+
+
 {% endblock %}
+
+
+
+        {% block javascripts %}
+
+        var myForm = document.getElementById("myForm");
+
+        var userMail = document.getElementById("userMail");
+
+        var userPass = document.getElementById("userPass");
+
+        var errorMsg = document.getElementById("errorMsg");
+
+        
+             function checkUser(event){
+
+                 event.preventDefault();
+
+                 xrq = new XMLHttpRequest();
+
+                 xrq.onload = function(){
+
+                     console.log(JSON.parse(this.responseText).validity );
+
+
+                     if(JSON.parse(this.responseText).validity == true){
+
+
+                         myForm.submit();
+
+                     
+                     } else if(JSON.parse(this.responseText).validity == false) {
+                         
+                         errorMsg.innerHTML = "mauvaise combinaison mot de passe/identifiant";
+
+
+
+                     }
+
+
+
+
+                 }
+
+
+                 xrq.open('POST', '{{ path("loginCheckPath")}}', true);
+
+                 xrq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+
+                 xrq.send("userMail=" + userMail.value + "&userPass=" + userPass.value);
+
+             }
+
+
+             function initErrorMsg(){
+
+
+                 errorMsg.innerHTML = "";
+
+
+
+             }
+
+
+        {% endblock %}
+
+     

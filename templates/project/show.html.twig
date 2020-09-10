@@ -81,6 +81,11 @@
 
          //setInterval (function(){refreshAt(23,55,0)}, 10000000) ;
 
+         
+         
+         setInterval (function(){storeValues()}, 30000) ;
+
+
       
             
 
@@ -249,8 +254,6 @@
       function increaseCounts(){ 
 
 
-         storeValues();
-
          if(totalCnt.value >= ( (totalCnt.max/100)*90) ){
                if(totalCnt.value >= {{totalLimit}}){
 
@@ -298,7 +301,7 @@
 
           totalCnt.value+=1;
 
-          dailyCnt+=150;
+          dailyCnt+=5;
 
           dailyCntHTML.value=dailyCnt;
 

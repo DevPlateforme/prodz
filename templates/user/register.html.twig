@@ -12,7 +12,7 @@
 
   <label>Mail</label> </br>
 
-  <input type='email' name='email'> </br>
+  <input id='userMail' required name='email'  onkeyup = 'initErrorMsg()'> </br>
 
   
   <label>Mot de passe</label> </br>
@@ -24,53 +24,126 @@
   <input type = 'password' id= 'confirm_password' type='text' name='confirm_password' onkeyup = 'initErrorMsg()'> </br>
 
 
-  <input type='submit' value='créer un compte' name= 'submit'>
+  <input onclick='checkForm(event)' type='submit' value='créer un compte' name= 'btnSubmit'>
 
   </br>
 
-  <h5 style='color:red' id='errorMsg'></h5>
-
-
-
-
 
   </form>
+
+    <p style='color:red' id='passErrorMsg'></p>
+
+    <p style='color:red' id='userNameErrorMsg'></p>
+
+    <p style='color:red' id='emptyFieldsMsg'></p>
+
+    <p style='color:red' id='invalidMailMsg'></p>
+
+
+
+
 
 {% endblock %}
 
 
 {% block javascripts %}
+
+  var userMail = document.getElementById('userMail')
   
-  var errorMsg = document.getElementById('errorMsg');
+  var passErrorMsg = document.getElementById('passErrorMsg');
 
-  var form = document.getElementById('registerForm');
+  var userNameErrorMsg = document.getElementById('userNameErrorMsg');
 
+  var emptyFieldsMsg = document.getElementById('emptyFieldsMsg');
+  
+  var invalidMailMsg = document.getElementById('invalidMailMsg');
+
+
+
+  var registerForm = document.getElementById('registerForm');
   var mypassword = document.getElementById("myPassword") ;
   var confirm_password = document.getElementById("confirm_password");
  
 
- form.addEventListener('submit', function(e){
+
+  function checkForm(event){
+
+     event.preventDefault();
+
+   if(mypassword.value.length == 0 || userMail.value.length == 0  || confirm_password.value.length == 0 ){
+    
+    emptyFieldsMsg.innerHTML = 'Veuillez remplir tous les champs!';
+
+    return false;
+
+    
+   }
+
+
+   if(validateEmail(userMail.value) == false){
+
+    invalidMailMsg.innerHTML = 'veuillez saisir votre mail au format "exemple@mail.fr"';
+    
+   }
+
 
      if(mypassword.value != confirm_password.value){
 
-     e.preventDefault();
-
-     errorMsg.innerHTML = 'Mot de passe non identique';
-
-
+     passErrorMsg.innerHTML = 'Mot de passe non identique';
 
      }
 
+     xrq = new XMLHttpRequest();
+
+     xrq.onload = function(){
+
+       if(JSON.parse(this.responseText).mailUsed == true){
+
+          userNameErrorMsg.innerHTML = 'utilisateur déjà utilisé';
+
+        } else if(JSON.parse(this.responseText).mailUsed == false){
+              if((mypassword.value == confirm_password.value ) && (validateEmail(userMail.value) == false)){
+
+                 console.log(registerForm);
+
+                 registerForm.submit();
+
+              }
+         }
+
+    }
+
+     xrq.open('POST', '{{ path("checkUsersPath") }}', true);
+ 
+    xrq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
 
- });
+    xrq.send('userMail=' + userMail.value);
+
+
+ };
 
  
      function initErrorMsg(){
 
-          errorMsg.innerHTML = '';
+            passErrorMsg.innerHTML = '';
+
+            userNameErrorMsg.innerHTML = '';
+
+            emptyFieldsMsg.innerHTML = '';
+
+            invalidMailMsg.innerHTML = '';
 
      }
+
+
+
+   function validateEmail(email) 
+    {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+    
 
 
 

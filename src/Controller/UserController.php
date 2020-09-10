@@ -12,10 +12,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
+
+
 
 
 class UserController extends AbstractController
@@ -24,11 +30,11 @@ class UserController extends AbstractController
     /**
      * @Route("/register", name="registerPath")
      */
-    public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $eventDispatcher)
+    public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder , EventDispatcherInterface $eventDispatcher )
     {
         $user = new User();
 
-        if(isset($_POST['submit'])){
+        if(isset($_POST['email'])){
 
             $user->setUsername('user');
             $hash = $encoder->encodePassword($user, $_POST['myPassword']);
@@ -200,6 +206,95 @@ class UserController extends AbstractController
         return $this->render('user/profilePage.html.twig',['finishedProjects' => $finishedProjects, 'unfinishedProjects' =>  $unfinishedProjects , 'dynamic' => $dynamic, 'dailyCountAverage' => $dailyCountAverage, 'averageWorkTime' => $averageWorkTime]);
 
     }
+
+
+   
+
+    /**
+     * @Route("/checkUsers", name="checkUsersPath")
+     */
+
+
+    public function checkUsers(){
+
+        if(isset($_POST["userMail"])){
+
+
+            $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+
+
+            $mailUsed = false;
+
+
+            foreach($users as $user){
+
+
+                if( $user->getMail() == $_POST["userMail"]){
+
+
+                    $mailUsed = true;
+                }
+            }
+
+            return new JsonResponse(['mailUsed' => $mailUsed]);
+
+
+        }
+
+
+        return new JsonResponse(['error' => 'error']);
+
+
+
+    }
+
+
+
+    
+    /**
+     * @Route("/loginCheck", name="loginCheckPath")
+     */
+
+
+    public function loginCheck(UserPasswordEncoderInterface $encoder){
+
+        if(isset($_POST["userMail"])){
+
+
+            $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+
+
+            $validity = false;
+
+
+            foreach($users as $user){
+
+
+                if(( $user->getMail() == $_POST["userMail"]) && ($encoder->isPasswordValid($user, $_POST["userPass"]))){
+
+                    $validity = true;
+
+                }
+            }
+
+            return new JsonResponse(['validity' =>  $validity]);
+
+
+        }
+
+
+        return new JsonResponse(['error' => 'error']);
+
+
+
+    }
+
+
+    
+ 
+
+
+
 
 
     
