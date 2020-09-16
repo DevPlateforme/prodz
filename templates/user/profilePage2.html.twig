@@ -57,8 +57,8 @@
             <div style='height: 50% ; width: 100%; background:red;' >                  
                <h5> Mailing :     {{ app.user.mailing}} </h5>
             </div>
-            <div style='height: 50%; width: 100%;  background: yellow'>
-                  <progress value='30' max='100'></progress>
+            <div id='progressDiv' style='height: 50%; width: 100%;  background: yellow'>
+                  <progress id='progressBar' value='1' max='100'></progress>
 
             </div>
     
@@ -134,9 +134,9 @@ var ctx6 = document.getElementById('myChart6').getContext('2d');
 
 var dynamicDiv = document.getElementById('dynamicDiv');
 
+var progressDiv = document.getElementById('progressDiv');
 
-
-
+var progressBar =  document.getElementById('progressBar');
 
 
 function displayChart(canvas){
@@ -401,6 +401,54 @@ var myChart = new Chart(ctx6, {
 
 
 
+       {% if app.user.level == 'novice' %}
+
+
+        progressBar.value =  {{ app.user.competencyPoints}};
+
+        progressBar.max = 50;
+
+         progressDiv.innerHTML += '</br>élément à fort potentiel'
+
+
+        
+       {% elseif   app.user.level == 'élément à fort potentiel' %}
+
+
+        progressBar.value =  {{ app.user.competencyPoints}};
+
+        progressBar.max = 100;
+
+          progressDiv.innerHTML += '</br>niveau suivant: Loup de Wall Street'
+
+
+        
+       {% elseif app.user.level == 'loup de Wall Street' %}
+
+
+        progressBar.value =  {{ app.user.competencyPoints}};
+
+        progressBar.max = 150;
+
+                progressDiv.innerHTML += '</br>niveau suivant: jeff Bezzos'
+
+
+        
+       {% elseif app.user.level == 'Jeff Bezzos' %}
+
+       console.log(progressBar);
+
+
+        progressBar.value = 100;
+
+        progressBar.max = 100;
+
+
+        progressDiv.innerHTML += '</br>Tu as atteint le niveau maximum, à toi de le maintenir!'
+
+
+
+      {%endif%}
     
 
 
