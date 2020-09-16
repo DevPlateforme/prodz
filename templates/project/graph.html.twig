@@ -5,19 +5,52 @@
 {% block body %}
 <style>
 
+#backgroundDiv{
+
+    height: 100vh;
+
+    width: 100vw;
+
+    background: purple;
+
+    display: flex; 
+
+    flex-direction : column;
+
+}
+
+
+#topDiv{
+    height: 30%; 
+    
+    width: 100% ; 
+    
+    background: blue;
+
+    display: flex;
+
+
+
+}
+
+
 
 </style>
 
 <br>
 
+<div id='backgroundDiv'>
 
-
-<h3><div id='displayedWeekHTML'></div></h3> <br>
-
+<div id='topDiv'>
+      <div style='height: 100%; width: 33.33%; background:purple'>
+      
 <p>Temps journalier moyen sur ce projet : </p>
 
 <h3>{{ averageWorkTime }} minutes </h3>
 
+      </div>
+      <div style='height: 100%; width: 33.33%; background:green'>
+        
 <p>Dynamique actuelle : </p>
 
 
@@ -29,10 +62,22 @@
 
           Pas de dynamique en cours (à partir de 2 jours)
      {%endif%}
+      </div>
+      <div style='height: 100%; width: 33.33%; background:blue'>
+      
+     <p>Frequence de réalisation des objectifs journaliers : </p>
 
-<p>Frequence de réalisation des objectifs journaliers : </p>
+<h3> {{ averageDailyRespect}}%</h3></div>
 
-<h3> {{ averageDailyRespect}}%</h3>
+</div>
+
+<div style='height: 70%; width: 100% ; background: yellow' >
+
+
+<h3><div id='displayedWeekHTML'></div></h3> <br>
+
+
+
 
 
 
@@ -49,6 +94,17 @@
 
 
 </br>
+
+
+
+
+
+</div>
+
+
+
+</div>
+
 
 
 
