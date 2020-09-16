@@ -2,7 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Bienvenue dans ton labo{% endblock %}</title>
+
+  
         {% block stylesheets %}
 
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -12,6 +14,213 @@
     </head>
 
     <body>
+
+    
+  <div id='myNavBar'>
+  
+  <div id='leftNavDiv'>
+     <a href="{{ path('admin') }}">  <img id='logoImg' src='{{ asset("images/lab.png") }}'> </a>
+
+  </div>
+
+  <div id='rightNavDiv'>
+
+
+       <div>          <a href='{{ path("profilePagePath")}}'><button>Votre profil</button></a>  </div>
+
+
+
+  
+     <div>
+       
+       <div>
+        <i id='bellIcon' class="fa fa-bell fa-2x" aria-hidden="true" style="color:black"></i>
+        </div>
+
+
+         
+         <div>
+
+         {% if app.user %}
+         <div id='notifPin' style='color: red'>
+             {% if app.user.pinCount != 0 %}
+              {{ app.user.pinCount }}
+             {% endif %}
+              </div> </br>
+          {% endif %}
+
+            </div>
+
+              
+     </div>
+
+
+          <div>         
+          
+           {% if app.user %}
+
+               <a href='{{ path("logoutPath")}}'><button>Déconnexion</button></a> 
+
+            {%else%}
+
+               <a href='{{ path("loginPath")}}'><button>Connexion</button></a> 
+
+               
+           {% endif %}
+           
+           
+           </div>
+
+
+  </div>
+
+  
+
+  </div>
+
+     <div id='notifContentDiv'>
+
+          <div id='notifContent'> </div> </br>
+     
+     </div>
+     
+
+          <style>
+           
+           body{
+
+             background: #1E1E5D;
+
+             color: white;  
+
+           }
+
+           #myNavBar{
+
+             background:  #f2f2f2;
+
+             position: fixed;
+
+             top:0px;
+
+             height: 9vh;
+
+             width: 100%;
+
+             display: flex;
+
+             justify-content: space-between;
+
+
+           }
+
+           #rightNavDiv{
+            
+            height: 100%;
+
+            width: 30%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-right: 3vw;
+
+           }
+
+           
+           #rightNavDiv div{
+            
+            height: 80%;
+            
+            width: 30%;
+
+
+
+
+           }
+
+
+            #leftNavDiv{
+            
+            height: 100%;
+
+
+            width: 10%;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding-left: 3vw;
+
+            padding-top: 0.5vh;
+
+           }
+
+           #notifContentDiv{
+
+             position: fixed;
+ 
+             width: 20vw;
+
+             top: 9vh;
+
+             right: 3vw;
+
+             background: white;
+
+             border-radius: 10px;
+
+             opacity: 0;
+
+
+
+             
+           }
+
+           #logoImg{
+
+             height: 8vh;
+
+             width: auto;
+           }
+
+
+
+           #myFooter{
+
+             height: 6vh;
+             width: 100%;
+
+             background: #f2f2f2;
+
+
+             position: fixed;
+
+             top: 94vh;
+
+             display: flex;
+
+             justify-content: center;
+           }
+
+
+           #setToViewLink{
+             
+             
+             color: red;
+
+
+
+           }
+
+        </style>
+
+        
+
 
     <div class="fixed-top">
     <div class="collapse" id="navbarToggleExternalContent">
@@ -23,18 +232,12 @@
 
                <i id='bellIcon' class="fa fa-bell fa-2x" aria-hidden="true" style="color:white"></i>
 
-               <div id='notifContent'> </div> </br>
+               
+                <div id='notifContent'> </div> </br>
 
                 <div id='notifPin'> {{ app.user.pinCount }} </div> </br>
 
               
-
-              <a href='{{ path("newProjectPath") }}'><button>Créer un projet</button></a>
-
-              
-              <a href='{{ path("showAllProjectsPath") }}'><button>Voir tes projets en cours</button></a>
-              <a href='{{ path("showAllDoneProjectsPath") }}'><button>Voir tes projets accomplis</button></a>
-
 
             
            {%else%}
@@ -43,32 +246,38 @@
 
     </div>
   </div>
-  <nav class="navbar navbar-dark bg-dark">
-
-     
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span></button>
+  
 
 
-      {%if app.user%}
 
-          <a href='{{ path("profilePagePath")}}'><button>Votre profil</button></a>
-
-          <a href='{{ path("logoutPath")}}'><button>Déconnexion</button></a>
-
-    {%else%}
-
-      <a href='{{ path("loginPath")}}'><button>Connexion</button></a>
-
-    {%endif%}
-  </nav>
 </div>
 
 <br>
-
+<i class="fas fa-business-time"></i><i class="fas fa-business-time"></i><i class="fas fa-business-time"></i><i class="fas fa-business-time"></i><i class="fas fa-business-time"></i>
 <br>
 
-  
+
+
+{% if app.user %}
+
+<div id='myFooter'>
+        
+        <div>
+           <a href='{{ path("showAllProjectsPath") }}'><button>Voir tes projets en cours</button></a>
+        </div>
+        <div>
+           <a href='{{ path("showAllDoneProjectsPath") }}'><button>Voir tes projets accomplis</button></a>
+        </div>
+
+        <div>
+            <a href='{{ path("newProjectPath") }}'><button>Créer un projet</button></a>
+        </div>
+
+</div>
+
+{% endif %}  
+
+
       {% block body %}{% endblock %}
                 
        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -76,20 +285,26 @@
        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
      
-        <script>
-        
+       <script>
+
+   
+       var notifContentDiv = document.getElementById('notifContentDiv');
+
+
         {% if app.user%}
 
-        var notifDisplay = 'off';
-        var icon = document.getElementById('bellIcon');
+          var notifDisplay = 'off';
 
-        var notifContent = document.getElementById('notifContent');
+         
+          var icon = document.getElementById('bellIcon');
+ 
+          var notifContent = document.getElementById('notifContent');
+ 
+          var notifPin = document.getElementById('notifPin');
 
-        var notifPin = document.getElementById('notifPin');
+          var loadedNotifs = '';
 
-        var loadedNotifs = '';
-
-        var pin;
+          var pin;
 
 
         
@@ -105,7 +320,7 @@
 
                    xrq.onload = function(){
 
-                      pin = JSON.parse(this.responseText).pinCount;
+                      pin = '';
 
                       displayPin();
  
@@ -114,8 +329,6 @@
                 xrq.open('GET', '{{ path("resetNotifPinPath")}}' , true );
 
                 xrq.send();
-
-
   
 
                  }
@@ -151,7 +364,6 @@
          loadedNotifs = '';
 
 
-
          xrq.onload = function(){
 
             var notifContentArray = JSON.parse(this.responseText).notifContentArray;
@@ -160,11 +372,10 @@
 
             for(i=0; i<  notifIdArray.length; i++){
 
-               loadedNotifs += '<p style="color:white">' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<p value =' + notifIdArray[i] + '>Marquer comme "vu"</p></a>' ;
+               loadedNotifs += ' <div style="color:black"> <p style="color:black">' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<span id="setToViewLink" value =' + notifIdArray[i] + '>Marquer comme "vu"</span></p></a> </div>' ;
 
             
             }
-
 
 
         }
@@ -179,22 +390,20 @@
 
       }
                    
-
+            {% if app.user.notifications is not empty %}
+         
                 {% for notification in app.user.notifications %}  
-                     
 
-                    loadedNotifs += '<p style="color:white">{{ notification.content }}</p>' + '</br>' + '<a  onclick = "setNotifAsDone(event)"> <p value = "{{ notification.id }}">Marquer comme "vu"</p></a>' ;
-                    
-                  
+                    loadedNotifs += ' <div style="color:black"><p >{{ notification.content }}</p>' + '</br>' + '<a  onclick = "setNotifAsDone(event)"> <span id ="setToViewLink" value = "{{ notification.id }}">Marquer comme "vu"</span></a></div>' ;
+                                  
                 {% endfor %} 
-
+            
+            {% endif %}
                   
-
 
                 function displayNotifs(){
 
                     notifContent.innerHTML = loadedNotifs;
-
 
                 }
                 
@@ -205,19 +414,27 @@
             if(notifDisplay == 'off'){
 
 
-              resetPin();
-        
-             displayNotifs();      
+                 resetPin();
+           
+                 displayNotifs();      
 
-                
-             
+                 if(loadedNotifs != ''){
 
-                   notifDisplay = 'on';
 
+                    notifContentDiv.style.opacity = 1;
+                    notifDisplay = 'on';
+
+
+                }
+
+                                  
 
             } else{
 
-                  notifContent.innerHTML = ' ';
+                  notifContent.innerHTML = '';
+
+                  notifContentDiv.style.opacity = 0;
+
 
                    notifDisplay = 'off';
 
@@ -227,14 +444,15 @@
 
 
 
-        function setNotifAsDone(event){
+         function setNotifAsDone(event){
 
-         var notifId = event.target.getAttribute('value');
+          var notifId = event.target.getAttribute('value');
 
           xrq = new XMLHttpRequest();
 
           xrq.onload = function(){
 
+           
            console.log('ok');
            var notifContentArray = JSON.parse(this.responseText).notifContentArray;
            
@@ -247,11 +465,30 @@
             for(i=0; i < notifContentArray.length; i++){
 
 
-                loadedNotifs += '<p style="color:white">' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<p value =' + notifIdArray[i] + '>Marquer comme "vu"</p></a>' ;
+                loadedNotifs += '<div style="color:black"><p>' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<span id="setToViewLink" value =' + notifIdArray[i] + '>Marquer comme "vu"</span></a></div>' ;
 
             }
 
-                      displayNotifs();
+            if( notifContentArray.length == 0){
+
+              notifDisplay = 'off';
+
+              notifContentDiv.style.opacity = 0;
+
+              displayNotifs();
+
+              pin = '';
+
+               displayPin();
+
+
+            
+            } else {
+              
+                displayNotifs();
+
+            }
+
 
           }
 

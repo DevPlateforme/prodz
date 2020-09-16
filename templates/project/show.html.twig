@@ -7,6 +7,10 @@
 {% block body %}
 <style>
 
+body{
+
+}
+
 #backgroundDiv{
 
    width: 100vw;
@@ -50,7 +54,7 @@
 
 <div id='backgroundDiv'>
 
-   <label>Total worktime</label>
+   <label>Durée complète du projet</label>
 
 
    <progress id="totalCntHTML" max="{{totalLimit}}" value="{{totalCount}}"></progress>
@@ -58,7 +62,7 @@
     </br>
 
 
-   <label>Daily worktime</label>
+   <label>Temps journalier</label>
 
    <div id = 'progressDiv' ><progress id="dailyCntHTML" max="{{dailyLimit}}" value="{{dailyCount}}"></progress></div>
 

@@ -114,6 +114,21 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}
 
 
@@ -278,7 +293,7 @@ var myChart = new Chart(ctx4, {
 
 
 
-
+//dailytime
 
 var myChart = new Chart(ctx5, {
     type: 'horizontalBar',
@@ -320,7 +335,12 @@ var myChart = new Chart(ctx5, {
 
 
 
-//ratio projects done/over
+
+
+
+
+//dynamic
+
 
 function displayDynamic( days, data){
 
@@ -367,7 +387,6 @@ var myChart = new Chart(ctx6, {
 
 
 
-
     {%if dynamic > 1 %}
 
             {%if dynamic == 2 %}
@@ -400,6 +419,9 @@ var myChart = new Chart(ctx6, {
 
      {%endif%}
 
+
+     
+     //progressBar
 
 
        {% if app.user.level == 'novice' %}

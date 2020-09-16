@@ -54,7 +54,7 @@ margin-top: 30px;
       </div>
       <div style='height: 100%; width: 33.33%'>
         
-     <p>Dynamique actuelle : </p>
+     <p>Dynamique actuelle (jours travaillés d'affilée) : </p>
          <canvas id="dynamicChart"></canvas>
 
          <pas de dynamique en cours</p>
@@ -70,6 +70,8 @@ margin-top: 30px;
         <p>Frequence de réalisation des objectifs journaliers :</p>
           
            <canvas id="limitRespectChart"></canvas>
+
+
 
         
         </div>
@@ -295,7 +297,7 @@ function displayGraph(){
 
     // The data for our dataset
     data: {
-        labels: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+        labels: ['Jour1', 'Jour2', 'Jour3', 'Jour4', 'Jour5', 'Jour6', 'Jour7'],
         datasets: [{
             label: 'temps travaillé/ jour (minutes)',
             backgroundColor: 'rgb(255, 99, 132)',
