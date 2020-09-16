@@ -37,12 +37,9 @@
 
 
             
-
            {%else%}
               <a href='{{ path("registerPath")}}'><button>Inscription</button></a>
-
-
-        {% endif %} 
+           {% endif %} 
 
     </div>
   </div>
@@ -57,14 +54,11 @@
 
           <a href='{{ path("profilePagePath")}}'><button>Votre profil</button></a>
 
-    
-    <a href='{{ path("logoutPath")}}'><button>Déconnexion</button></a>
+          <a href='{{ path("logoutPath")}}'><button>Déconnexion</button></a>
 
     {%else%}
 
-                    <a href='{{ path("loginPath")}}'><button>Connexion</button></a>
-
-
+      <a href='{{ path("loginPath")}}'><button>Connexion</button></a>
 
     {%endif%}
   </nav>
@@ -74,15 +68,12 @@
 
 <br>
 
-</br>
-
-
-        {% block body %}{% endblock %}
+  
+      {% block body %}{% endblock %}
                 
-              <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+       <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
      
         <script>
@@ -130,20 +121,20 @@
                  }
 
 
-                 function updatePin(){
+     function updatePin(){
 
-                         xrq = new XMLHttpRequest();
+           xrq = new XMLHttpRequest();
 
-                         xrq.onload = function(){
+           xrq.onload = function(){
 
-                      pin = JSON.parse(this.responseText).pinCount;
+             pin = JSON.parse(this.responseText).pinCount;
 
-                      displayPin();
+              displayPin();
 
  
-                   }
+           }
 
-                xrq.open('GET', '{{ path("getNotifPinPath")}}' , true );
+          xrq.open('GET', '{{ path("getNotifPinPath")}}' , true );
 
                 xrq.send();
 

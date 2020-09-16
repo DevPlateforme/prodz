@@ -310,6 +310,10 @@ class ProjectController extends AbstractController
     public function dailyCountDone( EntityManagerInterface $manager, UserInterface $user){
 
 
+        if(isset($_POST["projectId"])){
+
+
+
         $project = $this->getDoctrine()->getRepository(Project::class)->find($_POST['projectId']);
 
         $project->setDailyCountToDone();
@@ -384,11 +388,7 @@ class ProjectController extends AbstractController
 
                 }
             }
-
-
-
-
-    
+      
 
         
         $manager->persist($user);
@@ -396,6 +396,12 @@ class ProjectController extends AbstractController
         $manager->flush();
 
         return new JsonResponse(['pin' => $user->getPinCount()]);
+
+        }
+
+        return new JsonResponse(['error' => 'error']);
+
+
     }
 
 

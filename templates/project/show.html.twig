@@ -15,7 +15,7 @@
 <label>Total worktime</label>
 
 
-<progress id="totalCnt" max="{{totalLimit}}" value="{{totalCount}}"></progress>
+<progress id="totalCntHTML" max="{{totalLimit}}" value="{{totalCount}}"></progress>
 
 </br>
 
@@ -83,7 +83,7 @@
 
          
          
-         setInterval (function(){storeValues()}, 30000) ;
+         setInterval (function(){storeValues()}, 3000) ;
 
 
       
@@ -108,10 +108,11 @@
 
 
 
-      var startBtn = document.getElementById('startBtn');
-      var totalCnt = document.getElementById('totalCnt');
-      var dailyCntHTML = document.getElementById('dailyCntHTML');
+      var startBtn = document.getElementById('startBtn'); 
       var dailyCnt = {{dailyCount}};
+      var totalCnt = {{ totalCount }};
+      var dailyCntHTML = document.getElementById('dailyCntHTML');
+      var totalCntHTML = document.getElementById('totalCntHTML');
       var dailyCountDone = {{dailyCountDone}};
       var totalCountDone = {{totalCountDone}};
       var intervalInput = document.getElementById('intervalInput');
@@ -201,7 +202,7 @@
 
           xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-          xrq.send('projectId=' + {{ projectId}} + '&totalCount=' + totalCnt.value +'&dailyCount=' + dailyCnt);
+          xrq.send('projectId=' + {{ projectId}} + '&totalCount=' + totalCnt +'&dailyCount=' + dailyCnt);
 
       }
        
@@ -253,9 +254,14 @@
 
       function increaseCounts(){ 
 
+        console.log( totalCnt){
 
-         if(totalCnt.value >= ( (totalCnt.max/100)*90) ){
-               if(totalCnt.value >= {{totalLimit}}){
+           
+        }
+
+
+         if(totalCnt >= ( (totalCnt.max/100)*90) ){
+               if(totalCnt >= {{totalLimit}}){
 
               myfct();
             }
@@ -299,11 +305,12 @@
 
       }
 
-          totalCnt.value+=1;
+          totalCnt+=500;
 
-          dailyCnt+=5;
+          dailyCnt+=500;
 
           dailyCntHTML.value=dailyCnt;
+          totalCntHTML.value=totalCnt;
 
        }
 

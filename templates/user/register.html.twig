@@ -83,6 +83,8 @@
    if(validateEmail(userMail.value) == false){
 
     invalidMailMsg.innerHTML = 'veuillez saisir votre mail au format "exemple@mail.fr"';
+
+    return false;
     
    }
 
@@ -90,6 +92,9 @@
      if(mypassword.value != confirm_password.value){
 
      passErrorMsg.innerHTML = 'Mot de passe non identique';
+
+         return false;
+
 
      }
 
@@ -102,13 +107,10 @@
           userNameErrorMsg.innerHTML = 'utilisateur déjà utilisé';
 
         } else if(JSON.parse(this.responseText).mailUsed == false){
-              if((mypassword.value == confirm_password.value ) && (validateEmail(userMail.value) == false)){
-
-                 console.log(registerForm);
-
+            
                  registerForm.submit();
 
-              }
+            
          }
 
     }

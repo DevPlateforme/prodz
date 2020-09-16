@@ -290,16 +290,86 @@ class UserController extends AbstractController
     }
 
 
-    
- 
-
-
-
-
 
     
- 
 
+    /**
+     * @Route("/profilefront", name="profiletest")
+     */
+
+
+
+
+    public function profilePageFront (UserInterface $user){
+
+       
+        $projects = $user->getProjects();
+
+        $finishedProjects = 0;
+
+        $unfinishedProjects = 0;
+
+        $dynamic = $user->getDynamic();
+
+
+
+        foreach($projects as $project){
+
+            if( $project->getTotalCountDone() == 'true'){
+               
+                $finishedProjects+=1;
+
+            } elseif( $project->getTotalCountDone() == 'false'){
+
+                $unfinishedProjects += 1;
+
+            }
+        }
+
+
+        $daysOnTheApp = $user->getDaysOnTheApp();
+
+        $daysWithCountDone = $user->getAllDailyCountsDone();
+
+
+        if($daysOnTheApp != 0 ){
+
+            $dailyCountAverage = floor(($daysWithCountDone/$daysOnTheApp)*100);
+
+
+
+        } else {
+
+            $dailyCountAverage = 0;
+        }
+
+
+        $totalWork =  0;
+
+        
+        foreach($projects as $project){
+
+            $totalWork += $project->getTotalCount();
+        }
+
+
+        //contrary to the dailyCountAverage, we start the count as 1
+
+        $averageWorkTime = floor((($totalWork/($daysOnTheApp+1)))/60);
+
+       
+
+
+
+        return $this->render('user/profilePage2.html.twig',['finishedProjects' => $finishedProjects, 'unfinishedProjects' =>  $unfinishedProjects , 'dynamic' => $dynamic, 'dailyCountAverage' => $dailyCountAverage, 'averageWorkTime' => $averageWorkTime]);
+
+
+
+    }
+
+
+
+    
 
 
 
