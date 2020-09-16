@@ -7,11 +7,10 @@
 
 #backgroundDiv{
 
-    height: 100vh;
+ 
 
     width: 100vw;
 
-    background: purple;
 
     display: flex; 
 
@@ -19,14 +18,17 @@
 
 }
 
+#mainGraph{
+
+margin-top: 30px;
+
+}
 
 #topDiv{
     height: 30%; 
     
     width: 100% ; 
     
-    background: blue;
-
     display: flex;
 
 
@@ -42,36 +44,39 @@
 <div id='backgroundDiv'>
 
 <div id='topDiv'>
-      <div style='height: 100%; width: 33.33%; background:purple'>
+      <div style='height: 100%; width: 33.33%'>
       
 <p>Temps journalier moyen sur ce projet : </p>
 
-<h3>{{ averageWorkTime }} minutes </h3>
+   <canvas id="averageTimeChart"></canvas>
+
 
       </div>
-      <div style='height: 100%; width: 33.33%; background:green'>
+      <div style='height: 100%; width: 33.33%'>
         
-<p>Dynamique actuelle : </p>
+     <p>Dynamique actuelle : </p>
+         <canvas id="dynamicChart"></canvas>
 
+         <pas de dynamique en cours</p>
 
-    {%if dynamic > 1 %}
-
-    <h3>{{ dynamic }} jours travaillés d'affilée </h3>
-    
-     {%else%}
-
-          Pas de dynamique en cours (à partir de 2 jours)
-     {%endif%}
-      </div>
-      <div style='height: 100%; width: 33.33%; background:blue'>
       
-     <p>Frequence de réalisation des objectifs journaliers : </p>
 
-<h3> {{ averageDailyRespect}}%</h3></div>
 
-</div>
+      </div>
 
-<div style='height: 70%; width: 100% ; background: yellow' >
+
+      <div style='height: 100%; width: 33.33%'>
+      
+        <p>Frequence de réalisation des objectifs journaliers :</p>
+          
+           <canvas id="limitRespectChart"></canvas>
+
+        
+        </div>
+
+     </div>
+
+     <div id='mainGraph' style='height: 70%; width: 100% ;' >
 
 
 <h3><div id='displayedWeekHTML'></div></h3> <br>
@@ -173,6 +178,13 @@
 
 
      var ctx = document.getElementById('myChart').getContext('2d');
+
+     var dynamicChart = document.getElementById('dynamicChart').getContext('2d');
+
+     var averageTimeChart =  document.getElementById('averageTimeChart').getContext('2d');
+
+
+     var limitRespectChart = document.getElementById('limitRespectChart').getContext('2d');
 
   
       var day1 = {{ day1 }}
@@ -297,10 +309,169 @@ function displayGraph(){
 });
 
 
+}
+
+
+     
+
+function displayDynamic( days, data){
+
+var myChart = new Chart(dynamicChart, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Bonus de dynamique',
+            data: data, 
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
 
 
 }
 
+
+
+
+
+var myChart = new Chart(averageTimeChart, {
+    type: 'horizontalBar',
+    data: {
+        labels: ['minutes/jour', '', '',''],
+        datasets: [{
+            label: 'Minutes travaillés/jour',
+            data: [ {{ averageWorkTime }} ,0,0,0],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+
+    
+var myChart = new Chart(limitRespectChart, {
+    type: 'doughnut',
+    data: {
+        labels: ['respecté', 'non respecté'],
+        datasets: [{
+            label: '# of Votes',
+            data: [{{  averageDailyRespect }}, (100 - {{  averageDailyRespect }})],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+
+
+
+    {%if dynamic > 1 %}
+
+            {%if dynamic == 2 %}
+
+
+              displayDynamic( ['jour1', 'jour2'], [0, 20]);
+
+            {%elseif   dynamic == 3 %}
+                  
+                    displayDynamic( ['jour1', 'jour2', 'jour3'], [0, 20, 30]);
+
+            {%elseif   dynamic == 4 %}
+
+               displayDynamic( ['jour1', 'jour2','jour3', 'jour4'], [0, 20, 30, 40]);
+
+ 
+            {%elseif   dynamic >= 5 %}
+
+                displayDynamic( ['jour1', 'jour2', 'jour3', 'jour4', 'jour5'], [0, 20, 30, 40, 50]);
+         
+              {%endif%}
+
+            
+  
+          {%elseif  dynamic <= 1 %}
+ 
+         
+             displayDynamic( ['jour1', 'jour2', 'jour3', 'jour4', 'jour5'], [0, 0, 0, 0, 0]);
+
+
+     {%endif%}
 
 
 

@@ -1,9 +1,45 @@
 {% extends 'base.html.twig' %}
 
+
+
 {% block title %}My project{% endblock %}
 
 {% block body %}
 <style>
+
+#backgroundDiv{
+
+   width: 100vw;
+
+   height: 100vh;
+
+   display: flex;
+
+   flex-direction: column;
+
+   align-items: center;
+
+}
+
+#totalCntHTML{
+
+   width: 90vw;
+}
+
+#dailyCntHTML{
+
+   width: 90vw;
+}
+
+
+#startBtn{
+
+   postition: fixed;
+
+   top: 80vh;
+
+   
+}
 
 
 </style>
@@ -12,37 +48,31 @@
 
 
 
-<label>Total worktime</label>
+<div id='backgroundDiv'>
+
+   <label>Total worktime</label>
 
 
-<progress id="totalCntHTML" max="{{totalLimit}}" value="{{totalCount}}"></progress>
+   <progress id="totalCntHTML" max="{{totalLimit}}" value="{{totalCount}}"></progress>
 
-</br>
-
-
-
-<label>Daily worktime</label>
-
-<div id = 'progressDiv' ><progress id="dailyCntHTML" max="{{dailyLimit}}" value="{{dailyCount}}"></progress></div>
-
-</br>
-
-<button id="startBtn">start</button>
+    </br>
 
 
+   <label>Daily worktime</label>
+
+   <div id = 'progressDiv' ><progress id="dailyCntHTML" max="{{dailyLimit}}" value="{{dailyCount}}"></progress></div>
+
+   </br>
+
+   <button id="startBtn">start</button>
+   </br>
+
+  <form id='projectDone' method='post' action= '{{path("totalCountDonePath")}}'>
+
+   <input type='hidden' name = 'projectId' value = '{{ projectId}}'>
 
 
-
-
-</br>
-
-
-<form id='projectDone' method='post' action= '{{path("totalCountDonePath")}}'>
-
- <input type='hidden' name = 'projectId' value = '{{ projectId}}'>
-
-
-</form>
+  </form>
 
 
 
@@ -72,6 +102,8 @@
    <a href = '{{ path("deleteProjectPath", { "projectId" : projectId , "redirect" : "allProjects"  })}}'><button>Supprimer projet</button></a>
 
 
+</body>
+
 {% endblock %}
 
       {% block javascripts %}
@@ -83,7 +115,7 @@
 
          
          
-         setInterval (function(){storeValues()}, 3000) ;
+         setInterval (function(){storeValues()}, 15000) ;
 
 
       
@@ -253,11 +285,6 @@
 
 
       function increaseCounts(){ 
-
-        console.log( totalCnt){
-
-           
-        }
 
 
          if(totalCnt >= ( (totalCnt.max/100)*90) ){
