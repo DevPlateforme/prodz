@@ -6,9 +6,15 @@
 
   
         {% block stylesheets %}
+        
+          
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+       
+       
+       
+          
           
         {% endblock %}
     </head>
@@ -18,30 +24,27 @@
     
   <div id='myNavBar'>
   
-  <div id='leftNavDiv'>
-     <a href="{{ path('admin') }}">  <img id='logoImg' src='{{ asset("images/lab.png") }}'> </a>
+    <div id='leftNavDiv'>
+       <a href="{{ path('admin') }}">  <img id='logoImg' src='{{ asset("images/lab.png") }}'> </a>
+     </div>
 
-  </div>
-
-  <div id='rightNavDiv'>
-
-
-       <div>          <a href='{{ path("profilePagePath")}}'><button>Votre profil</button></a>  </div>
-
-
-
+     <div id='rightNavDiv'>
+     
+       
   
      <div>
+
+              {% if app.user %}
+
        
-       <div>
-        <i id='bellIcon' class="fa fa-bell fa-2x" aria-hidden="true" style="color:black"></i>
+         <div>
+           <i id='bellIcon' class="fa fa-bell fa-2x" aria-hidden="true" style="color:black"></i>
         </div>
 
 
          
          <div>
 
-         {% if app.user %}
          <div id='notifPin' style='color: red'>
              {% if app.user.pinCount != 0 %}
               {{ app.user.pinCount }}
@@ -55,21 +58,25 @@
      </div>
 
 
-          <div>         
           
            {% if app.user %}
 
-               <a href='{{ path("logoutPath")}}'><button>Déconnexion</button></a> 
+                   <div id='logoutButton'>         
+                        <a href='{{ path("logoutPath")}}'><button style='background:none; border:none; outline:none'><i class="fas fa-2x fa-sign-out-alt"></i></button></a> 
+                  
+                   </div>
 
             {%else%}
 
-               <a href='{{ path("loginPath")}}'><button>Connexion</button></a> 
+               <div>
 
-               
+                  <a href='{{ path("loginPath")}}'><button style='margin-right: 3vw; margin-top: 8px; border: none; outline: none'><i class="fas fa-2x fa-street-view"></i></button></a> 
+
+              </div>
+
            {% endif %}
            
            
-           </div>
 
 
   </div>
@@ -78,9 +85,10 @@
 
   </div>
 
+
      <div id='notifContentDiv'>
 
-          <div id='notifContent'> </div> </br>
+          <div id='notifContent'>   </div> </br>
      
      </div>
      
@@ -118,7 +126,7 @@
             
             height: 100%;
 
-            width: 30%;
+            width: 10%;
 
             display: flex;
 
@@ -126,7 +134,9 @@
 
             align-items: center;
 
-            margin-right: 3vw;
+            margin-right: 7vw;
+
+            
 
            }
 
@@ -137,9 +147,17 @@
             
             width: 30%;
 
+            display: flex;
 
+            justify-content: center;
 
+            margin-right: 0.5%;
 
+           }
+
+           #logoutButton{
+
+             margin-right: 500px;
            }
 
 
@@ -175,9 +193,6 @@
              border-radius: 10px;
 
              opacity: 0;
-
-
-
              
            }
 
@@ -187,7 +202,6 @@
 
              width: auto;
            }
-
 
 
            #myFooter{
@@ -205,6 +219,18 @@
              display: flex;
 
              justify-content: center;
+           }
+
+
+          #myFooter div{
+           
+           display: flex;
+
+           width: 18%;
+
+           justify-content: space-around;
+
+
            }
 
 
@@ -229,8 +255,6 @@
      <a href="{{ path('admin') }}"><button>home</button></a>
 
      {% if app.user %}
-
-               <i id='bellIcon' class="fa fa-bell fa-2x" aria-hidden="true" style="color:white"></i>
 
                
                 <div id='notifContent'> </div> </br>
@@ -261,17 +285,21 @@
 {% if app.user %}
 
 <div id='myFooter'>
-        
-        <div>
-           <a href='{{ path("showAllProjectsPath") }}'><button>Voir tes projets en cours</button></a>
-        </div>
-        <div>
-           <a href='{{ path("showAllDoneProjectsPath") }}'><button>Voir tes projets accomplis</button></a>
-        </div>
+     <div>
 
-        <div>
-            <a href='{{ path("newProjectPath") }}'><button>Créer un projet</button></a>
+         <div><a href='{{ path("profilePagePath")}}'><button style='background:none; border:none; outline: none'><i class="fas fa-x fa-user"></i></button></a>  </div>
+
+       
+       <div>
+           <a href='{{ path("showAllDoneProjectsPath") }}'><button style='background:none; border:none; outline: none'><i class="fas fa-vials"></i></button></a>
         </div>
+        <div>
+           <a href='{{ path("showAllProjectsPath") }}'><button  style='background:none; border:none; outline: none'><i class="fas fa-vial"></i></button></a>
+        </div>
+        <div>
+            <a href='{{ path("newProjectPath") }}'><button style='background:none; border:none; outline: none'><i class="fas fa-plus-circle fa-2x"></i></button></a>
+        </div>
+      </div>
 
 </div>
 
@@ -372,7 +400,7 @@
 
             for(i=0; i<  notifIdArray.length; i++){
 
-               loadedNotifs += ' <div style="color:black"> <p style="color:black">' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<span id="setToViewLink" value =' + notifIdArray[i] + '>Marquer comme "vu"</span></p></a> </div>' ;
+               loadedNotifs += ' <div style="color:black"> <p style="color:black">' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<span id="setToViewLink" value =' + notifIdArray[i] + '><i class="fas fa-check-circle fa-2x"></i></span></p></a> </div>' ;
 
             
             }
@@ -394,7 +422,7 @@
          
                 {% for notification in app.user.notifications %}  
 
-                    loadedNotifs += ' <div style="color:black"><p >{{ notification.content }}</p>' + '</br>' + '<a  onclick = "setNotifAsDone(event)"> <span id ="setToViewLink" value = "{{ notification.id }}">Marquer comme "vu"</span></a></div>' ;
+                    loadedNotifs += ' <div style="color:black"><p >{{ notification.content }}</p>' + '</br>' + '<a  onclick = "setNotifAsDone(event)"> <span id ="setToViewLink" value = "{{ notification.id }}"><i class="fas fa-check-circle fa-2x"></i></span></a></div>' ;
                                   
                 {% endfor %} 
             
@@ -465,7 +493,7 @@
             for(i=0; i < notifContentArray.length; i++){
 
 
-                loadedNotifs += '<div style="color:black"><p>' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<span id="setToViewLink" value =' + notifIdArray[i] + '>Marquer comme "vu"</span></a></div>' ;
+                loadedNotifs += '<div style="color:black"><p>' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<span id="setToViewLink" value =' + notifIdArray[i] + '><i class="fas fa-check-circle fa-2x"></i></span></a></div>' ;
 
             }
 

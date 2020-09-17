@@ -1,87 +1,486 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mail{% endblock %}
 
 {% block body %}
+
+
+
+
 <style>
+
+
+
+
+
+   #bgDiv{
+
+      height:100vh; 
+      width:100vw; 
+      display:flex; 
+      justify-content:flex-start; 
+
+       }
+
+    
+
+
+    img{
+
+      width: 100%;
+
+      height: auto;
+    }
+
 
 </style>
 
-<h1>Voici ton profil</h1>
 
 
-     {% if app.user %}
+<div id='bgDiv'>
 
-     <h3>Ton avatar</h3>
-       
-       <img src='{{ asset( app.user.avatarAssetSrc ) }}'>
 
-        
-   
-    <h3>Ton statut</h3>
-
-    {{ app.user.level}}
-
-      
-    <h3>Tes points de compétence </h3>
-
-      {{ app.user.competencyPoints}}
+  <div style='display:flex; flex-direction: column; justify-content: space-around; width:25%; align-items:center'>
+           <h1>Ton niveau : {{ app.user.level}} </h1>
+         
+           <img src='{{ asset( app.user.avatarAssetSrc ) }}'>
 
 
 
-    <h3>Nombre de projets finis</h3>
-
-    {{ finishedProjects }}
-
-
-    <h3>Nombre de projets en cours </h3>
-
-    {{ unfinishedProjects }}
-
-
-
-    <h3>Temps moyen travaillé/jour </h3>
-
-
-            {{ averageWorkTime }} minutes
-
-
-
-
-    
-    <h3>Dynamique globale actuelle (jours travaillés d'affilée)</h3>
-
-    {%if dynamic > 1 %}
-
-    {{ dynamic }} jours travaillés d'affilée 
-    
-     {%else%}
-
-          Pas de dynamique en cours (à partir de 2 jours)
-     {%endif%}
-    
-    <h3>Pourcentage accomplissement compte journalier</h3>
-
-       {{ dailyCountAverage }} %
-
+  </div>
 
   
-        <h3>Mailing de suivi (coup de pression)</h3>
+  <div style='display:flex; flex-direction: column; justify-content: space-around;  width:75%; align-items:center'>
+   
+    <div style='width:100%; height:50%;  display:flex; flex-direction: row; justify-content: space-between;' >
 
-    {{ app.user.mailing}}
+        <div style='height:100%; width:50%; display: flex; flex-direction: column;'>
+
+            <div style='height: 50% ; width: 100%; ' >                  
+               <h5> Mailing :     {{ app.user.mailing}} </h5>
+            </div>
+            <div id='progressDiv' style='height: 50%; width: 100%; '>
+                  <progress id='progressBar' value='1' max='100'></progress>
+
+            </div>
+    
+        </div>
+
+         <div style='height:100%; width:50%; display:flex; flex-direction: column; justify-content: space-between;'>
+
+           <div style='height:10%; width:100%;'>
+           
+                    <canvas id="myChart3"></canvas>
+
+
+           </div>
+           <div style='height:10%; width:100%;'>
+
+                          <canvas id="myChart4"></canvas>
+
+           </div>
+   
+         
+         </div>
 
 
 
-     {%endif%}
+
+    </div>
+    
+    <div style='width:100%; height:50%; display:flex;'>
+       
+       <div id='dynamicDiv' style='width:50%; height: 100%; '>
+
+       
+        <canvas id="myChart6"></canvas>
+
+        
+       </div>
+
+     
+
+
+        <div style='width:50%; height: 100%;'>
+          
+            <canvas id="myChart5"></canvas>
+
+
+        </div>
+    
+    </div>
+  </div>
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 {% endblock %}
 
 
-
-{%block javascripts %}
-
+{% block javascripts %}
 
 
-{%endblock%}
+
+
+
+var ctx3 = document.getElementById('myChart3').getContext('2d');
+
+var ctx4 = document.getElementById('myChart4').getContext('2d');
+var ctx5 = document.getElementById('myChart5').getContext('2d');
+
+var ctx6 = document.getElementById('myChart6').getContext('2d');
+
+
+var dynamicDiv = document.getElementById('dynamicDiv');
+
+var progressDiv = document.getElementById('progressDiv');
+
+var progressBar =  document.getElementById('progressBar');
+
+
+function displayChart(canvas){
+
+
+var myChart = new Chart(canvas, {
+    type: 'line',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+//ratio projects done/over
+
+var myChart = new Chart(ctx3, {
+    type: 'doughnut',
+    data: {
+        labels: ['en cours', 'finis'],
+        datasets: [{
+            label: 'Etat de vos projets',
+            data: [{{ unfinishedProjects }}, {{ finishedProjects }}
+],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+
+
+
+//ratio projects done/over
+
+var myChart = new Chart(ctx4, {
+    type: 'doughnut',
+    data: {
+        labels: ['respecté', 'non respecté'],
+        datasets: [{
+            label: '# of Votes',
+            data: [{{ dailyCountAverage }}, (100 - {{ dailyCountAverage }})],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+
+//dailytime
+
+var myChart = new Chart(ctx5, {
+    type: 'horizontalBar',
+    data: {
+        labels: ['minutes/jour', '', '',''],
+        datasets: [{
+            label: 'Minutes travaillés/jour',
+            data: [ {{ averageWorkTime }} ,0,0,0],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+
+
+
+
+
+
+//dynamic
+
+
+function displayDynamic( days, data){
+
+var myChart = new Chart(ctx6, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Bonus de dynamique',
+            data: data, 
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+}
+
+
+
+
+    {%if dynamic > 1 %}
+
+            {%if dynamic == 2 %}
+
+
+              displayDynamic( ['jour1', 'jour2'], [0, 20]);
+
+            {%elseif   dynamic == 3 %}
+                  
+                    displayDynamic( ['jour1', 'jour2', 'jour3'], [0, 20, 30]);
+
+            {%elseif   dynamic == 4 %}
+
+               displayDynamic( ['jour1', 'jour2','jour3', 'jour4'], [0, 20, 30, 40]);
+
+ 
+            {%elseif   dynamic >= 5 %}
+
+                displayDynamic( ['jour1', 'jour2', 'jour3', 'jour4', 'jour5'], [0, 20, 30, 40, 50]);
+         
+              {%endif%}
+
+            
+  
+          {%elseif  dynamic <= 1 %}
+ 
+         
+             displayDynamic( ['jour1', 'jour2', 'jour3', 'jour4', 'jour5'], [0, 0, 0, 0, 0]);
+
+
+     {%endif%}
+
+
+     
+     //progressBar
+
+
+       {% if app.user.level == 'novice' %}
+
+
+        progressBar.value =  {{ app.user.competencyPoints}};
+
+        progressBar.max = 50;
+
+         progressDiv.innerHTML += '</br>élément à fort potentiel'
+
+
+        
+       {% elseif   app.user.level == 'élément à fort potentiel' %}
+
+
+        progressBar.value =  {{ app.user.competencyPoints}};
+
+        progressBar.max = 100;
+
+          progressDiv.innerHTML += '</br>niveau suivant: Loup de Wall Street'
+
+
+        
+       {% elseif app.user.level == 'loup de Wall Street' %}
+
+
+        progressBar.value =  {{ app.user.competencyPoints}};
+
+        progressBar.max = 150;
+
+        progressDiv.innerHTML += '</br>niveau suivant: jeff Bezzos'
+
+
+        
+       {% elseif app.user.level == 'Jeff Bezzos' %}
+
+
+        console.log(progressBar);
+
+        progressBar.value = 100;
+
+        progressBar.max = 100;
+
+
+        progressDiv.innerHTML += '</br>Tu as atteint le niveau maximum, à toi de le maintenir!'
+
+
+
+      {%endif%}
+    
+
+
+
+
+
+
+{% endblock %}
+
+

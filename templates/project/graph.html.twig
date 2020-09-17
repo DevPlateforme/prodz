@@ -8,109 +8,98 @@
 #backgroundDiv{
 
  
-
     width: 100vw;
 
 
     display: flex; 
 
-    flex-direction : column;
+    flex-direction : row;
+    
 
 }
 
-#mainGraph{
+#backgroundDiv div{
 
-margin-top: 30px;
-
+    margin-top: 20px;
 }
 
 #topDiv{
-    height: 30%; 
+    height: 100%; 
     
-    width: 100% ; 
+    width: 50% ; 
     
     display: flex;
 
+    flex-direction: column;
+
+}
+
+#topDiv div{
+    height: 33.3%;
 
 
 }
+
+
+
+
+
 
 
 
 </style>
 
-<br>
-
-<div id='backgroundDiv'>
-
-<div id='topDiv'>
-      <div style='height: 100%; width: 33.33%'>
-      
-<p>Temps journalier moyen sur ce projet : </p>
-
-   <canvas id="averageTimeChart"></canvas>
 
 
-      </div>
-      <div style='height: 100%; width: 33.33%'>
+     <div id='backgroundDiv'>
+       
+       <div id='mainGraph' >
+
+       <div style='height: 50%; width: 100% ;' >
+
+          <h3><div id='displayedWeekHTML'></div></h3> <br>
+          <canvas id="myChart"></canvas>
+          <button onclick = 'lastWeekGraph()' id='lastWeekButton'>semaine précédente</button>
+          <button onclick= 'nextWeekGraph()'id='nextWeekButton'>semaine suivante</button>
+
+     </div>
+
+     <div  style='height: 50%; width: 100% ; margin-top: 20px'>
         
-     <p>Dynamique actuelle (jours travaillés d'affilée) : </p>
+        <p>Dynamique actuelle (jours travaillés d'affilée) : </p>
          <canvas id="dynamicChart"></canvas>
-
          <pas de dynamique en cours</p>
 
+      </div>
+
+    </div>
+
+     
+<div id='topDiv'>
+
+      <div>
       
+     <p>Temps journalier moyen sur ce projet : </p>
+
+     <canvas id="averageTimeChart"></canvas>
 
 
       </div>
+ 
 
-
-      <div style='height: 100%; width: 33.33%'>
+      <div style='margin-top: 20px'>
       
         <p>Frequence de réalisation des objectifs journaliers :</p>
           
            <canvas id="limitRespectChart"></canvas>
 
-
-
-        
         </div>
 
      </div>
-
-     <div id='mainGraph' style='height: 70%; width: 100% ;' >
-
-
-<h3><div id='displayedWeekHTML'></div></h3> <br>
-
-
-
-
-
-
-
-
-
-<canvas id="myChart"></canvas>
-
-<button onclick = 'lastWeekGraph()' id='lastWeekButton'>semaine précédente</button>
-
-<button onclick= 'nextWeekGraph()'id='nextWeekButton'>semaine suivante</button>
-
-
-
-
-</br>
-
-
-
-
-
 </div>
 
 
 
-</div>
 
 
 
