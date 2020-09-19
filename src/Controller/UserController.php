@@ -99,7 +99,7 @@ class UserController extends AbstractController
 
             $manager->flush();
 
-            return $this->redirectToRoute('admin');
+            return $this->redirectToRoute('profilePagePath');
             
         }
 

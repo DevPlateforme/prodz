@@ -3,15 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Bienvenue dans ton labo{% endblock %}</title>
-
-  
-        {% block stylesheets %}
+        
         
           
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-       
+  
+        {% block stylesheets %}
+        
        
        
           
@@ -25,7 +25,12 @@
   <div id='myNavBar'>
   
     <div id='leftNavDiv'>
-       <a href="{{ path('admin') }}">  <img id='logoImg' src='{{ asset("images/lab.png") }}'> </a>
+      {% if app.user %}
+       <a href="{{ path('profilePagePath') }}">  <img id='logoImg' src='{{ asset("images/lab.png") }}'> </a>
+      {%else%}
+         <img id='logoImg' src='{{ asset("images/lab.png") }}'>
+
+        {% endif %}
      </div>
 
      <div id='rightNavDiv'>
@@ -180,9 +185,11 @@
 
            #notifContentDiv{
 
+             padding: 15px;
+
              position: fixed;
  
-             width: 20vw;
+             width: 22vw;
 
              top: 9vh;
 
@@ -193,6 +200,10 @@
              border-radius: 10px;
 
              opacity: 0;
+
+             z-index: 10;
+
+             box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, 0.2);
              
            }
 
@@ -297,7 +308,7 @@
            <a href='{{ path("showAllProjectsPath") }}'><button  style='background:none; border:none; outline: none'><i class="fas fa-vial"></i></button></a>
         </div>
         <div>
-            <a href='{{ path("newProjectPath") }}'><button style='background:none; border:none; outline: none'><i class="fas fa-plus-circle fa-2x"></i></button></a>
+            <a href='{{ path("newProjectPath") }}'><button style='background:none; border:none; outline: none'><i class="fas fa-plus-circle"></i></button></a>
         </div>
       </div>
 
@@ -311,9 +322,11 @@
        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-
-     
+        
+              
        <script>
+
+       
 
    
        var notifContentDiv = document.getElementById('notifContentDiv');
@@ -400,7 +413,7 @@
 
             for(i=0; i<  notifIdArray.length; i++){
 
-               loadedNotifs += ' <div style="color:black"> <p style="color:black">' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<span id="setToViewLink" value =' + notifIdArray[i] + '><i class="fas fa-check-circle fa-2x"></i></span></p></a> </div>' ;
+               loadedNotifs += ' <div style="color:black"> <p style="color:black">' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<span id="setToViewLink" value =' + notifIdArray[i] + '>vu</span></a> </div>' ;
 
             
             }
@@ -422,7 +435,7 @@
          
                 {% for notification in app.user.notifications %}  
 
-                    loadedNotifs += ' <div style="color:black"><p >{{ notification.content }}</p>' + '</br>' + '<a  onclick = "setNotifAsDone(event)"> <span id ="setToViewLink" value = "{{ notification.id }}"><i class="fas fa-check-circle fa-2x"></i></span></a></div>' ;
+                    loadedNotifs += ' <div style="color:black"><p >{{ notification.content }}</p>' + '</br>' + '<a  onclick = "setNotifAsDone(event)"> <span id ="setToViewLink" value = "{{ notification.id }}">vu<i class="fas fa-check-circle"></i></span></a></div>' ;
                                   
                 {% endfor %} 
             
@@ -492,8 +505,7 @@
 
             for(i=0; i < notifContentArray.length; i++){
 
-
-                loadedNotifs += '<div style="color:black"><p>' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<span id="setToViewLink" value =' + notifIdArray[i] + '><i class="fas fa-check-circle fa-2x"></i></span></a></div>' ;
+                loadedNotifs += '<div style="color:black"><p>' + notifContentArray[i] +'</p></br>' + '<a  onclick = "setNotifAsDone(event)">' +  '<span id="setToViewLink" value =' + notifIdArray[i] + '>vu</a></div>' ;
 
             }
 
@@ -507,9 +519,8 @@
 
               pin = '';
 
-               displayPin();
-
-
+              displayPin();
+              
             
             } else {
               

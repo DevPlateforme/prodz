@@ -34,8 +34,6 @@ body{
    width: auto;
 
    
-filter: invert(48%) sepia(5%) saturate(3207%) hue-rotate(130deg) brightness(50%) contrast(70%);
-
 }
 
 
@@ -98,7 +96,7 @@ body {
 
      opacity:0;
 
-  width: 35px;
+  width: 60px;
   height: auto;
   position: absolute;
 
@@ -175,6 +173,8 @@ body {
 
 
 
+
+
 </style>
 
 <br>
@@ -183,11 +183,15 @@ body {
 
 <div id='backgroundDiv'>
 
-   <label>Durée complète du projet</label>
+  
+  
+
 
    <div>
+
+
    
-     <img id ='flaskLogo' src='{{ asset("images/flask.png") }}'> 
+     <img id ='flaskLogo' src='{{ asset("images/lab.png") }}'> 
 
      <div id='totalProgress'></div>
 
@@ -224,16 +228,17 @@ body {
 <br>
 <br>
 <br>
-
-
+<br>
+<br>
    <div id = 'progressDiv' ><progress id="dailyCntHTML" max="{{dailyLimit}}" value="{{dailyCount}}"></progress></div>
    
-      <label>Temps journalier</label>
 
    </br>
 
    <button id="startBtn"><i class="fas fa-play-circle fa-3x"></i></button>
    </br>
+
+   
 
   <form id='projectDone' method='post' action= '{{path("totalCountDonePath")}}'>
 
@@ -251,7 +256,15 @@ body {
       
 </form>
 
+<div style='width: 28%; height: 30px; display: flex; align-items: center; justify-content: flex-start; border: 2px solid white; flex-direction: row; border-radius: 5px; margin: none;'>
+      
+    <div id='myProgressBar' style='margin-top: 0.5px; background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/172299/bubbles-mask.gif);  width: 15%; height: 100%; display: flex;  '> 
+       
+       <div id='liquid' style=' height: 100%; width: 100%; background: linear-gradient(to bottom, #A3E2EF 35%, #4F9CC0);  opacity: 0.8 ; display: flex; justify-content: center; flex-direction: row';><div id='progressText' style=' font-size: 15px; width: 10%; height: 100%; display:flex; justify-content:flex-end; margin-bottom: 80px; margin-right: 24.5px; border-radius: 10px'>
 
+    </div>
+
+ </div>
 
 
 <a href='{{ path("showGraphPath", {"projectId": projectId }) }}'<button id='chartLink'><i class="fas fa-chart-line fa-3x"></i></button>
@@ -266,7 +279,10 @@ body {
       {% block javascripts %}
 
 
-      
+       
+       var liquid = document.getElementById("liquid");
+
+     
 
          //setInterval (function(){refreshAt(23,55,0)}, 10000000) ;
 
