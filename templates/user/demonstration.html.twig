@@ -62,6 +62,13 @@
        
        }
 
+       #colorForm{
+
+          opacity: 0;
+
+          transition: 0.4s;
+       }
+
 
        </style>
           
@@ -89,11 +96,30 @@
        <button onclick='displayArm()'>display arm</button>
 
             
-            </br></br></br>
-             </br></br></br> 
               </br></br></br>
-              </br></br></br>   <button onclick='displayArm()'>Commencer la simulation</button>
-      
+              </br></br></br> 
+              </br></br></br>
+              </br></br></br>   
+              
+
+            <button onclick='chooseColor()'>Commencer la simulation</button>
+
+
+
+
+               
+           <form id='colorForm' method='post' action='{{ path("demoProjectPath")}}'>
+              <select name='projectColor'>
+                 <option value='red'>rouge</option>
+                 <option value='blue'>bleu</option>
+                 <option value='green'>vert</option>
+              </select>
+
+            <input type='submit' value='commencer'>
+           </form>
+       
+
+
       <h1>En bref, cette appli te permet de créer un ensemble de projets, te permettant de traquer ton temps. 
       Pour te présenter l'appli, concentrons nous sur un projet. Imaginons que ce qui représente ton projet est cette fiole colorée.
 
@@ -102,8 +128,8 @@
 
 
             </br></br></br>
-             </br></br></br> 
-              </br></br></br>
+            </br></br></br> 
+            </br></br></br>
 
   
 
@@ -117,6 +143,8 @@
 
          var hideArmDiv2 = document.getElementById("hideArmDiv2");
 
+         var colorForm = document.getElementById('colorForm');
+
 
 
 
@@ -129,6 +157,16 @@
 
 
         }
+
+
+        
+            function chooseColor(){
+
+               colorForm.style.opacity = 1;
+
+            }
+
+
 
 
 

@@ -238,25 +238,12 @@ body {
    <button id="startBtn"><i class="fas fa-play-circle fa-3x"></i></button>
    </br>
 
-   
 
-  <form id='projectDone' method='post' action= '{{path("totalCountDonePath")}}'>
-
-   <input type='hidden' name = 'projectId' value = '{{ projectId}}'>
+   <button onclick='simulateDay()'>Simuler un jour</button>
 
 
 
 
-  </form>
-
-
-
-
-<form id ="intervalForm" action= '{{ path("showProjectPath", {"projectId": projectId })}}' method="post" >
-      <input id='intervalInput' type='hidden' name = 'interval' value = 'off'>
-      <input id='pageReload' type='hidden' name = 'pageReload'>
-      
-</form>
 
 <div style='width: 28%; height: 34px; display: flex; align-items: center; justify-content: flex-start; border: 2px solid white; flex-direction: row; border-radius: 5px; margin: none; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);'>
       
@@ -282,7 +269,7 @@ body {
  </div>
 
 
-<a href='{{ path("showGraphPath", {"projectId": projectId }) }}'<button id='chartLink'><i class="fas fa-chart-line fa-3x"></i></button>
+<button id='chartLink'><i class="fas fa-chart-line fa-3x"></i></button>
 
 
 
@@ -298,14 +285,6 @@ body {
        var liquid = document.getElementById("liquid");
 
      
-
-         //setInterval (function(){refreshAt(23,55,0)}, 10000000) ;
-
-         
-         
-         setInterval (function(){storeValues()}, 600000) ;
-
-
       
             
 
@@ -313,139 +292,55 @@ body {
 
 
       var startBtn = document.getElementById('startBtn'); 
-      var dailyCnt = {{dailyCount}};
-      var totalCnt = {{ totalCount }};
+      var dailyCnt = 0;
+      var totalCnt = 0;
+      var dailyLimit = 15;
+      var totalLimit = 60;
       var totalProgress = document.getElementById('totalProgress');
-      var dailyCountDone = {{dailyCountDone}};
-      var totalCountDone = {{totalCountDone}};
+      var dailyCountDone = false;
+      var totalCountDone = false;
       var intervalInput = document.getElementById('intervalInput');
       var intervalForm = document.getElementById('intervalForm');
       var projectDone = document.getElementById('projectDone');
       var fireLogo = document.getElementById('fireLogo');
       var myProgressBar = document.getElementById('myProgressBar');
+      var notifNumber = 0;
               
       var done = false;
 
-      var interval = "{{interval}}";
-
-      var pageReloaded = {{ pageReloaded }}
 
 
-
-      if(interval == "on"){
-
-         countFunction();
-
-
-
-      }
-
-      
 
             window.onload = function(){
 
-                         totalProgress.innerHTML =  Math.floor( {{ (totalCount/totalLimit) * 100 }}) + ' %';
+                         totalProgress.innerHTML =  Math.floor( '0%');
 
                           myProgressBar.style.width = dailyCnt + '%';
 
 
-                         window.onbeforeunload = function(){ storeValues()};
-
             }
-            
-
-
+           
 
       
-       
-       function refreshAt(hours, minutes, seconds) {
-    var now = new Date();
-    var then = new Date();
-
-
-    if(now.getHours() > hours ||
-       (now.getHours() == hours && now.getMinutes() > minutes) ||
-        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
-        then.setDate(now.getDate() + 1);
-    }
-    then.setHours(hours);
-    then.setMinutes(minutes);
-    then.setSeconds(seconds);
-     
-
-        console.log(then - now);
-
-
-    
-    if((then - now) < 300000){    
-
-         
-
-                   if(startBtn.innerHTML == '<i class="fas fa-pause-circle fa-3x"></i>'){
-
-                      intervalInput.value = 'on';
-
-                      console.log('on!!');
-                          }
-
-        
-                  console.log('letsgo');
-
-                  storeValues();
-
-                  intervalForm.submit();
-
-
-
-
-            }
-
-
-      
- }
+ 
   
 
      
    
-         
-
-
-     
-     function storeValues(){
-
-       console.log("stored");
-         
-         xrq = new XMLHttpRequest();
-         
-         xrq.onload = function(){
-
-         }
-          xrq.open('POST', '{{ path("storeCountsPath")}}', true);
-
-          xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-          xrq.send('projectId=' + {{ projectId}} + '&totalCount=' + totalCnt +'&dailyCount=' + dailyCnt);
-
-      }
-       
-      
-   
-      var myInterval;
-
-
+        
       startBtn.addEventListener('click', function(){
 
          countFunction();
 
-      })
+      });
 
 
-
-      var storeInterval;
 
       //interval, checking regularly if the dailyyCount is done
 
       var checkDailyCountInterval;
+
+      var myInterval;
 
 
       function countFunction(){
@@ -462,11 +357,7 @@ body {
             
              checkDailyCountInterval = setInterval(function(){ checkDailyCount()}, 1000); 
 
-             storeInterval = setInterval(function(){ storeValues()}, 2000);
-             
-
-
-
+          
           }
 
           else {
@@ -474,10 +365,6 @@ body {
              clearInterval(myInterval);
 
              clearInterval(checkDailyCountInterval);
-
-             clearInterval(storeInterval);
-
-
 
           
              fireLogo.style.opacity = 0;
@@ -487,50 +374,77 @@ body {
               
           }
 
+    }
 
 
-      }
+function simulateDay(){
 
+        xrq = new XMLHttpRequest();
+
+           xrq.onload = function(){
+               
+               console.log('done');
+             
+                updateNotifs();
+
+                updatePin();
+
+                notifNumber += 1;
+
+
+          }
+
+         var url ='{{ path("demoNotifPath", { "notifNumber" : "notifNumber" }) }}'
+
+         url = url.replace("notifNumber", notifNumber);
+          xrq.open('GET', url , true);
+
+
+          xrq.send();
+}
 
 
 function checkDailyCount(){
 
                
-        if(dailyCnt >= {{dailyLimit}}) {
+        if(dailyCnt >= dailyLimit) {
 
            if (dailyCountDone == false){
 
-           
+           console.log('daily count done');
 
-          xrq = new XMLHttpRequest();
+          
+           xrq = new XMLHttpRequest();
 
-          xrq.onload = function(){
+           xrq.onload = function(){
                
                console.log('done');
              
-              updateNotifs();
+               updateNotifs();
 
-              updatePin();
+               updatePin();
 
-             console.log(JSON.parse(this.responseText).pin);
+               console.log(JSON.parse(this.responseText).pin);
 
-             dailyCountDone = true;
+               dailyCountDone = true;
 
           }
 
 
-          xrq.open('POST', '{{ path("dailyCountDonePath")}}', true);
+          xrq.open('GET', '{{ path("demoNotifPath", { "notifNumber" : 3 }) }}', true);
 
-          xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-          xrq.send('projectId=' + {{ projectId}});
+          xrq.send();
 
          }
 
 
-      }
+            
+
+           dailyCountDone = true;
 
 
+          }
 
 
 }
@@ -545,28 +459,19 @@ function checkDailyCount(){
 
       function increaseCounts(){ 
 
-         if(totalCnt >= ( ({{totalLimit}}/100)*95) ){
-
-                console.log('okay');
-
-
-               if(totalCnt >= {{totalLimit}}){
-
-              myfct();
-            }
-
-         }
-
    
 
-          totalCnt+=1;
+          totalCnt+=0.1;
 
-          dailyCnt+=1;
+          dailyCnt+=0.1;
 
 
-          myProgressBar.style.width = dailyCnt + '%';
+          myProgressBar.style.width = ((dailyCnt/dailyLimit)*100) + '%';
 
-          totalProgress.innerHTML =  Math.floor(((totalCnt/{{totalLimit}})*100))  + ' %';
+        
+
+
+          totalProgress.innerHTML =  Math.floor(((totalCnt/totalLimit)*100))  + ' %';
 
        }
 
@@ -579,16 +484,8 @@ function checkDailyCount(){
 
               if(done == false){
 
-                console.log('alright');
-             
-                   console.log('ok');
-
-
                     clearInterval(myInterval);
 
-                    storeValues();
-
-                    projectDone.submit();
 
                     done = true;
 
