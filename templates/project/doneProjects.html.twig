@@ -1,29 +1,235 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}All done projects{% endblock %}
+{% block title %}All my projects{% endblock %}
 
-       {% block body %}
+{% block body %}
+<style>
+
+body{
+
+    background:  #181d42;
+}
+
+#backgroundDiv{
+
+   height: 100%;
+
+   width: 100%;
+
+   display: flex;
+
+   flex-direction: column;
+
+   align-items: center;
+}
+
+#pageHeader{
+
+margin-top: 20px;
+
+margin-left: 10px;
 
 
 
-       <h1>Liste de tes projets accomplis</h1>
+}
+
+#projectDiv{
+  
+  width: 55%;
+
+  height: 100px;
+
+  display: flex;
+  
+  justify-content: space-between;
+
+  border-radius: 12px;
+
+  background:  #313769;
+
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
+
+  margin-top: 25px;
 
 
-       {%for project in projects %}
+}
+
+#projectDiv div{
+  
+  height: 100%;
+
+  width: 33.33%;
+
+  display: flex;
+
+  align-items: center;
+
+  padding-right: 25px;
+
+  padding-left: 15px;
 
 
-            
-              {{ project.projectName}} </br>
+}
 
 
-   <a href = '{{ path("showProjectPath", { "projectId" : project.id  })}}'><button>Voir projet</button></a>
+#titleDiv{
 
-   <a href = '{{ path("deleteProjectPath", { "projectId" : project.id , 'redirect' : 'allDoneProjects'  })}}'><button>Supprimer projet</button></a>
+  justify-content: flex-start;
+
+}
+
+
+#seeProjectDiv{
+    
+      justify-content: center;
+}
+
+
+#rightProjectDiv{
+    
+      justify-content: flex-end;
+
+      width: 30%;
+
+      height: 100%;
+
+
+}
+
+#trophyImg{
+
+       height: 30px;
+
+       width: auto;
+
+       margin-right: 1vw;
+
+}
+
+
+#myChart{
+
+      margin-right: 1.4vw;
 
 
 
-       {%endfor%}
+}
+#middleIcon{
 
- 
+   border-radius: 20px;
 
-        {% endblock %}
+   height: 27px;
+
+   width: 27px;
+
+   display:flex;
+
+   justify-content: center;
+
+   background: none;
+
+   border: none;
+}
+
+#deleteButton{
+
+
+   background: none;
+
+   border: none;
+
+   color: white;
+
+   outline: none;
+}
+
+
+#headerDiv{
+
+   width: 100vw;
+
+   height: 150px;
+
+   display: flex;
+
+   justify-content: center;
+
+   padding: 20px;
+
+   align-items: center;
+}
+
+#headerDiv img{
+
+height: 140px;
+
+width: auto;
+margin-top: 3vh;
+}
+
+
+
+
+</style>
+
+
+<div id ='headerDiv'>
+
+
+
+<img id='awardImg'  src='{{ asset("images/award.png") }}'> 
+
+</div>
+
+<div id='backgroundDiv'>
+
+
+
+
+
+
+{%for project in projects %}
+
+
+<div id='projectDiv'>
+
+<div id='titleDiv'>
+
+{{ project.projectName}} </br>
+
+</div>
+  
+
+<div id='rightProjectDiv' >
+   <img id='trophyImg'  src='{{ asset("images/check.png") }}'>
+   <i id='myChart' class="fas fa-chart-bar fa-2x"></i>
+   <a href = '{{ path("deleteProjectPath", { "projectId" : project.id , "redirect" : 'allDoneProjects' })}}'><button id='deleteButton'><i class="fas fa-trash"></i></button></a>
+   
+</div>
+
+</div>
+
+{%endfor%}
+
+
+ </br>
+
+ </br>
+
+
+
+
+
+</div>
+
+{% endblock %}
+
+
+
+{%block javascripts %}
+  
+
+     console.log('ok');
+
+
+{%endblock%}

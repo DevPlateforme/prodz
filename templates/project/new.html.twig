@@ -24,7 +24,7 @@
 <label>Type de projet</label> </br>
 
 <select name="totalLimit" id="projectForm">
-  <option>Type de projet</option>
+  <option value="test"> (10 min, test)</option>
   <option value="ponctual">Ponctuel (10 heures)</option>
   <option value="midTerm">Moyen terme (50 heures)</option>
   <option value="longTerm">Long terme (100 heures)</option>
@@ -36,7 +36,7 @@
 <label>Durée à réaliser chaque jour</label> </br>
 
 <select name="dailyLimit" id="projectForm">
-  <option>Compte journalier</option>
+  <option value="dailyLimit0">2 min (test)</option>
   <option value="dailyLimit1">10 min</option>
   <option value="dailyLimit2">30 min</option>
   <option value="dailyLimit3">1 h</option>
@@ -44,6 +44,18 @@
 
 </br>
 </br>
+
+
+<select name="substanceColor">
+  <option value="green">vert</option>
+  <option value="red">rouge</option>
+  <option value="blue">bleu</option>
+</select>
+
+</br>
+</br>
+
+
 
 <input onclick = 'checkProjectName(event)' type = 'submit' class = 'btn btn-success' name='newProject' value='Créer projet'/>
 

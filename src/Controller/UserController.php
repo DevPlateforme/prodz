@@ -99,7 +99,7 @@ class UserController extends AbstractController
 
             $manager->flush();
 
-            return $this->redirectToRoute('profilePagePath');
+            return $this->render('user/demonstration.html.twig');
             
         }
 

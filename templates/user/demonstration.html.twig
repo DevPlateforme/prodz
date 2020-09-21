@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+      
+     {% block stylesheets %}
+        
+       
+       <style>
+
+       #scientistImg{
+
+          position: absolute;
+
+          top: 30vh;
+
+          left: 300px;
+
+          width: 250px;
+
+          height: auto;
+       }
+
+       #hideArmDiv{
+
+          position: absolute;
+
+          top: 37.2vh;
+
+          left: 459px;
+
+          width: 80px;
+
+          height: 200px;
+
+         background: #181d42;
+
+         z-index: 5;
+
+         transition: 0.4s;
+
+       }
+
+
+       
+       #hideArmDiv2{
+
+          position: absolute;
+              position: absolute;
+
+          top: 52.2vh;
+
+          left: 456px;
+
+          width: 20px;
+
+          height: 190px;
+
+         background:  #181d42;
+
+         z-index: 6;
+
+         transition: 0.4s;
+       
+       }
+
+
+       </style>
+          
+          
+     {% endblock %}
+
+
+     {% block body %}
+
+
+       <h1>Bienvenue!!!</h1>
+
+
+      <h1>Je m'appelle Arkana, je suis en charge de te présenter brièvement ton nouveau laboratoire. </h1>
+
+
+      <img id='scientistImg' src='{{ asset("images/scientist.png") }}'>
+    
+
+      <div id='hideArmDiv'></div>
+      
+      <div id='hideArmDiv2'></div>
+
+
+       <button onclick='displayArm()'>display arm</button>
+
+            
+            </br></br></br>
+             </br></br></br> 
+              </br></br></br>
+              </br></br></br>   <button onclick='displayArm()'>Commencer la simulation</button>
+      
+      <h1>En bref, cette appli te permet de créer un ensemble de projets, te permettant de traquer ton temps. 
+      Pour te présenter l'appli, concentrons nous sur un projet. Imaginons que ce qui représente ton projet est cette fiole colorée.
+
+      Il s'agit du projet "apprentissage des mathématiques" </h1>
+
+
+
+            </br></br></br>
+             </br></br></br> 
+              </br></br></br>
+
+  
+
+     {% endblock %}
+
+
+
+        {% block javascripts %}
+
+         var hideArmDiv = document.getElementById("hideArmDiv");
+
+         var hideArmDiv2 = document.getElementById("hideArmDiv2");
+
+
+
+
+        function displayArm(){
+
+           hideArmDiv.style.opacity = 0;
+
+           hideArmDiv2.style.opacity = 0;
+
+
+
+        }
+
+
+
+
+        {% endblock %}
+
+     

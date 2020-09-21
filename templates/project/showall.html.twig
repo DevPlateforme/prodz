@@ -5,6 +5,10 @@
 {% block body %}
 <style>
 
+body{
+
+    background:  #181d42;
+}
 
 #backgroundDiv{
 
@@ -15,20 +19,36 @@
    display: flex;
 
    flex-direction: column;
+
+   align-items: center;
 }
 
+#pageHeader{
+
+margin-top: 20px;
+
+margin-left: 10px;
+
+
+}
 
 #projectDiv{
   
-  width: 100%;
+  width: 55%;
+
+  height: 100px;
 
   display: flex;
   
   justify-content: space-between;
 
-  border-bottom: solid 1px;
-  
-  border-top : solid 1px;
+  border-radius: 12px;
+
+  background:  #313769;
+
+  box-shadow: 4px 4px 8px 8px rgba(0, 0, 0, 0.1);
+
+  margin-top: 25px;
 
 
 }
@@ -64,13 +84,31 @@
 }
 
 
-#deleteProjectDiv{
+#rightProjectDiv{
     
       justify-content: flex-end;
+
+      width: 30%;
+
+      height: 100%;
+
+
+}
+
+#myMicroscope{
+   
+   margin-right: 2vw;
 
 }
 
 
+#myChart{
+
+      margin-right: 1.4vw;
+
+
+
+}
 #middleIcon{
 
    border-radius: 20px;
@@ -100,15 +138,46 @@
    outline: none;
 }
 
+#chemistryImg{
+
+   height: 250px;
+
+   width: auto;
+}
+
+
+#headerDiv{
+
+   width: 100vw;
+
+   height: 150px;
+
+   display: flex;
+
+   justify-content: center;
+
+   padding: 20px;
+
+   align-items: center;
+}
+
+#headerDiv img{
+margin-top: 6vh;
+}
+
+
 </style>
 
+<div id ='headerDiv'>
 
 
-<h1>Liste de tes projets en cours</h1>
+
+<img id='chemistryImg'  src='{{ asset("images/chemistry.png") }}'> 
+
+</div>
 
 
 <div id='backgroundDiv'>
-
 
 
 
@@ -124,14 +193,17 @@
 
 {{ project.projectName}} </br>
 
+
+
 </div>
   
-<div id='seeProjectDiv'>
-   <a href = '{{ path("showProjectPath", { "projectId" : project.id  })}}'><button id='middleIcon' class="btn btn-info"><i class="fas fa-door-open"></i></button></a>
-</div>
 
-<div id='deleteProjectDiv' >
+<div id='rightProjectDiv' >
+
+    <a id='myMicroscope' href = '{{ path("showProjectPath", { "projectId" : project.id  })}}'><i style='color:white' class="fas fa-microscope fa fa-2x"></i></a>
+      <i id='myChart' class="fas fa-chart-bar fa-2x"></i>
    <a href = '{{ path("deleteProjectPath", { "projectId" : project.id , "redirect" : 'allProjects' })}}'><button id='deleteButton'><i class="fas fa-trash"></i></button></a>
+   
 </div>
 
 </div>

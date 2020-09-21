@@ -397,7 +397,7 @@ var myChart = new Chart(limitRespectChart, {
         labels: ['respecté', 'non respecté'],
         datasets: [{
             label: '# of Votes',
-            data: [{{  averageDailyRespect }}, (100 - {{  averageDailyRespect }})],
+            data: [ 80, 20],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -427,44 +427,6 @@ var myChart = new Chart(limitRespectChart, {
         }
     }
 });
-
-
-
-
-
-    {%if dynamic > 1 %}
-
-            {%if dynamic == 2 %}
-
-
-              displayDynamic( ['jour1', 'jour2'], [0, 20]);
-
-            {%elseif   dynamic == 3 %}
-                  
-                    displayDynamic( ['jour1', 'jour2', 'jour3'], [0, 20, 30]);
-
-            {%elseif   dynamic == 4 %}
-
-               displayDynamic( ['jour1', 'jour2','jour3', 'jour4'], [0, 20, 30, 40]);
-
- 
-            {%elseif   dynamic >= 5 %}
-
-                displayDynamic( ['jour1', 'jour2', 'jour3', 'jour4', 'jour5'], [0, 20, 30, 40, 50]);
-         
-              {%endif%}
-
-            
-  
-          {%elseif  dynamic <= 1 %}
- 
-         
-             displayDynamic( ['jour1', 'jour2', 'jour3', 'jour4', 'jour5'], [0, 0, 0, 0, 0]);
-
-
-     {%endif%}
-
-
 
 
 

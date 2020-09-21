@@ -86,6 +86,11 @@ class Project
      */
     private $dailyCountsDoneCount;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $substanceColor;
+
 
      function __construct(){
 
@@ -140,12 +145,13 @@ class Project
 
     public function setTotalLimit(string $totalLimit): self
     {
+        if($totalLimit == 'test'){ 
 
-        if($totalLimit == 'ponctual'){ 
+            $this->totalLimit = 300;
+
+        } elseif($totalLimit == 'ponctual'){ 
 
             $this->totalLimit = 36000;
-
-
 
         } else if($totalLimit == 'midTerm'){
 
@@ -169,7 +175,11 @@ class Project
 
     public function setDailyLimit(string $dailyLimit): self
     {
-        if($dailyLimit == 'dailyLimit1'){
+        if($dailyLimit == 'dailyLimit0'){
+
+            $this->dailyLimit = 120;
+
+        } elseif ($dailyLimit == 'dailyLimit1'){
 
             $this->dailyLimit = 600;
         } elseif( $dailyLimit == 'dailyLimit2'){
@@ -326,6 +336,18 @@ class Project
     public function setDailyCountsDoneCount(?int $dailyCountsDoneCount): self
     {
         $this->dailyCountsDoneCount = $dailyCountsDoneCount;
+
+        return $this;
+    }
+
+    public function getSubstanceColor(): ?string
+    {
+        return $this->substanceColor;
+    }
+
+    public function setSubstanceColor(?string $substanceColor): self
+    {
+        $this->substanceColor = $substanceColor;
 
         return $this;
     }
