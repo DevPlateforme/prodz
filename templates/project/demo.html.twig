@@ -431,8 +431,11 @@ function checkDailyCount(){
           }
 
 
-          xrq.open('GET', '{{ path("demoNotifPath", { "notifNumber" : 3 }) }}', true);
 
+         var url ='{{ path("demoNotifPath", { "notifNumber" : "notifNumber" }) }}'
+
+           url = url.replace("notifNumber", notifNumber);
+          xrq.open('GET', url , true);
 
           xrq.send();
 

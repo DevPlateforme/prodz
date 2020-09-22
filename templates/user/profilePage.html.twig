@@ -14,10 +14,12 @@
 
    #bgDiv{
 
-      height:100vh; 
+      height:91vh; 
       width:100vw; 
       display:flex; 
       justify-content:flex-start; 
+
+      padding: 20px;
 
        }
 
@@ -31,6 +33,14 @@
       height: auto;
     }
 
+    #starImg{
+
+
+        height: 18px;
+
+        width: auto;
+    }
+
 
 </style>
 
@@ -38,53 +48,78 @@
 
 <div id='bgDiv'>
 
-  <div style='display:flex; flex-direction: column; justify-content: space-around; width:25%; align-items:center'>
-           <h1>Ton niveau : {{ app.user.level}} </h1>
-         
-           <img src='{{ asset( app.user.avatarAssetSrc ) }}'>
+  <div style='display:flex; flex-direction: column; justify-content: space-around; width:25%; align-items:center;'>
+      <div style='height:50%; width:100%'>
+
+          <div style='height:50%; width: 100%; display: flex; justify-content: center; align-items: center'>
+              
+              {% if app.user.level == 'novice' %}
+                <h5>{{ app.user.level}}  <img id='starImg' src='{{ asset("images/star.png") }}'> </h5>
+              {% elseif app.user.level == 'élément à fort potentiel' %}
+                 <h5>{{ app.user.level}}  <img id='starImg' src='{{ asset("images/star.png") }}'>  <img id='starImg' src='{{ asset("images/star.png") }}'> </h5>
+              {% elseif app.user.level == 'loup de Wall Street' %}
+                 <h5>{{ app.user.level}}  <img id='starImg' src='{{ asset("images/star.png") }}'>  <img id='starImg' src='{{ asset("images/star.png") }}'>  <img id='starImg' src='{{ asset("images/star.png") }}'> </h5>
+              {% elseif app.user.level == 'Jeff Bezzos' %}
+                  <h5>{{ app.user.level}}  <img id='starImg' src='{{ asset("images/star.png") }}'>  <img id='starImg' src='{{ asset("images/star.png") }}'>  <img id='starImg' src='{{ asset("images/star.png") }}'>  <img id='starImg' src='{{ asset("images/star.png") }}'> </h5>
+
+              {% endif %}
+
+            
+          </div>
+
+
+             <div  style='height: 50%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-around'>
+                
+                  
+                 <div style='height: 30% ; width: 100%; padding-left: 5%' >                  
+                    <p> Mailing : {{ app.user.mailing}} </p>
+                 </div>
+
+                  <div id='progressDiv' style='font-size:18px'> </div>
+                  
+                  <div>
+                     <progress id='progressBar' value='1' max='100'></progress>
+                  </div>
+
+             </div>
+
+
+        </div>
+
+        <div style='display:flex; justify-content: center; height: 50%; width: 100%;'>
+
+               <div style='height: 100%; width: auto;'>
+                  <img style='height: 100%; width : auto' src='{{ asset( app.user.avatarAssetSrc ) }}'>
+               </div>
+        </div>
 
 
 
-  </div>
+    </div>
 
   
-  <div style='display:flex; flex-direction: column; justify-content: space-around;  width:75%; align-items:center'>
+  <div style='display:flex; flex-direction: column; justify-content: space-around;  width:75%; align-items:center;'>
    
     <div style='width:100%; height:50%;  display:flex; flex-direction: row; justify-content: space-between;' >
 
         <div style='height:100%; width:50%; display: flex; flex-direction: column;'>
 
-            <div style='height: 50% ; width: 100%; ' >                  
-               <h5> Mailing :     {{ app.user.mailing}} </h5>
-            </div>
-            <div id='progressDiv' style='height: 50%; width: 100%; '>
-                  <progress id='progressBar' value='1' max='100'></progress>
-
-            </div>
-    
+               <canvas id="myChart5"></canvas>        
         </div>
 
-         <div style='height:100%; width:50%; display:flex; flex-direction: column; justify-content: space-between;'>
+       <div style='height:100%; width:50%; display:flex; flex-direction: column; justify-content: space-between;'>
 
-           <div style='height:10%; width:100%;'>
            
-                    <canvas id="myChart3"></canvas>
-
-
-           </div>
-           <div style='height:10%; width:100%;'>
-
-                          <canvas id="myChart4"></canvas>
-
-           </div>
+             <canvas id="myChart3"></canvas>        
    
          
-         </div>
+      </div>
 
 
 
 
     </div>
+
     
     <div style='width:100%; height:50%; display:flex;'>
        
@@ -101,8 +136,7 @@
 
         <div style='width:50%; height: 100%;'>
           
-            <canvas id="myChart5"></canvas>
-
+                          <canvas id="myChart4"></canvas>
 
         </div>
     
@@ -261,6 +295,8 @@ var myChart = new Chart(ctx4, {
         labels: ['respecté', 'non respecté'],
         datasets: [{
             label: '# of Votes',
+
+            
             data: [{{ dailyCountAverage }}, (100 - {{ dailyCountAverage }})],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -432,7 +468,7 @@ var myChart = new Chart(ctx6, {
 
         progressBar.max = 50;
 
-         progressDiv.innerHTML += '</br>élément à fort potentiel'
+         progressDiv.innerHTML += 'niveau suivant : élément à fort potentiel'
 
 
         
@@ -443,7 +479,7 @@ var myChart = new Chart(ctx6, {
 
         progressBar.max = 100;
 
-          progressDiv.innerHTML += '</br>niveau suivant: Loup de Wall Street'
+          progressDiv.innerHTML += 'niveau suivant: Loup de Wall Street'
 
 
         
@@ -454,7 +490,7 @@ var myChart = new Chart(ctx6, {
 
         progressBar.max = 150;
 
-        progressDiv.innerHTML += '</br>niveau suivant: jeff Bezzos'
+        progressDiv.innerHTML += 'niveau suivant: jeff Bezzos'
 
 
         

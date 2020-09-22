@@ -495,10 +495,18 @@ body {
 
 function checkDailyCount(){
 
+     console.log(dailyCnt);
+     console.log({{dailyLimit}});
+
+
+         
+     console.log(dailyCountDone);
+
+     if (dailyCountDone == false){
+
                
         if(dailyCnt >= {{dailyLimit}}) {
 
-           if (dailyCountDone == false){
 
            
 
@@ -545,26 +553,29 @@ function checkDailyCount(){
 
       function increaseCounts(){ 
 
-         if(totalCnt >= ( ({{totalLimit}}/100)*95) ){
+        if( ({{ totalLimit }}- totalCnt) <= 5 ){
 
-                console.log('okay');
+          if(totalCnt >= {{ totalLimit}}){
+
+                      myfct();
+          }
+
+        }
 
 
-               if(totalCnt >= {{totalLimit}}){
 
-              myfct();
-            }
+  
 
-         }
 
-   
 
-          totalCnt+=0.1;
 
-          dailyCnt+=0.1;
+          totalCnt+=2;
+
+          dailyCnt+=2;
 
 
           myProgressBar.style.width = dailyCnt + '%';
+           
 
           totalProgress.innerHTML =  Math.floor(((totalCnt/{{totalLimit}})*100))  + ' %';
 

@@ -145,6 +145,13 @@ margin-left: 10px;
    width: auto;
 }
 
+#microscopeImg{
+
+   height: 60px;
+
+   width: auto;
+
+}
 
 #headerDiv{
 
@@ -200,7 +207,7 @@ margin-top: 6vh;
 
 <div id='rightProjectDiv' >
 
-    <a id='myMicroscope' href = '{{ path("showProjectPath", { "projectId" : project.id  })}}'><i style='color:white' class="fas fa-microscope fa fa-2x"></i></a>
+    <a id='myMicroscope' href = '{{ path("showProjectPath", { "projectId" : project.id  })}}'><img id='microscopeImg'  src='{{ asset("images/microscope.png") }}'></a>
       <i id='myChart' class="fas fa-chart-bar fa-2x"></i>
    <a href = '{{ path("deleteProjectPath", { "projectId" : project.id , "redirect" : 'allProjects' })}}'><button id='deleteButton'><i class="fas fa-trash"></i></button></a>
    
