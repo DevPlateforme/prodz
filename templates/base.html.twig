@@ -23,7 +23,6 @@
        <a href="{{
           path('profilePagePath') }}">  <img id='logoImg' src='{{ asset("images/flaskblue.png") }}'> </a>
       {%else%}
-         <img id='logoImg' src='{{ asset("images/lab.png") }}'>
 
         {% endif %}
      </div>
@@ -93,14 +92,6 @@
      </div>
 
        
-        {% block stylesheets %}
-        
-       
-       
-          
-          
-        {% endblock %}
-     
 
           <style>
            
@@ -259,6 +250,16 @@
            }
 
         </style>
+
+        
+        {% block stylesheets %}
+        
+       
+       
+          
+          
+        {% endblock %}
+     
 
         
 

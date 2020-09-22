@@ -1,12 +1,112 @@
 {% extends 'base.html.twig' %}
 
 
+ {% block stylesheets %}
+
+
+ <style>
+
+
+
+     #bgDiv{
+
+         height: 90vh;
+
+         width: 100vw;
+
+         display: flex;
+
+         justify-content: flex-end;
+
+     }
+
+
+      #formDiv{
+
+
+          height: 60%;
+          
+          width: 40%;
+
+          display: flex;
+
+          justify-content: center;
+
+          align-items: center;
+
+
+          margin-right: 5vw;
+
+
+          margin-top: 20vh;
+
+
+
+
+
+
+      }
+
+
+      #myForm{
+
+
+          display: flex;
+
+          flex-direction: column;
+
+          align-items: center;
+
+          justify-content: center;
+
+
+          width: 80%;
+
+
+      }
+
+      
+      #myForm div{
+
+          height: 80px;
+
+
+      }
+
+      
+      
+      #myForm div input{
+
+          width: 500px;
+
+          height: 50px;
+
+          border-radius: 25px;
+
+          border: none;          
+
+
+      }
+
+
+
+
+
+ </style>
+
+
+ {% endblock %}
+
+
+
 {% block body %}
 
-    <h1>Login</h1>
 
+ <div id='bgDiv'>
 
-    <form id="myForm" action= "{{ path('loginPath') }}" method='post'>
+    <div id='formDiv'>
+
+     <form id="myForm" action= "{{ path('loginPath') }}" method='post'>
 
          <div class = 'form-group'>
              <input onkeyup="initErrorMsg()" id='userMail' type='text' placeholder='username' required name='_username'>
@@ -20,7 +120,7 @@
 
 
           <div class = 'form-group'>
-               <button type = 'submit' class = 'btn btn-success' onclick='checkUser(event)'>Login</button>
+               <button type = 'submit' class = 'btn btn-success' onclick='checkUser(event)'>Accéder à votre labo</button>
           </div>
 
 
@@ -31,6 +131,8 @@
 
     <div id="errorMsg" style='color:red' ></div>
 
+  </div>
+</div>
 
 
 {% endblock %}
