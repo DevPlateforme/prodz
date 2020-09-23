@@ -14,24 +14,102 @@
 
    #bgDiv{
 
+     
+
       height:91vh; 
       width:100vw; 
       display:flex; 
       justify-content:flex-start; 
+      
+      margin-top: 8vh;
 
-      padding: 20px;
 
        }
 
+   #firstDiv{
+
+       display:flex; 
+       flex-direction: column; 
+       justify-content: space-around; 
+       width:25%; 
+       align-items:center;
+       
+       
+   }
+
     
 
+    #secondDiv{
+       display:flex; 
+       flex-direction: column; 
+       justify-content: space-around;  
+       width:75%; 
+       align-items:center;
 
-    img{
-
-      width: 100%;
-
-      height: auto;
     }
+
+    #secondDivFirst{
+
+        width:100%; 
+        height:50%; 
+        display:flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #secondDivFirstG1{
+
+        height:100%; 
+        width:50%; 
+
+    }
+
+     #secondDivFirstG2{
+
+         height:100%; 
+         width:50%; 
+     }
+
+
+    #secondDivSecond{
+
+       width:100%; 
+       height:50%; 
+       display:flex;
+
+       margin-top: 4vh;
+
+     }
+
+     
+    #secondDivSecondG1{
+        width:50%; 
+        height: 100%; 
+    }
+
+    #secondDivSecondG2{
+        width:50%;
+        height: 100%; 
+
+    }
+
+
+  
+    #avatarDiv{
+       display:flex; 
+       justify-content: center; 
+       height: 50%; 
+       width: 100%;
+    }
+
+
+    #avatarImg{
+
+        height: auto;
+
+        width: 80%;
+    }
+
 
     #starImg{
 
@@ -41,18 +119,198 @@
         width: auto;
     }
 
+    
+  @media all and (max-width: 1500px){
 
-</style>
+    #bgDiv{
+
+      height:91vh; 
+      width:100vw; 
+      display:flex; 
+      justify-content:flex-start; 
+
+      padding: 20px;
+
+       }
+
+   
+
+#secondDiv{
+
+}
+
+  #avatarDiv{
+       display:flex; 
+       justify-content: center; 
+       height: 50%; 
+       width: 100%;       
+    }
+
+    #secondDiv{
+        
+        margin-top: 8vh;
+
+    }
+
+
+
+    
+   #avatarImg{
+     height: auto;
+
+     width: 100%;
+
+    }
+
+    #starImg{
+
+      height: 18px;
+
+      width: auto;
+    }
+
+
+}
+
+
+  @media all and (max-width: 1500px) and (max-height: 700px){
+    
+    #secondDiv{
+        
+        margin-top: 0px;
+
+    }
+
+        
+   #avatarImg{
+     height: auto;
+
+     width: 80%;
+
+    }
+    
+
+  }
+
+
+
+  @media all and (max-width: 400px){
+
+      
+   #bgDiv{
+
+      display:flex; 
+      justify-content:flex-start; 
+
+      flex-direction: column;
+      
+      margin-top: 8vh;
+
+      height: 100%;
+
+
+      padding-bottom : 80px;
+      
+
+
+       }
+
+       #firstDiv{
+
+           width: 100%;
+       }
+
+       #secondDiv{
+
+           flex-direction: column;
+           background: purple;
+           
+           width: 100%;
+
+           margin-top: 50px;
+
+       }
+
+
+       
+    #secondDivFirst{
+
+        width:100%; 
+        height:500px; 
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+    }
+
+
+    #secondDivSecond{
+
+       width:100%; 
+       height:50%; 
+       display:flex;
+       flex-direction: column;
+
+       margin-top: 4vh;
+
+     }  
+
+      #secondDivFirstG1{
+
+        height:50%; 
+        width:100%; 
+        
+
+    }
+
+     #secondDivFirstG2{
+
+         height:50%; 
+         width:100%; 
+
+     }
+
+       
+    #secondDivSecondG1{
+        height: 50%;
+        width:100%; 
+ 
+    }
+
+    #secondDivSecondG2{
+
+        margin-top: 70px;
+        height: 50%; 
+        width:100%;
+
+    }
+
+
+  }
+    
+
+   </style>
 
 
 
 <div id='bgDiv'>
 
-  <div style='display:flex; flex-direction: column; justify-content: space-around; width:25%; align-items:center;'>
+  <div id='firstDiv'>
+  
       <div style='height:50%; width:100%'>
 
-          <div style='height:50%; width: 100%; display: flex; justify-content: center; align-items: center'>
-              
+          <div style='height:30%; width: 100%; display: flex; justify-content: flex-start; align-items: center; margin-top: 1vh;'>
+                                <p>    <img id='starImg' style='height: 50px; width: auto' src='{{ asset("images/mail.png") }}'>Mailing : {{ app.user.mailing}} </p>
+
+          </div>
+
+
+          <div  style='height: 50%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-around'>
+     
+                       
+             
+       <div style='height: 40% ; width: 100%; display: flex; justify-content: center; align-items: center; background: purple; border-radius: 8px;' >                  
+                  
               {% if app.user.level == 'novice' %}
                 <h5>{{ app.user.level}}  <img id='starImg' src='{{ asset("images/star.png") }}'> </h5>
               {% elseif app.user.level == 'élément à fort potentiel' %}
@@ -65,31 +323,28 @@
               {% endif %}
 
             
-          </div>
+       </div>
 
-
-             <div  style='height: 50%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-around'>
-                
                   
-                 <div style='height: 30% ; width: 100%; padding-left: 5%' >                  
-                  <p>    <img id='starImg' style='height: 50px; width: auto' src='{{ asset("images/mail.png") }}'>Mailing : {{ app.user.mailing}} </p>
-                 </div>
-
-                  <div id='progressDiv' style='font-size:18px'> </div>
+             
+              <div id='progressDiv' style='font-size:18px'> </div>
                   
-                  <div>
-                     <progress id='progressBar' value='1' max='100'></progress>
-                  </div>
+               <div>
+                   <progress id='progressBar' value='1' max='100'></progress>
+              </div>
 
-             </div>
+
+               
+
+       </div>
 
 
         </div>
 
-        <div style='display:flex; justify-content: center; height: 50%; width: 100%;'>
+        <div id='avatarDiv'>
 
                <div style='height: 100%; width: auto;'>
-                  <img style='height: 100%; width : auto' src='{{ asset( app.user.avatarAssetSrc ) }}'>
+                  <img id="avatarImg" src='{{ asset( app.user.avatarAssetSrc ) }}'>
                </div>
         </div>
 
@@ -98,20 +353,18 @@
     </div>
 
   
-  <div style='display:flex; flex-direction: column; justify-content: space-around;  width:75%; align-items:center;'>
+  <div id='secondDiv'>
    
-    <div style='width:100%; height:50%;  display:flex; flex-direction: row; justify-content: space-between;' >
+    <div id='secondDivFirst' >
 
-        <div style='height:100%; width:50%; display: flex; flex-direction: column;'>
+        <div id='secondDivFirstG1'>
 
                <canvas id="myChart5"></canvas>        
         </div>
 
-       <div style='height:100%; width:50%; display:flex; flex-direction: column; justify-content: space-between;'>
+       <div id='secondDivFirstG2' >
 
-           
-             <canvas id="myChart3"></canvas>        
-   
+             <canvas id="myChart3"></canvas>           
          
       </div>
 
@@ -121,26 +374,24 @@
     </div>
 
     
-    <div style='width:100%; height:50%; display:flex;'>
+    <div id='secondDivSecond'>
        
-       <div id='dynamicDiv' style='width:50%; height: 100%; '>
+       <div id='secondDivSecondG1'>
 
-       
-        <canvas id="myChart6"></canvas>
-
+          <canvas id="myChart6"></canvas>
         
-       </div>
+        </div>
 
      
-
-
-        <div style='width:50%; height: 100%;'>
+        <div id='secondDivSecondG2'>
           
-                          <canvas id="myChart4"></canvas>
+            <canvas id="myChart4"></canvas>
 
         </div>
     
     </div>
+
+
   </div>
 
 
@@ -179,9 +430,6 @@ var ctx4 = document.getElementById('myChart4').getContext('2d');
 var ctx5 = document.getElementById('myChart5').getContext('2d');
 
 var ctx6 = document.getElementById('myChart6').getContext('2d');
-
-
-var dynamicDiv = document.getElementById('dynamicDiv');
 
 var progressDiv = document.getElementById('progressDiv');
 
@@ -335,7 +583,7 @@ var myChart = new Chart(ctx4, {
 var myChart = new Chart(ctx5, {
     type: 'horizontalBar',
     data: {
-        labels: ['minutes/jour', '', '',''],
+        labels: ['min/jour', '', '',''],
         datasets: [{
             label: 'Minutes travaillés/jour',
             data: [ {{ averageWorkTime }} ,0,0,0],
@@ -504,7 +752,7 @@ var myChart = new Chart(ctx6, {
         progressBar.max = 100;
 
 
-        progressDiv.innerHTML += '</br>Tu as atteint le niveau maximum, à toi de le maintenir!'
+        progressDiv.innerHTML += '</br>Tu as atteint le niveau maximum!'
 
 
 
