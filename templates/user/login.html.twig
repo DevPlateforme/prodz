@@ -18,6 +18,8 @@
 
          justify-content: flex-end;
 
+         padding-right: 10%;
+
      }
 
 
@@ -35,14 +37,8 @@
           align-items: center;
 
 
-          margin-right: 5vw;
-
 
           margin-top: 20vh;
-
-
-
-
 
 
       }
@@ -60,7 +56,8 @@
           justify-content: center;
 
 
-          width: 80%;
+          width: 100%;
+
 
 
       }
@@ -77,7 +74,7 @@
       
       #myForm div input{
 
-          width: 500px;
+          width: 100%;
 
           height: 50px;
 
@@ -88,6 +85,68 @@
 
       }
 
+      #scientistImg2{
+
+          position: fixed;
+
+          top: 45vh;
+
+          left: 25vw;
+
+          height: auto;
+
+          width: 10vw;
+      }
+      
+
+      #bubbleImg{
+
+          position: fixed;
+
+          top: 25vh;
+
+          left: 30vw;
+
+          width: 10vw;
+
+          height: auto;
+      }
+
+
+
+
+   
+  @media all and (max-width: 375px){
+      #scientistImg2{
+
+          position: fixed;
+
+          height: 20vh;
+
+          width: auto;
+
+          top: 37vh;
+
+          left: 3vw;
+      }
+
+      
+      #bubbleImg{
+
+          position: fixed;
+
+          top: 9.3vh;
+
+          left: 21vw;
+
+          width: 50px;
+
+          height: auto;
+      }
+
+
+
+  }
 
 
 
@@ -100,6 +159,14 @@
 
 
 {% block body %}
+
+
+ 
+ <img id='scientistImg2'src='{{ asset("images/scientist2.png") }}'> 
+
+ <img id='bubbleImg' src='{{ asset("images/bubble.png") }}'> 
+
+
 
 
  <div id='bgDiv'>

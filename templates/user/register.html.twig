@@ -4,74 +4,60 @@
 
 {% block body %}
 <style>
+
+   #chemicalImg{
+
+     position: fixed; 
+     top: 9vh; 
+     height: 91vh;
+      width: auto; 
+      z-index: 1
+
+     
+   }
+
+
+
    #bgDiv{
+    position: fixed;
+
+    top: 9vh;
+
+    right:0px;
+    z-index: 2;
 
      height: 92.6vh;
 
-     width: 100%;
+     width: 30vw;
 
 
      display:flex;
 
-     flex-direction:row;
+     flex-direction: row;
+
+     justify-content: center;
+
+     background: #181d42;
    }
 
   
-   #leftDiv{
-
-
-     height: 100%;
-
-     width: 58%;
-
-     background: #181d42;
 
 
 
-   }
-
-   
-   #leftDiv img{
-
-     height: 100%;
-
-     width: auto;
-
-   }
-
-
-
-
-   #rightDiv{
-
-
-     background: #181d42;
-
-     height: 100%;
-
-     width: 42%;
-
-     display: flex;
-
-     justify-content: flex-end;
-
-     padding-top: 25px;
-
-
-   }
 
 
    #insideRightDiv{
         
         height: 63%;
 
-        width: 350px;
+        width: 80%;
 
         padding: 60px;
 
-        margin-right: 30px;
-
         border-radius: 15px;
+
+        margin-right: 7vw;
+
 
    }
 
@@ -87,8 +73,6 @@
 
         height: 30px;
 
-  
-
    }
 
 
@@ -103,6 +87,7 @@
      flex-direction: column;
 
      justify-content: space-between;
+     
 
    }
 
@@ -112,19 +97,81 @@
    }
 
 
+
+   
+  @media all and (max-width: 1200px){
+
+      #bgDiv{
+
+     width: 100vw;
+
+     align-items: center;
+
+
+   }
+      
+   #insideRightDiv{
+        
+        height: 63%;
+
+        width: 350px;
+
+        padding: 60px;
+
+        border-radius: 15px;
+
+        font-size: 15px;
+
+        margin-right: none;
+
+
+   }
+
+
+  
+   #insideRightDiv input{
+        
+        border-radius: 12px;
+
+        border: none;
+
+        width: 250px;
+
+        outline: none;
+
+        height: 30px;
+
+     }
+
+  }
+
+
+
+  @media all and (max-width: 808px){
+
+    #chemicalImg{
+
+      display:none;
+      
+    }
+
+       
+  }
+   
+  @media all and (max-width: 775px){
+
+  }
+
+
+
+
 </style>
+
+       <img id='chemicalImg' src='{{ asset("images/chemical.webp") }}'> 
+
 
  <div id='bgDiv'>
 
-
- <div id='leftDiv'>
-
-       <img src='{{ asset("images/chemical.webp") }}'> 
-
- </div>
-
-
-  <div id='rightDiv'>
 
 
 
@@ -163,8 +210,6 @@
 
     <p style='color:red' id='invalidMailMsg'></p>
   
-
-     </div>
 
    </div>
 
