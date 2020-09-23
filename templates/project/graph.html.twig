@@ -5,57 +5,137 @@
 {% block body %}
 <style>
 
-#backgroundDiv{
+#statsHeader{
 
- 
-    width: 100vw;
+    margin-top: 10vh;
+ }
+
+ #backgroundDiv{
+
+    width: 98vw;
+
+    height: 100%;
 
 
     display: flex; 
 
-    flex-direction : row;
+    flex-direction : column;
+
+
+    padding-bottom: 50px;
     
 
-}
+  }
+
+
 
 #backgroundDiv div{
 
     margin-top: 20px;
 }
 
-#topDiv{
-    height: 100%; 
+
+#firstDiv{
+
+
+    height: 50%;
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+#firstDiv div{
+
+    height: 100%;
+    width: 50%;
+}
+
+#firstDivG1{
+
+margin-left: 3vw;
+
+}
+
+#firstDivG2{
+
+    padding-bottom: 4%;
+}
+
+
+#secondDiv{
+    height: 50%; 
     
-    width: 50% ; 
+    width: 100% ; 
     
     display: flex;
 
-    flex-direction: column;
+    flex-direction: row;
+
+    align-items: flex-end;
 
 }
 
-#topDiv div{
-    height: 33.3%;
+#secondDiv div{
+    height: 100%;
 
-
+    width: 50%;
 }
 
 
 
+  @media all and (max-width: 450px){
+
+     #backgroundDiv{
+
+         height: 1500px;
+     }
+    
+      #firstDiv{ 
+         flex-direction: column;
+      } 
+
+      #firstDiv div{
+          height: 50%;
+
+          width: 100%;
+      }
 
 
+      #secondDiv{
+
+           flex-direction: column;
+
+           margin-top: 1000px;
 
 
+      }
+
+      #secondDiv div{
+
+
+          height: 50%;
+
+          width: 100%;
+
+      }
+
+
+  }
 
 </style>
 
-    <h1> jour {{currentDay + 1}}, semaine {{currentWeek + 1}}</h1>
+    <div id="statsHeader">
+       <h1> jour {{currentDay + 1}}, semaine {{currentWeek + 1}}</h1>
+    </div>
 
      <div id='backgroundDiv'>
        
-       <div id='mainGraph' >
+       <div id='firstDiv' >
 
-       <div style='height: 50%; width: 100% ;' >
+       <div id='firstDivG1'>
 
           <h3><div id='displayedWeekHTML'></div></h3> <br>
           <canvas id="myChart"></canvas>
@@ -64,28 +144,29 @@
 
      </div>
 
-     <div  style='height: 50%; width: 100% ; margin-top: 20px'>
+     <div id='firstDivG2'>
         
-         <canvas id="dynamicChart"></canvas>
+            <canvas id="limitRespectChart"></canvas>
 
       </div>
 
     </div>
 
      
-<div id='topDiv'>
+  <div id='secondDiv'>
 
       <div>
       
-     <canvas id="averageTimeChart"></canvas>
+         <canvas id="averageTimeChart"></canvas>
 
 
       </div>
  
 
-      <div style='margin-top: 20px'>
-                
-           <canvas id="limitRespectChart"></canvas>
+      <div>
+
+              <canvas id="dynamicChart"></canvas>
+
 
         </div>
 
@@ -396,9 +477,9 @@ var myChart = new Chart(dynamicChart, {
 var myChart = new Chart(averageTimeChart, {
     type: 'horizontalBar',
     data: {
-        labels: ['minutes/jour', '', '',''],
+        labels: ['min/jour', '', '',''],
         datasets: [{
-            label: 'Minutes travaillés/jour',
+            label: 'Moyenne minutes/jour',
             data: [ {{ averageWorkTime }} ,0,0,0],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',

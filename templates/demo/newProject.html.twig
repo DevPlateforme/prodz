@@ -1,0 +1,193 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProjectController!{% endblock %}
+
+{% block body %}
+<style>
+
+body{
+
+  color: green;
+}
+input{
+
+  border: none;
+
+  border-radius: 12px;
+}
+
+select option{
+
+  border : none;
+
+  border-radius: 10px;
+  
+}
+#bgDiv{
+  width: 100vw; 
+  height: 90vh; 
+  display: flex; 
+  justify-content: center;
+
+  align-items: center;
+  
+
+  overflow: hidden;
+}
+#computerPng{
+
+  position: absolute;
+  
+  margin-right: auto;
+
+  margin-top: 2%;
+
+  height: auto;
+  
+  width: 60%;
+
+  z-index: 1;
+ 
+}
+
+#myForm{
+
+  z-index: 2;
+
+  margin-top: -5%;
+
+  height: 60%;
+
+  width: 20%;
+
+
+}
+</style>
+
+<br>
+
+
+  <div id='bgDiv'>
+     
+ 
+ <img id='computerPng' src='{{ asset("images/mypc2.png") }}'>
+
+  
+
+<form id='myForm' method='post' action= '{{ path("demoProjectPath")}}'>
+
+</br>
+
+
+<label>Nom du projet</label> </br>
+
+
+<input  onkeyup = 'initErrorMsg()' id='projectName' name = 'projectName'> </br>
+
+
+<label>Type de projet</label> </br>
+
+<select name="totalLimit" id="projectForm">
+  <option value="test"> (2 min, test)</option>
+
+</select>
+
+</br>
+
+
+<label>Durée à réaliser chaque jour</label> </br>
+
+<select name="dailyLimit" id="projectForm">
+  <option value="dailyLimit0">1 min (test)</option>
+</select>
+
+</br>
+
+<label>Couleur de ta substance</label> </br>
+
+
+<select name="substanceColor">
+  <option value="green">vert  </option>
+  <option value="red">rouge</option>
+  <option value="blue">bleu</option>
+</select>
+
+</br>
+</br>
+
+
+
+
+<input onclick = 'checkProjectName(event)' type = 'submit' class = 'btn btn-success' name='newProject' value='Développer un projet'/>
+
+<input type='hidden' name='myNewProject'>
+
+<div id='errorMsg'></div>
+
+
+</form>
+
+
+
+
+
+</div>
+
+{% endblock %}
+
+
+   {% block javascripts %}
+
+
+   var projectName = document.getElementById('projectName');
+
+   var myForm = document.getElementById('myForm');
+
+   var errorMsg = document.getElementById('errorMsg');
+
+
+      function initErrorMsg(){
+
+        errorMsg.innerHTML = '';
+
+      }
+
+
+       function checkProjectName(event){
+
+                       event.preventDefault();
+
+         xrq = new XMLHttpRequest();
+
+
+         xrq.onload = function(){
+
+           var validName = JSON.parse(this.responseText).validName;
+
+           if(validName == true){
+             console.log("validName"); 
+
+             myForm.submit();
+
+
+
+           } else if(validName == false){
+
+
+
+             errorMsg.innerHTML = 'vous avez déjà attribué ce nom à un autre projet';
+
+           }
+
+         }
+
+         xrq.open('POST', '{{ path("checkProjectPath") }}', true);
+
+         xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+         xrq.send('projectName=' + projectName.value);
+        
+       }
+
+   
+   {% endblock %}

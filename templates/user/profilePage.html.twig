@@ -194,7 +194,7 @@
 
 
 
-  @media all and (max-width: 400px){
+  @media all and (max-width: 450px){
 
       
    #bgDiv{
@@ -223,7 +223,6 @@
        #secondDiv{
 
            flex-direction: column;
-           background: purple;
            
            width: 100%;
 
@@ -309,7 +308,7 @@
      
                        
              
-       <div style='height: 40% ; width: 100%; display: flex; justify-content: center; align-items: center; background: purple; border-radius: 8px;' >                  
+       <div style='height: 40% ; width: 100%; display: flex; justify-content: center; align-items: center; border-radius: 8px;' >                  
                   
               {% if app.user.level == 'novice' %}
                 <h5>{{ app.user.level}}  <img id='starImg' src='{{ asset("images/star.png") }}'> </h5>
@@ -585,7 +584,7 @@ var myChart = new Chart(ctx5, {
     data: {
         labels: ['min/jour', '', '',''],
         datasets: [{
-            label: 'Minutes travaillés/jour',
+            label: 'Moyenne minutes/jour',
             data: [ {{ averageWorkTime }} ,0,0,0],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',

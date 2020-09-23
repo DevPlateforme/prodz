@@ -1465,12 +1465,17 @@ class ProjectController extends AbstractController
     function demoProject(){
 
 
-        if(isset($_POST["projectColor"])){
+        if(isset($_POST["projectName"])){
+
+                
+             $projectName = $_POST['projectName'];
+
+             $substanceColor = $_POST['substanceColor'];
 
             
-           return $this->render("project/demo.html.twig", ['substanceColor' => $_POST["projectColor"]]);
+           return $this->render("demo/project.html.twig", ['substanceColor' => $substanceColor , 'projectName' => $projectName]);
 
-
+          
         } 
 
         return new JsonResponse(['erreur' => "il y'a eu un petit soucis.."]);

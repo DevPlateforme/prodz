@@ -62,13 +62,7 @@
        
        }
 
-       #colorForm{
-
-          opacity: 0;
-
-          transition: 0.4s;
-       }
-
+      
 
        </style>
           
@@ -83,7 +77,11 @@
 
 
       <h1>Je m'appelle Arkana, je suis en charge de te présenter brièvement ton nouveau laboratoire. </h1>
+      
+      En bref, cette appli te permet de créer un ensemble de projets, te permettant de traquer ton temps. 
+      </h1>
 
+     
 
       <img id='scientistImg' src='{{ asset("images/scientist.png") }}'>
     
@@ -91,9 +89,10 @@
       <div id='hideArmDiv'></div>
       
       <div id='hideArmDiv2'></div>
+      
 
 
-       <button onclick='displayArm()'>display arm</button>
+       <button onclick='displayArm()'>Découvrir</button>
 
             
               </br></br></br>
@@ -102,29 +101,12 @@
               </br></br></br>   
               
 
-            <button onclick='chooseColor()'>Commencer la simulation</button>
+            <button>Commencer la simulation</button>
 
 
 
 
-               
-           <form id='colorForm' method='post' action='{{ path("demoProjectPath")}}'>
-              <select name='projectColor'>
-                 <option value='red'>rouge</option>
-                 <option value='blue'>bleu</option>
-                 <option value='green'>vert</option>
-              </select>
-
-            <input type='submit' value='commencer'>
-           </form>
-       
-
-
-      <h1>En bref, cette appli te permet de créer un ensemble de projets, te permettant de traquer ton temps. 
-      Pour te présenter l'appli, concentrons nous sur un projet. Imaginons que ce qui représente ton projet est cette fiole colorée.
-
-      Il s'agit du projet "apprentissage des mathématiques" </h1>
-
+   
 
 
             </br></br></br>
@@ -162,7 +144,8 @@
         
             function chooseColor(){
 
-               colorForm.style.opacity = 1;
+
+               projectText.style.opacity = 1;
 
             }
 
