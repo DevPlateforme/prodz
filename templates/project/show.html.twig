@@ -8,28 +8,40 @@
 <style>
 body{
 }
-#backgroundDiv{
-   width: 100vw;
+
+
+
+#backDiv{
+  background:green; 
+  width: 100vw;
+  height: 90vh;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+}
+
+
+#middleDiv{
+   width: 60%;
   
    display: flex;
    flex-direction: column;
    align-items: center;
+   justify-content: center;
+
+   background:red;
 }
+
+
 #flaskLogo{
    height: 200px;
    width: auto;
    
    
 }
-#chartLink{
-position: absolute;
-top: 75vh;
-right: 6vw;
-}
+
 #startBtn{
-position: absolute;
-top: 75vh;
-left: 48vw;
+
 background: none;
 border: none;
 outline: none;
@@ -37,29 +49,147 @@ color: white;
    
 }
 #totalProgress{
-   position: absolute;
-   top: 43%;
-   left: 48%;
+
    font-size: 30px;
 }
 body {
-  width: 100%;
-  position: relative;
-  padding: 0;
-  margin: 0;
+  width:100%;
+  position:relative;
+  padding:0;
+  margin:0;
 }
+
+#leftDiv{
+  position:absolute; 
+
+  width:30%; 
+  height:90vh; 
+  right:70.5vw; 
+  top:9vh; 
+  background:purple;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+
+#leftDiv1{
+
+height: 50%;
+
+width: 100%;
+
+background: blue;
+
+}
+
+
+
+#leftDiv2{
+  
+height: 50%;
+
+width: 100%;
+
+background: brown;
+}
+
+
+#rightDiv{
+
+  width: 30%; 
+  height: 91vh; 
+  position:absolute; 
+  left:70vw; 
+  top:9vh; 
+  background: brown;
+
+  display:flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+
+#rightDiv1{
+
+  height:70%;
+
+  width:100%;
+
+  background:green;
+
+  
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+
+}
+
+
+#comparisonDiv{
+
+  background : yellow;
+
+  height: 50%;
+
+  width: 100%;
+
+}
+
+
+#sequencesDiv{
+
+background : purple;
+
+  height: 50%;
+
+  width: 100%;
+
+
+}
+
+
+
+#rightDiv2{
+
+  height:30%;
+
+  width:100%;
+
+  background: blue;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+}
+
 .mo-fire {
-     opacity:0;
-  width: 60px;
+  opacity: 0;
+  width: 35%;
   height: auto;
-  position: absolute;
-  margin-top: -25px;
-  margin-left: 130px;
+  display: flex;
+
+  margin-right: 6%;
+  
+
+  justify-content: flex-start;
+
+  align-items: center;
 }
 .mo-fire svg {
   width: 100%;
   height: auto;
-  position: relative
 }
 .flame {
   animation-name: flamefly;
@@ -119,19 +249,63 @@ body {
     transform: translate(-20px, -100px) rotate(180deg);
     opacity: 0;
   }
+
+
+
+
+ 
+
 </style>
 <br>
-<div id='backgroundDiv'>
- <i class="far fa-clipboard fa fa-2x"></i>
-  <h1>Project Blue Beam </h1>
-  <h5>Jour 1 semaine 4 </h5>
+
+
+<div id="leftDiv">
+
+
+    <div id='leftDiv1'></div>
+
+    <div  id='leftDiv2'></div>
+   
+
+</div>
+
+<div id="rightDiv">
+
+
+    <div id='rightDiv1'>
+
+       <div id='comparisonDiv'></div>
+
+       <div id='sequencesDiv'></div>
+
+    </div>
+
+
+    <div id='rightDiv2'>
+      
+      <a href='{{ path("showGraphPath", {"projectId": projectId }) }}'<button><i class="fas fa-chart-line fa-3x"></i></button></a>
+
+
+    </div>
+
+
+</div>
+
+
+<div id='backDiv'>
+
+
+<div id='middleDiv'>
+
    <div>
    
+  <div style='background: blue; display: flex; flex-direction: column; justify-content: center; align-items: center'>
      <img id ='flaskLogo' src='{{ asset("images/flask"~ substanceColor ~ ".png") }}'> 
      
-     <div id='totalProgress'></div>
-     
-    <div class="mo-fire" id='fireLogo'>
+     <div style='position: absolute; margin: auto' id='totalProgress'></div>
+      
+    
+         <div class="mo-fire" id='fireLogo'>
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="125px" height="189.864px" viewBox="0 0 125 189.864" enable-background="new 0 0 125 189.864" xml:space="preserve">
         <path class="flame-main" fill="#F36E21" d="M76.553,186.09c0,0-10.178-2.976-15.325-8.226s-9.278-16.82-9.278-16.82s-0.241-6.647-4.136-18.465
@@ -152,12 +326,12 @@ body {
     </svg>
   </div>
  </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
+
+  </div>
+     
+
+
    
    </br>
    <button id="startBtn"><i class="fas fa-play-circle fa-3x"></i></button>
@@ -171,7 +345,7 @@ body {
       <input id='pageReload' type='hidden' name = 'pageReload'>
       
 </form>
-<div style='width: 28%; height: 34px; display: flex; align-items: center; justify-content: flex-start; border: 2px solid white; flex-direction: row; border-radius: 5px; margin: none; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);'>
+<div style='width: 43%; height: 30px; display: flex; align-items: center; justify-content: flex-start; border: 2px solid white; flex-direction: row; border-radius: 5px; margin: none; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);'>
       
     <div id='myProgressBar' style='margin-top: 0.5px; background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/172299/bubbles-mask.gif);  width: 0%; height: 100%; display: flex;  '> 
           
@@ -190,7 +364,9 @@ body {
  
       
  </div>
-<a href='{{ path("showGraphPath", {"projectId": projectId }) }}'<button id='chartLink'><i class="fas fa-chart-line fa-3x"></i></button>
+
+
+ </div>
 </body>
 {% endblock %}
       {% block javascripts %}
