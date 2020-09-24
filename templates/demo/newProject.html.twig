@@ -2,6 +2,8 @@
 
 {% block title %}Hello ProjectController!{% endblock %}
 
+
+
 {% block body %}
 <style>
 
@@ -9,6 +11,11 @@ body{
 
   color: green;
 }
+
+	select{
+		font-family: fontAwesome
+	}
+
 input{
 
   border: none;
@@ -62,17 +69,57 @@ select option{
 
 
 }
+
+
+#arkanaImg{
+  position: fixed;
+
+  height: 260px;
+
+  width: auto;
+
+  top: 55vh;
+
+  left: 5vw;
+
+   z-index: 2;
+}
+
+#arkanaDiv{
+
+  position: fixed;
+
+  top: 90vh;
+
+  
+}
+
+
 </style>
 
-<br>
+          
+   <div id='arkanaDiv'>
+      <div id='bubbleDiv'>
+         <p>A présent, crée un projet!! Nous t'avons simplifier la vie, nous allons simuler la création d'un projet.
+         </p>
+        <img id='arkanaImg' src='{{ asset("images/bubble.png") }}'>
+      </div>
 
+     <div>
+        <img id='arkanaImg' src='{{ asset("images/scientist2.png") }}'>
+     </div>
+      
+    <div>
+  
+    
+  
 
   <div id='bgDiv'>
      
  
+
  <img id='computerPng' src='{{ asset("images/mypc2.png") }}'>
 
-  
 
 <form id='myForm' method='post' action= '{{ path("demoProjectPath")}}'>
 
