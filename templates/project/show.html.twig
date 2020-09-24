@@ -6,84 +6,42 @@
 
 {% block body %}
 <style>
-
 body{
-
 }
-
 #backgroundDiv{
-
    width: 100vw;
-
   
-
    display: flex;
-
    flex-direction: column;
-
    align-items: center;
-
 }
-
-
-
 #flaskLogo{
-
    height: 200px;
-
    width: auto;
-
    
-
    
 }
-
-
 #chartLink{
-
 position: absolute;
-
 top: 75vh;
-
 right: 6vw;
-
 }
-
-
 #startBtn{
-
 position: absolute;
-
 top: 75vh;
-
 left: 48vw;
-
 background: none;
-
 border: none;
-
 outline: none;
-
 color: white;
-
    
 }
-
 #totalProgress{
    position: absolute;
-
    top: 43%;
-
    left: 48%;
-
    font-size: 30px;
-
-
 }
-
-
-
-
 body {
   width: 100%;
   position: relative;
@@ -91,15 +49,11 @@ body {
   margin: 0;
 }
 .mo-fire {
-
      opacity:0;
-
   width: 60px;
   height: auto;
   position: absolute;
-
   margin-top: -25px;
-
   margin-left: 130px;
 }
 .mo-fire svg {
@@ -123,7 +77,6 @@ body {
   animation-duration: 5s;
   animation-delay: 1s;
 }
-
 .flame-main {
   animation-name: flameWobble;
   animation-duration: 3s;
@@ -166,38 +119,18 @@ body {
     transform: translate(-20px, -100px) rotate(180deg);
     opacity: 0;
   }
-
-
-
-
-
-
-
 </style>
-
 <br>
-
-
-
 <div id='backgroundDiv'>
-
  <i class="far fa-clipboard fa fa-2x"></i>
-
   <h1>Project Blue Beam </h1>
-
-
   <h5>Jour 1 semaine 4 </h5>
-
-
    <div>
    
      <img id ='flaskLogo' src='{{ asset("images/flask"~ substanceColor ~ ".png") }}'> 
      
-
      <div id='totalProgress'></div>
-
      
-
     <div class="mo-fire" id='fireLogo'>
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="125px" height="189.864px" viewBox="0 0 125 189.864" enable-background="new 0 0 125 189.864" xml:space="preserve">
@@ -217,14 +150,8 @@ body {
         <path class="flame one" fill="#F36E21" d="M55.592,126.854c0,0-3.819,13.29,2.699,16.945C64.038,141.48,55.907,132.263,55.592,126.854z"/>
         <path class="flame two" fill="#F36E21" d="M54.918,104.595c0,0-3.959,6.109-1.24,8.949C56.93,113.256,52.228,107.329,54.918,104.595z"/>
     </svg>
-
-
   </div>
-
  </div>
-
-
-
 <br>
 <br>
 <br>
@@ -232,32 +159,18 @@ body {
 <br>
 <br>
    
-
    </br>
-
    <button id="startBtn"><i class="fas fa-play-circle fa-3x"></i></button>
    </br>
-
    
-
   <form id='projectDone' method='post' action= '{{path("totalCountDonePath")}}'>
-
    <input type='hidden' name = 'projectId' value = '{{ projectId}}'>
-
-
-
-
   </form>
-
-
-
-
 <form id ="intervalForm" action= '{{ path("showProjectPath", {"projectId": projectId })}}' method="post" >
       <input id='intervalInput' type='hidden' name = 'interval' value = 'off'>
       <input id='pageReload' type='hidden' name = 'pageReload'>
       
 </form>
-
 <div style='width: 28%; height: 34px; display: flex; align-items: center; justify-content: flex-start; border: 2px solid white; flex-direction: row; border-radius: 5px; margin: none; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);'>
       
     <div id='myProgressBar' style='margin-top: 0.5px; background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/172299/bubbles-mask.gif);  width: 0%; height: 100%; display: flex;  '> 
@@ -267,51 +180,30 @@ body {
         background: linear-gradient(to bottom, rgba(255,147,147,1) 5%, rgba(250,68,68,1) 17%, rgba(242,23,23,1) 31%, rgba(255,50,50,1) 67%, rgba(251,114,114,1) 89%, rgba(255,143,143,1) 96%);opacity: 0.75 ; display: flex; justify-content: center; flex-direction: row';><div id='progressText' style=' font-size: 15px; width: 10%; height: 100%; display:flex; justify-content:flex-end; margin-bottom: 80px; margin-right: 24.5px; border-radius: 10px'>
       </div>
       {% elseif substanceColor == 'green' %}
-
        <div id='liquid' style=' height: 100%; width: 100%; background:rgb(194,238,200); background: linear-gradient(to bottom, rgba(194,238,200,1) 7%, rgba(158,245,181,1) 14%, rgba(41,215,118,1) 31%, rgba(45,223,128,1) 67%, rgba(213,255,226,1) 100%) ;opacity: 0.75 ; display: flex; justify-content: center; flex-direction: row';><div id='progressText' style=' font-size: 15px; width: 10%; height: 100%; display:flex; justify-content:flex-end; margin-bottom: 80px; margin-right: 24.5px; border-radius: 10px'>
       </div>
-
       {% elseif substanceColor == 'blue' %}
               
          <div id='liquid' style=' height: 100%; width: 100%; background: rgb(204,222,235); background: linear-gradient(to bottom, rgba(204,222,235,1) 7%, rgba(119,206,212,1) 14%, rgba(78,174,205,1) 31%, rgba(52,193,191,1) 67%, rgba(213,255,226,1) 100%);;opacity: 0.75 ; display: flex; justify-content: center; flex-direction: row';><div id='progressText' style=' font-size: 15px; width: 10%; height: 100%; display:flex; justify-content:flex-end; margin-bottom: 80px; margin-right: 24.5px; border-radius: 10px'>
       </div>
-
       {% endif %}
  
       
  </div>
-
-
 <a href='{{ path("showGraphPath", {"projectId": projectId }) }}'<button id='chartLink'><i class="fas fa-chart-line fa-3x"></i></button>
-
-
-
-
 </body>
-
 {% endblock %}
-
       {% block javascripts %}
-
-
        
        var liquid = document.getElementById("liquid");
-
      
-
          //setInterval (function(){refreshAt(23,55,0)}, 10000000) ;
-
          
          
          setInterval (function(){storeValues()}, 600000) ;
-
-
       
             
-
         
-
-
       var startBtn = document.getElementById('startBtn'); 
       var dailyCnt = {{dailyCount}};
       var totalCnt = {{ totalCount }};
@@ -325,44 +217,23 @@ body {
       var myProgressBar = document.getElementById('myProgressBar');
               
       var done = false;
-
       var interval = "{{interval}}";
-
       var pageReloaded = {{ pageReloaded }}
-
-
-
       if(interval == "on"){
-
          countFunction();
-
-
-
       }
-
       
-
             window.onload = function(){
-
                          totalProgress.innerHTML =  Math.floor( {{ (totalCount/totalLimit) * 100 }}) + ' %';
-
                           myProgressBar.style.width = dailyCnt + '%';
-
-
                          window.onbeforeunload = function(){ storeValues()};
-
             }
             
-
-
-
       
        
        function refreshAt(hours, minutes, seconds) {
     var now = new Date();
     var then = new Date();
-
-
     if(now.getHours() > hours ||
        (now.getHours() == hours && now.getMinutes() > minutes) ||
         now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
@@ -372,244 +243,120 @@ body {
     then.setMinutes(minutes);
     then.setSeconds(seconds);
      
-
         console.log(then - now);
-
-
     
     if((then - now) < 300000){    
-
          
-
                    if(startBtn.innerHTML == '<i class="fas fa-pause-circle fa-3x"></i>'){
-
                       intervalInput.value = 'on';
-
                       console.log('on!!');
                           }
-
         
                   console.log('letsgo');
-
                   storeValues();
-
                   intervalForm.submit();
-
-
-
-
             }
-
-
       
  }
   
-
      
    
          
-
-
      
      function storeValues(){
-
        console.log("stored");
          
          xrq = new XMLHttpRequest();
          
          xrq.onload = function(){
-
          }
           xrq.open('POST', '{{ path("storeCountsPath")}}', true);
-
           xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
           xrq.send('projectId=' + {{ projectId}} + '&totalCount=' + totalCnt +'&dailyCount=' + dailyCnt);
-
       }
        
       
    
       var myInterval;
-
-
       startBtn.addEventListener('click', function(){
-
          countFunction();
-
       })
-
-
-
       var storeInterval;
-
       //interval, checking regularly if the dailyyCount is done
-
       var checkDailyCountInterval;
-
-
       function countFunction(){
-
          
           if (startBtn.innerHTML == '<i class="fas fa-play-circle fa-3x"></i>'){
-
              myInterval = setInterval(function(){ increaseCounts()}, 100);
                              
                fireLogo.style.opacity = 1;
-
              startBtn.innerHTML = '<i class="fas fa-pause-circle fa-3x"></i>';
-
             
              checkDailyCountInterval = setInterval(function(){ checkDailyCount()}, 1000); 
-
              storeInterval = setInterval(function(){ storeValues()}, 2000);
              
-
-
-
           }
-
           else {
  
              clearInterval(myInterval);
-
              clearInterval(checkDailyCountInterval);
-
              clearInterval(storeInterval);
-
-
-
           
              fireLogo.style.opacity = 0;
-
             
             startBtn.innerHTML = '<i class="fas fa-play-circle fa-3x"></i>';
               
           }
-
-
-
       }
-
-
-
 function checkDailyCount(){
-
      console.log(dailyCnt);
      console.log({{dailyLimit}});
-
-
          
      console.log(dailyCountDone);
-
      if (dailyCountDone == false){
-
                
         if(dailyCnt >= {{dailyLimit}}) {
-
-
            
-
           xrq = new XMLHttpRequest();
-
           xrq.onload = function(){
                
                console.log('done');
              
               updateNotifs();
-
               updatePin();
-
              console.log(JSON.parse(this.responseText).pin);
-
              dailyCountDone = true;
-
           }
-
-
           xrq.open('POST', '{{ path("dailyCountDonePath")}}', true);
-
           xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
           xrq.send('projectId=' + {{ projectId}});
-
          }
-
-
       }
-
-
-
-
 }
-
-
-
-
-
      
-
-
-
       function increaseCounts(){ 
-
         if( ({{ totalLimit }}- totalCnt) <= 5 ){
-
           if(totalCnt >= {{ totalLimit}}){
-
                       myfct();
           }
-
      }
-
-
-
   
-
-
-
-
           totalCnt+=2;
-
           dailyCnt+=2;
-
-
           myProgressBar.style.width = dailyCnt + '%';
            
-
           totalProgress.innerHTML =  Math.floor(((totalCnt/{{totalLimit}})*100))  + ' %';
-
        }
-
-
-
-
-
         
         function myfct(){
-
               if(done == false){
-
                 console.log('alright');
              
                    console.log('ok');
-
-
                     clearInterval(myInterval);
-
                     storeValues();
-
                     projectDone.submit();
-
                     done = true;
-
-
              }
-
-
-
         }
-
-
-
         {% endblock %}
