@@ -4,6 +4,7 @@
 
 {% block title %}My project{% endblock %}
 
+
 {% block body %}
 <style>
 body{
@@ -12,7 +13,6 @@ body{
 
 
 #backDiv{
-  background:green; 
   width: 100vw;
   height: 90vh;
   display:flex;
@@ -29,7 +29,6 @@ body{
    align-items: center;
    justify-content: center;
 
-   background:red;
 }
 
 
@@ -62,25 +61,41 @@ body {
 #leftDiv{
   position:absolute; 
 
-  width:30%; 
+  width:20%; 
   height:90vh; 
-  right:70.5vw; 
+  right:70vw; 
   top:9vh; 
-  background:purple;
 
   display: flex;
 
   flex-direction: column;
+
+  justify-content: space-between;
+
+
+
 }
 
 
 #leftDiv1{
 
-height: 50%;
+margin-top: 3vh;
+height: 40%;
 
 width: 100%;
 
-background: blue;
+display: flex;
+
+flex-direction: column;
+
+justify-content: space-around;
+
+
+
+  background: red;
+
+
+
 
 }
 
@@ -88,22 +103,30 @@ background: blue;
 
 #leftDiv2{
   
-height: 50%;
+height: 40%;
 
 width: 100%;
 
-background: brown;
+display: flex;
+
+flex-direction: column;
+
+justify-content: space-around;
+
+  background: blue;
+
+margin-bottom : 10vh;
+
 }
 
 
 #rightDiv{
 
-  width: 30%; 
+  width: 20%; 
   height: 91vh; 
   position:absolute; 
-  left:70vw; 
+  left:71vw; 
   top:9vh; 
-  background: brown;
 
   display:flex;
 
@@ -116,13 +139,12 @@ background: brown;
 
 
 #rightDiv1{
+  
+  margin-top: 3vh;
 
   height:70%;
 
   width:100%;
-
-  background:green;
-
   
   display: flex;
 
@@ -130,41 +152,41 @@ background: brown;
 
   justify-content: space-between;
 
+  background: green;
+
 
 }
 
 
 #comparisonDiv{
 
-  background : yellow;
 
   height: 50%;
 
   width: 100%;
+
+  background: blue;
 
 }
 
 
 #sequencesDiv{
 
-background : purple;
 
   height: 50%;
 
   width: 100%;
 
-
+   background: purple;
 }
 
 
 
 #rightDiv2{
-
-  height:30%;
+  margin-bottom: 10vh;
+  height:20%;
 
   width:100%;
-
-  background: blue;
 
   display: flex;
 
@@ -172,6 +194,7 @@ background : purple;
 
   align-items: center;
 
+background : green;
 }
 
 .mo-fire {
@@ -251,8 +274,6 @@ background : purple;
   }
 
 
-
-
  
 
 </style>
@@ -261,11 +282,14 @@ background : purple;
 
 <div id="leftDiv">
 
+    <div id='leftDiv1'>
 
-    <div id='leftDiv1'></div>
+ 
+    </div>
 
     <div  id='leftDiv2'></div>
-   
+     
+
 
 </div>
 
@@ -274,7 +298,9 @@ background : purple;
 
     <div id='rightDiv1'>
 
-       <div id='comparisonDiv'></div>
+       <div id='comparisonDiv'>
+
+       </div>
 
        <div id='sequencesDiv'></div>
 
@@ -299,7 +325,7 @@ background : purple;
 
    <div>
    
-  <div style='background: blue; display: flex; flex-direction: column; justify-content: center; align-items: center'>
+  <div style='display: flex; flex-direction: column; justify-content: center; align-items: center'>
      <img id ='flaskLogo' src='{{ asset("images/flask"~ substanceColor ~ ".png") }}'> 
      
      <div style='position: absolute; margin: auto' id='totalProgress'></div>
@@ -345,7 +371,7 @@ background : purple;
       <input id='pageReload' type='hidden' name = 'pageReload'>
       
 </form>
-<div style='width: 43%; height: 30px; display: flex; align-items: center; justify-content: flex-start; border: 2px solid white; flex-direction: row; border-radius: 5px; margin: none; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);'>
+<div style='width: 43%; height: 30px; display: flex; align-items: center; justify-content: flex-start; border: 2px solid white; flex-direction: row; border-radius: 5px; margin: none; box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.3);'>
       
     <div id='myProgressBar' style='margin-top: 0.5px; background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/172299/bubbles-mask.gif);  width: 0%; height: 100%; display: flex;  '> 
           
@@ -367,9 +393,18 @@ background : purple;
 
 
  </div>
+
+ 
 </body>
 {% endblock %}
+
+
       {% block javascripts %}
+
+      
+       console.log('{{ comparison }}');
+
+
        
        var liquid = document.getElementById("liquid");
      

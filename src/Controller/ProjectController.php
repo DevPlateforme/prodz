@@ -142,6 +142,61 @@ class ProjectController extends AbstractController
         $interval = 'off';
 
 
+        //comparison with last day
+
+        
+       if ($project->currentDay != 0){
+
+            $lastday  = $project->weeks[$currentWeek]->days[$currentDay - 1];
+
+        } else if($currentDay == 0){
+
+          if($currentWeek != 0){
+
+            $lastDay = $project->weeks[$currentWeek - 1]->days[6];
+       
+          } else if ($currentWeek == 0){
+
+           $lastDay = null;
+          } 
+
+        } 
+        
+        if($lastDay == null){
+
+            $comparison = 'none';
+        } else{
+
+            $lastDayCount = $lastDay->getDailyCount();
+
+
+            if($dailyCount != 0){
+                
+                //We check how fare from 1 the difference between the two values is.
+                //If the number is higher than 1, then the dailycount is bigger than the day before
+                //If negative, then the last day lost
+                 
+                if($lastDayCount == 0){
+    
+                    $comparison = 100;
+                } else{
+                    $comparison = (($dailyCount/$lastDayCount)-1)*100;
+                }
+    
+            }else if($dailyCount == 0){
+    
+                if($lastDayCount != 0){
+    
+                    $comparison = -100;
+                }
+            } 
+             
+    
+    
+
+        }
+        
+
         if(isset($_POST['pageReload'])){
 
             $pageReloaded = 'true';
@@ -154,10 +209,7 @@ class ProjectController extends AbstractController
 
         }
 
-
-        
-
-        return $this->render('project/show.html.twig', ['pageReloaded' => $pageReloaded, 'interval' => $interval,  'user' => $user, 'username' => $user->getUserName(), 'projectId' => $projectId ,  'projectName' => $project->getProjectName(), 'dailyCount' => $dailyCount, 'dailyLimit' => $dailyLimit , 'dailyCountDone' => $dailyCountDone  , 'totalCount' => $totalCount, 'totalCountDone' => $totalCountDone ,  'totalLimit' => $totalLimit, 'substanceColor' => $substanceColor]);
+        return $this->render('project/show.html.twig', ['pageReloaded' => $pageReloaded, 'interval' => $interval,  'user' => $user, 'username' => $user->getUserName(), 'projectId' => $projectId ,  'projectName' => $project->getProjectName(), 'dailyCount' => $dailyCount, 'dailyLimit' => $dailyLimit , 'dailyCountDone' => $dailyCountDone  , 'totalCount' => $totalCount, 'totalCountDone' => $totalCountDone ,  'totalLimit' => $totalLimit, 'substanceColor' => $substanceColor, 'comparison' => $comparison]);
 
     }
 
