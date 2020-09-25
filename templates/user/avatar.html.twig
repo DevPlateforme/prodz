@@ -5,25 +5,87 @@
 {% block body %}
 <style>
 
+
+.avatarImg{
+    position: absolute;
+
+    top: 18vh;
+
+    left: 30vw;
+    height: auto;
+    width: 40vw;  
+    opacity: 0;
+
+    transition: 0.5s;
+
+}
+
+
+#img1{
+
+    opacity: 1;
+}
+
+#avatarHeader{
+
+     position: absolute;
+
+     top: 13vh;
+
+     left: 8vw;
+
+     width: 50vw;
+}
+
+#rightButton{
+
+   position: absolute;
+
+   top: 55vh;
+
+   left: 10vw;
+}
+
+#leftButton{
+    
+   position: absolute;
+
+   top: 55vh;
+
+   right: 10vw;
+}
+
+
+button{
+    background: none;
+
+    border: none;
+
+    outline: none;
+  }
+
 </style>
 
 
+<div id='avatarHeader'>
+   <h3>Clique sur l'avatar de ton choix!</h3>
+</div>
 
-<h1>Clique sur l'avatar de ton choix</h1>
 
+<button id='rightButton' onclick='rightButtonClick()'><i style='color:white; border:none; outline: none' class="fas fa fa-3x fa-arrow-alt-circle-left"></i></button>
 
-
-
-<a href='{{ path("associatedMailPath", {"avatar": "man1"}) }}'><img src='{{ asset("images/man1.png") }}' ></a>
-<a href='{{ path("associatedMailPath", {"avatar": "man2"}) }}' id='man2'><img  src='{{ asset("images/man2.png") }}' ></a>
-<a href='{{ path("associatedMailPath", {"avatar": "man3"}) }}' id='man3' ><img src='{{ asset("images/man3.png") }}' ></a>
-<a href='{{ path("associatedMailPath", {"avatar": "man4"}) }}' id='man4'><img  src='{{ asset("images/man4.png") }}' ></a>
-<a href='{{ path("associatedMailPath", {"avatar": "woman1"}) }}' id='woman1'><img id='woman1' src='{{ asset("images/woman1.png") }}' ></a>
-<a href='{{ path("associatedMailPath", {"avatar": "woman2"}) }}' id='woman2' ><img src='{{ asset("images/woman2.png") }}'></a>
-<a href='{{ path("associatedMailPath", {"avatar": "woman3"}) }}' id='woman3'><img src='{{ asset("images/woman3.png") }}'></a>
+<button id='leftButton' onclick='leftButtonClick()'><i style='color:white' class="fas fa fa-3x fa-arrow-alt-circle-right"></i></button>
 
 
 
+
+<a href='{{ path("storeAvatarPath", {"avatar": "man1"}) }}'><img id='img1' class='avatarImg'  src='{{ asset("images/man1.png") }}' ></a>
+<a href='{{ path("storeAvatarPath", {"avatar": "man2"}) }}' ><img id='img2' class='avatarImg'  src='{{ asset("images/man2.png") }}' ></a>
+<a href='{{ path("storeAvatarPath", {"avatar": "man3"}) }}' id='man3' ><img id='img3' class='avatarImg' src='{{ asset("images/man3.png") }}' ></a>
+<a href='{{ path("storeAvatarPath", {"avatar": "man4"}) }}' id='man4'><img id='img4' class='avatarImg' src='{{ asset("images/man4.png") }}' ></a>
+<a href='{{ path("storeAvatarPath", {"avatar": "woman1"}) }}' id='woman1'><img id='img5' class='avatarImg'  id='woman1' src='{{ asset("images/woman1.png") }}' ></a>
+<a href='{{ path("storeAvatarPath", {"avatar": "woman2"}) }}' id='woman2' ><img id='img6' class='avatarImg' src='{{ asset("images/woman2.png") }}'></a>
+<a href='{{ path("storeAvatarPath", {"avatar": "woman3"}) }}' id='woman3'><img id='img7' class='avatarImg'  src='{{ asset("images/woman3.png") }}'></a>
 
 
 
@@ -32,6 +94,37 @@
 
 
 {%block javascripts %}
+
+
+var displayedImage =1;
+
+function rightButtonClick(){
+  document.getElementById("img"+displayedImage).style.opacity = 0;
+
+  if(displayedImage == 7){
+      displayedImage = 1;
+  } else{
+   displayedImage +=1;
+  }
+
+   document.getElementById("img"+displayedImage).style.opacity = 1;
+
+}
+
+
+function leftButtonClick(){
+
+  document.getElementById("img"+displayedImage).style.opacity = 0;
+
+  if(displayedImage == 1){
+      displayedImage = 7;
+  } else{
+   displayedImage -=1;
+  }
+
+   document.getElementById("img"+displayedImage).style.opacity = 1;
+
+}
 
 
 

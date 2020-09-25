@@ -82,12 +82,36 @@ class UserController extends AbstractController
             return $this->render('user/avatar.html.twig');
      }
 
+     
+     /**
+     * @Route("/storeAvatar/{avatar}", name="storeAvatarPath")
+     */
+
+     public function storeAvatar(EntityManagerInterface $manager, UserInterface $user, $avatar)
+     {
+        
+
+        $user->setAvatar($avatar);
+        $user->setAvatarAssetSrc('images/'. $avatar . '.png');
+
+
+        $manager->persist($user);
+        $manager->flush();
+
+
+        return $this->render("user/demonstration.html.twig");
+
+           
+
+     }
+
+
 
 
      /**
-     * @Route("/associatedMail/{avatar}", name="associatedMailPath")
+     * @Route("/associatedMail", name="associatedMailPath")
      */
-    public function associatedMail( EntityManagerInterface $manager, UserInterface $user, $avatar)
+    public function associatedMail( EntityManagerInterface $manager, UserInterface $user)
     {
         if(isset($_POST['submit'])){
 
@@ -102,10 +126,6 @@ class UserController extends AbstractController
             return $this->render('user/demonstration.html.twig');
             
         }
-
-            $user->setAvatar($avatar);
-            $user->setAvatarAssetSrc('images/'. $avatar . '.png');
-
 
             $manager->persist($user);
             $manager->flush();
