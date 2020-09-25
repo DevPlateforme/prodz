@@ -219,6 +219,7 @@
 
            #myFooter{
              
+             
              height: 6vh;
              width: 100%;
 
@@ -237,6 +238,36 @@
            }
 
 
+           
+
+           #myFooter2{
+             
+             height: 6vh;
+             width: 100%;
+
+             background: red;
+
+
+             position: fixed;
+
+             top: 94vh;
+
+             display: flex;
+
+             justify-content: center;
+
+             align-items: center;
+
+             flex-direction: row;
+
+             z-index: 0;
+
+
+           }
+
+
+
+
           #myFooter div{
            
            display: flex;
@@ -245,8 +276,47 @@
 
            justify-content: space-around;
 
+           }
+
+           #myFooter2 div{
+           
+           display: flex;
+
+           width: 50%;
+
+           justify-content: space-around;
+
 
            }
+
+           #footer2SeeDoneLogo{
+              margin-top: 0.45vh;
+
+           }
+
+           
+           #footer2SeeAllLogo{
+
+              margin-top: 0.45vh;
+
+           }
+
+           #footer2notifIcon{
+              
+              margin-top: 1.2vh;
+
+
+           }
+
+           #footer2ProfileLogo{
+              
+                margin-top: 0.4vh;
+
+
+           }
+
+
+           
 
 
            #setToViewLink{
@@ -259,6 +329,25 @@
            }
 
 
+
+
+   
+  @media all and (max-width: 450px){
+
+      #myNavBar{
+
+        opacity:0;
+
+      }
+
+
+      #myFooter2{
+
+        z-index: 6;
+      }
+
+
+  } 
         </style>
 
         
@@ -308,6 +397,7 @@
 
 {% if app.user %}
 
+
 <div id='myFooter'>
      <div>
 
@@ -326,6 +416,44 @@
       </div>
 
 </div>
+
+
+
+
+<div id='myFooter2'>
+     <div>
+
+              <div id='footer2ProfileLogo'>
+              
+              <a href='{{ path("profilePagePath")}}'><button style='background:none; border:none; outline: none'><i class="fas fa-x fa-user"></i></button></a>  
+              
+              </div>
+
+        
+        <div id='footer2SeeDoneLogo'>
+           <a href='{{ path("showAllDoneProjectsPath") }}'><button style='background:none; border:none; outline: none'><i class="fas fa-vials"></i></button></a>
+        </div>
+
+          <div>
+            <a href='{{ path("newProjectPath") }}'><button style='background:none; border:none; outline: none'><i class="fas fa fa-2x fa-plus-circle"></i></button></a>
+        </div>
+
+        <div  id='footer2SeeAllLogo'>
+           <a href='{{ path("showAllProjectsPath") }}'><button  style='background:none; border:none; outline: none'><i class="fas fa-vial"></i></button></a>
+        </div>
+
+        
+         <div>
+           <i id='footer2notifIcon' class="fa fa-bell fa-1x" aria-hidden="true" style="color:black"></i>
+        </div>
+
+      
+    </div>
+
+</div>
+
+
+
 
 {% endif %}  
 

@@ -8,6 +8,38 @@
 {% block body %}
 <style>
 
+#idText{
+
+  position: absolute;
+
+  top: 10vh;
+
+  left: 33vw;
+}
+#idText2{
+
+  position: absolute;
+
+  top: 12vh;
+
+  left: 33vw;
+}
+#idText3{
+
+  position: absolute;
+
+  top: 15vh;
+
+  left: 33vw;
+}
+#idText4{
+
+  position: absolute;
+
+  top: 17vh;
+
+  left: 33vw;
+}
 
 #backDiv{
   width: 100vw;
@@ -189,7 +221,7 @@ padding-right: 10%;
 
   flex-direction: column;
 
-  justify-content: space-between;
+  justify-content: space-around;
 
 background:#161b3d;
 }
@@ -205,7 +237,9 @@ background:#161b3d;
 
 #sequencesDiv{
 
-  height: 15%;
+  margin-top: 27%;
+
+  height: 25%;
 
    width: 100%;
 
@@ -270,7 +304,7 @@ flex-direction: column;
 
 .mo-fire {
   opacity: 0;
-  width: 35%;
+  width: 23%;
   height: auto;
   display: flex;
 
@@ -436,8 +470,15 @@ flex-direction: column;
 <div id='middleDiv'>
 
    <div>
+
+
+   <div id='idText' style='color:green; font-size: 10px'></div>
+   <div id='idText2' style='color:green; font-size: 10px'></div>
+   <div id='idText3' style='color:green; font-size: 10px'></div>
+   <div id='idText4' style='color:green; font-size: 10px'></div>
+
    
-  <div style='display: flex; flex-direction: column; justify-content: center; align-items: center'>
+  <div style='display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 5vh'>
      <img id ='flaskLogo' src='{{ asset("images/flask"~ substanceColor ~ ".png") }}'> 
      
      <div style='position: absolute; margin: auto' id='totalProgress'></div>
@@ -517,9 +558,6 @@ flex-direction: column;
        console.log('{{ comparison }}');
 
 
-
-  
-
        
        var liquid = document.getElementById("liquid");
      
@@ -556,30 +594,83 @@ flex-direction: column;
       }
       
             window.onload = function(){
+
+            //intro text
+
+             var i = 0;
+             var i2 = 0;
+             var i3 = 0;
+             var i4 = 0;
+
+
+             var txt = ' statut: connecté'
+             var txt2 = ' Projet blue beam'
+             var txt3 = 'Date de création:25/09/2020'
+             var txt4 = 'Immatriculation: b75xv79bx7665v&678YT456'
+
+
+            var speed = 30;
+
+            function txt1writing() {
+               if (i < txt.length) {
+               document.getElementById("idText").innerHTML += txt.charAt(i);
+               i++;
+               setTimeout(txt1writing, speed);
+            }
+         }  
+
+             function txt2writing() {
+               if (i2 < txt2.length) {
+               document.getElementById("idText2").innerHTML += txt2.charAt(i2);
+               i2++;
+               setTimeout(txt2writing, speed);
+            }
+         }
+
+          function txt3writing() {
+               if (i3 < txt3.length) {
+               document.getElementById("idText3").innerHTML += txt3.charAt(i3);
+               i3++;
+               setTimeout(txt3writing, speed);
+            }
+         }
+
+         
+          function txt4writing() {
+               if (i4 < txt4.length) {
+               document.getElementById("idText4").innerHTML += txt4.charAt(i4);
+               i4++;
+               setTimeout(txt4writing, speed);
+            }
+         } 
+
+          txt1writing();
+          txt2writing();
+          txt3writing();
+          txt4writing();
+
+
+
+
                         
                        
-                         totalProgress.innerHTML =  Math.floor( {{ (totalCount/totalLimit) * 100 }}) + ' %';
-                          myProgressBar.style.width = dailyCnt + '%';
-                         window.onbeforeunload = function(){ storeValues()};
+              totalProgress.innerHTML =  Math.floor( {{ (totalCount/totalLimit) * 100 }}) + ' %';
+              myProgressBar.style.width = dailyCnt + '%';
+              window.onbeforeunload = function(){ storeValues()};
 
-                         var yesterdayCount = 85;
+              var yesterdayCount = 85;
 
-                         displayGraph( comparisonChart , [yesterdayCount, dailyCnt], ['Hier', 'Aujourdhui'] , 'line', 2000);
+              displayGraph( comparisonChart , [yesterdayCount, dailyCnt], ['Hier', 'Aujourdhui'] , 'line', 2000);
                          
                         
-                         displayGraph( dailyCountChart1 , [25], ['Heures'] , 'doughnut', 2000);
-                          
-                         displayGraph( dailyCountChart2 , [35], ['Minutes'] , 'doughnut', 2000);
-
-                         displayGraph( totalCountChart1 , [20], ['Heures'] , 'doughnut', 2000);
-                         displayGraph( totalCountChart2 , [20], ['minutes'] , 'doughnut', 2000);
-                         displayGraph( totalCountChart3 , [20], ['Secondes'] , 'doughnut', 2000);
-                        
-                        displayGraph(topTimeChart, [20, 50], ['temps actuel', 'top'] , 'bar', 2000);
+              displayGraph( dailyCountChart1 , [25], ['Heures'] , 'doughnut', 2500);      
+              displayGraph( dailyCountChart2 , [35], ['Minutes'] , 'doughnut', 2500);
+              displayGraph( totalCountChart1 , [20], ['Heures'] , 'doughnut', 2500);
+              displayGraph( totalCountChart2 , [20], ['minutes'] , 'doughnut', 2500);
+              displayGraph( totalCountChart3 , [20], ['Secondes'] , 'doughnut', 2500);           
+              displayGraph(topTimeChart, [20, 50], ['temps actuel', 'top'] , 'bar', 2500);
                   
-
-                      
-              
+                
             }
             
 
