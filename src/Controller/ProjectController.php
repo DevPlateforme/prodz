@@ -147,7 +147,7 @@ class ProjectController extends AbstractController
         
        if ($project->currentDay != 0){
 
-            $lastday  = $project->weeks[$currentWeek]->days[$currentDay - 1];
+            $lastDay  = $project->weeks[$currentWeek]->days[$currentDay - 1];
 
         } else if($currentDay == 0){
 
@@ -172,13 +172,14 @@ class ProjectController extends AbstractController
 
             if($dailyCount != 0){
                 
-                //We check how fare from 1 the difference between the two values is.
+                //We check how far from 1 the difference between the two values is.
                 //If the number is higher than 1, then the dailycount is bigger than the day before
                 //If negative, then the last day lost
                  
                 if($lastDayCount == 0){
     
                     $comparison = 100;
+                    
                 } else{
                     $comparison = (($dailyCount/$lastDayCount)-1)*100;
                 }
@@ -188,6 +189,8 @@ class ProjectController extends AbstractController
                 if($lastDayCount != 0){
     
                     $comparison = -100;
+                } else if($lastDayCount == 0){
+                    $comparison = 'noWorkTodayAndYesterday';
                 }
             } 
              

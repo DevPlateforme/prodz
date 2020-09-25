@@ -7,9 +7,6 @@
 
 {% block body %}
 <style>
-body{
-}
-
 
 
 #backDiv{
@@ -90,15 +87,34 @@ flex-direction: column;
 
 justify-content: space-around;
 
+align-items: center;
 
-
-  background: red;
-
-
+background: red;
 
 
 }
 
+
+
+#leftDiv1 div{
+
+height: 30%;
+
+width: 100%;
+
+
+}
+
+
+
+#leftDiv1 div canvas{
+
+
+  width:150px !important;
+  height:auto !important;
+
+
+}
 
 
 #leftDiv2{
@@ -113,12 +129,29 @@ flex-direction: column;
 
 justify-content: space-around;
 
-  background: blue;
+background: blue;
 
 margin-bottom : 10vh;
 
 }
 
+#leftDiv2 div{
+
+height: 30%;
+
+width: 100%;
+
+
+}
+
+#leftDiv2 div canvas{
+
+
+  width:200px !important;
+  height:auto !important;
+
+
+}
 
 #rightDiv{
 
@@ -152,39 +185,68 @@ margin-bottom : 10vh;
 
   justify-content: space-between;
 
-  background: green;
-
-
+   background: yellow;
 }
 
 
 #comparisonDiv{
 
+   height: 25%;
 
-  height: 50%;
-
-  width: 100%;
-
-  background: blue;
+   width: 100%;
 
 }
-
 
 #sequencesDiv{
 
+  height: 15%;
 
-  height: 50%;
+   width: 100%;
+
+   display: flex;
+
+   flex-direction: column;
+
+   align-items: center;
+
+   justify-content: start;
+
+  background: blue;
+}
+
+#sequencesDiv div{
+
+height: 30%;
+
+width: 5O%;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center:
+
+flex-direction: column;
+
+
+}
+
+
+#topTimeDiv{
+  height: 30%;
 
   width: 100%;
 
-   background: purple;
 }
+
+
+
 
 
 
 #rightDiv2{
   margin-bottom: 10vh;
-  height:20%;
+  height:10%;
 
   width:100%;
 
@@ -284,10 +346,36 @@ background : green;
 
     <div id='leftDiv1'>
 
+           <div>
+             <canvas id="dailyCountChart1"></canvas>
+           </div>
+
+             <div>
+               <canvas id="dailyCountChart2"></canvas>
+             </div>
+
+             <div>
+             <canvas id="dailyCountChart3"></canvas>
+            </div>
  
     </div>
 
-    <div  id='leftDiv2'></div>
+    <div  id='leftDiv2'>
+
+    
+           <div>
+             <canvas id="totalCountChart1"></canvas>
+           </div>
+
+             <div>
+               <canvas id="totalCountChart2"></canvas>
+             </div>
+
+             <div>
+             <canvas id="totalCountChart3"></canvas>
+            </div>
+    
+    </div>
      
 
 
@@ -300,9 +388,27 @@ background : green;
 
        <div id='comparisonDiv'>
 
+              <canvas id="comparisonChart"></canvas>
+
+       </div>
+           
+       <div id='sequencesDiv' style='color: green'>
+
+              <div>
+               <p style='font-size: 10px'>Séquence moyenne</p>
+              </div>
+           
+              <div>
+                <p>11:22:33</p>
+              </div>
+
        </div>
 
-       <div id='sequencesDiv'></div>
+      <div id='topTimeDiv'> 
+
+          <canvas id="topTimeChart"></canvas>
+         
+       </div>
 
     </div>
 
@@ -405,6 +511,9 @@ background : green;
        console.log('{{ comparison }}');
 
 
+
+  
+
        
        var liquid = document.getElementById("liquid");
      
@@ -426,6 +535,13 @@ background : green;
       var projectDone = document.getElementById('projectDone');
       var fireLogo = document.getElementById('fireLogo');
       var myProgressBar = document.getElementById('myProgressBar');
+      
+      //charts;
+      var comparisonChart = document.getElementById("comparisonChart");
+      var dailyCountChart1 = document.getElementById("dailyCountChart1");
+      var dailyCountChart2 =  document.getElementById("dailyCountChart2");
+      var dailyCountChart3 =  document.getElementById("dailyCountChart3");
+        
               
       var done = false;
       var interval = "{{interval}}";
@@ -435,11 +551,34 @@ background : green;
       }
       
             window.onload = function(){
+                        
+                      
                          totalProgress.innerHTML =  Math.floor( {{ (totalCount/totalLimit) * 100 }}) + ' %';
                           myProgressBar.style.width = dailyCnt + '%';
                          window.onbeforeunload = function(){ storeValues()};
+
+                         var yesterdayCount = 85;
+
+                         displayGraph( comparisonChart , [yesterdayCount, dailyCnt], ['Hier', 'Aujourdhui'] , 'line');
+                         
+                        
+                         displayGraph( dailyCountChart1 , [25], ['Heures'] , 'doughnut');
+                          
+                         displayGraph( dailyCountChart2 , [35], ['Minutes'] , 'doughnut');
+
+                         displayGraph( dailyCountChart3 , [20], ['Secondes'] , 'doughnut');
+
+                         displayGraph( totalCountChart1 , [20], ['Heures'] , 'doughnut');
+                         displayGraph( totalCountChart2 , [20], ['minutes'] , 'doughnut');
+                         displayGraph( totalCountChart3 , [20], ['Secondes'] , 'doughnut');
+                        
+                        displayGraph(topTimeChart, [20, 50], ['temps actuel', 'top'] , 'bar');
+
+
+
             }
             
+
       
        
        function refreshAt(hours, minutes, seconds) {
@@ -546,6 +685,12 @@ function checkDailyCount(){
 }
      
       function increaseCounts(){ 
+
+          console.log(dailyCnt);
+
+          console.log({{ dailyLimit }});
+
+
         if( ({{ totalLimit }}- totalCnt) <= 5 ){
           if(totalCnt >= {{ totalLimit}}){
                       myfct();
@@ -570,4 +715,54 @@ function checkDailyCount(){
                     done = true;
              }
         }
+
+        
+
+
+
+function displayGraph(chart, data, labels, type){
+
+var myChart = new Chart(chart , {
+    type: type,
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Dernières 24 heures',
+            data: data, 
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+}
+
+
         {% endblock %}
