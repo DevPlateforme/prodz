@@ -58,9 +58,9 @@ body {
 #leftDiv{
   position:absolute; 
 
-  width:20%; 
+  width:30%; 
   height:90vh; 
-  right:70vw; 
+  right:69vw; 
   top:9vh; 
 
   display: flex;
@@ -68,13 +68,16 @@ body {
   flex-direction: column;
 
   justify-content: space-between;
-
+  
 
 
 }
 
 
 #leftDiv1{
+
+border-radius: 5px;
+
 
 margin-top: 3vh;
 height: 40%;
@@ -83,13 +86,13 @@ width: 100%;
 
 display: flex;
 
-flex-direction: column;
+flex-direction: row;
 
 justify-content: space-around;
 
 align-items: center;
 
-background: red;
+background:#161b3d;
 
 
 }
@@ -98,26 +101,28 @@ background: red;
 
 #leftDiv1 div{
 
-height: 30%;
+height: 100%;
 
-width: 100%;
+width: 60%;
 
+display: flex;
 
-}
+justify-content: center;
 
+align-items: center;
 
-
-#leftDiv1 div canvas{
-
-
-  width:150px !important;
-  height:auto !important;
+padding-right: 10%;
 
 
 }
+
+
 
 
 #leftDiv2{
+
+border-radius: 5px;
+
   
 height: 40%;
 
@@ -125,40 +130,41 @@ width: 100%;
 
 display: flex;
 
-flex-direction: column;
+flex-direction: row;
 
 justify-content: space-around;
 
-background: blue;
+background:#161b3d;
 
 margin-bottom : 10vh;
+
+padding-left: 10%;
 
 }
 
 #leftDiv2 div{
 
-height: 30%;
+height: 100%;
 
-width: 100%;
-
-
-}
-
-#leftDiv2 div canvas{
+width: 42%;
 
 
-  width:200px !important;
-  height:auto !important;
+display: flex;
 
+justify-content: space-between;
+
+align-items: center;
+
+padding-right: 10%;
 
 }
 
 #rightDiv{
 
-  width: 20%; 
+  width: 30%; 
   height: 91vh; 
   position:absolute; 
-  left:71vw; 
+  left:70vw; 
   top:9vh; 
 
   display:flex;
@@ -175,9 +181,9 @@ width: 100%;
   
   margin-top: 3vh;
 
-  height:70%;
+  height:60%;
 
-  width:100%;
+  width:80%;
   
   display: flex;
 
@@ -185,7 +191,7 @@ width: 100%;
 
   justify-content: space-between;
 
-   background: yellow;
+background:#161b3d;
 }
 
 
@@ -211,8 +217,10 @@ width: 100%;
 
    justify-content: start;
 
-  background: blue;
-}
+     background:#161b3d;
+
+     border-radius: 5px;
+  }
 
 #sequencesDiv div{
 
@@ -248,7 +256,7 @@ flex-direction: column;
   margin-bottom: 10vh;
   height:10%;
 
-  width:100%;
+  width:80%;
 
   display: flex;
 
@@ -256,8 +264,9 @@ flex-direction: column;
 
   align-items: center;
 
-background : green;
-}
+  background:#161b3d;
+
+  }
 
 .mo-fire {
   opacity: 0;
@@ -354,9 +363,6 @@ background : green;
                <canvas id="dailyCountChart2"></canvas>
              </div>
 
-             <div>
-             <canvas id="dailyCountChart3"></canvas>
-            </div>
  
     </div>
 
@@ -540,7 +546,6 @@ background : green;
       var comparisonChart = document.getElementById("comparisonChart");
       var dailyCountChart1 = document.getElementById("dailyCountChart1");
       var dailyCountChart2 =  document.getElementById("dailyCountChart2");
-      var dailyCountChart3 =  document.getElementById("dailyCountChart3");
         
               
       var done = false;
@@ -552,30 +557,29 @@ background : green;
       
             window.onload = function(){
                         
-                      
+                       
                          totalProgress.innerHTML =  Math.floor( {{ (totalCount/totalLimit) * 100 }}) + ' %';
                           myProgressBar.style.width = dailyCnt + '%';
                          window.onbeforeunload = function(){ storeValues()};
 
                          var yesterdayCount = 85;
 
-                         displayGraph( comparisonChart , [yesterdayCount, dailyCnt], ['Hier', 'Aujourdhui'] , 'line');
+                         displayGraph( comparisonChart , [yesterdayCount, dailyCnt], ['Hier', 'Aujourdhui'] , 'line', 2000);
                          
                         
-                         displayGraph( dailyCountChart1 , [25], ['Heures'] , 'doughnut');
+                         displayGraph( dailyCountChart1 , [25], ['Heures'] , 'doughnut', 2000);
                           
-                         displayGraph( dailyCountChart2 , [35], ['Minutes'] , 'doughnut');
+                         displayGraph( dailyCountChart2 , [35], ['Minutes'] , 'doughnut', 2000);
 
-                         displayGraph( dailyCountChart3 , [20], ['Secondes'] , 'doughnut');
-
-                         displayGraph( totalCountChart1 , [20], ['Heures'] , 'doughnut');
-                         displayGraph( totalCountChart2 , [20], ['minutes'] , 'doughnut');
-                         displayGraph( totalCountChart3 , [20], ['Secondes'] , 'doughnut');
+                         displayGraph( totalCountChart1 , [20], ['Heures'] , 'doughnut', 2000);
+                         displayGraph( totalCountChart2 , [20], ['minutes'] , 'doughnut', 2000);
+                         displayGraph( totalCountChart3 , [20], ['Secondes'] , 'doughnut', 2000);
                         
-                        displayGraph(topTimeChart, [20, 50], ['temps actuel', 'top'] , 'bar');
+                        displayGraph(topTimeChart, [20, 50], ['temps actuel', 'top'] , 'bar', 2000);
+                  
 
-
-
+                      
+              
             }
             
 
@@ -635,7 +639,8 @@ background : green;
       //interval, checking regularly if the dailyyCount is done
       var checkDailyCountInterval;
       function countFunction(){
-         
+  
+                      
           if (startBtn.innerHTML == '<i class="fas fa-play-circle fa-3x"></i>'){
              myInterval = setInterval(function(){ increaseCounts()}, 100);
                              
@@ -720,14 +725,14 @@ function checkDailyCount(){
 
 
 
-function displayGraph(chart, data, labels, type){
+function displayGraph(chart, data, labels, type, animationTime){
 
 var myChart = new Chart(chart , {
     type: type,
     data: {
         labels: labels,
         datasets: [{
-            label: 'Dernières 24 heures',
+            label: 'stats',
             data: data, 
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -750,6 +755,13 @@ var myChart = new Chart(chart , {
         }]
     },
     options: {
+
+      animation: {
+        duration: animationTime
+      }
+
+      ,
+      
         scales: {
             yAxes: [{
 
