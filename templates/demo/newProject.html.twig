@@ -2,27 +2,51 @@
 
 {% block title %}Hello ProjectController!{% endblock %}
 
-
-
 {% block body %}
 <style>
 
 body{
 
   color: green;
+
+  font-size: 15px;
 }
 
-	select{
-		font-family: fontAwesome
-	}
+@font-face {
+  font-family: Retro;
+  src: url({{asset('css/fonts/retro.ttf')}}) format('opentype');
+}
+
+body{
+
+  color: green;
+}
 
 input{
 
   border: none;
 
-  border-radius: 12px;
+  border-radius: 6px;
+
+  outline: none;
+
+  background: black;
+
+  color: green;
+
+
 }
 
+select{
+
+  background: black;
+
+  border: none;
+
+  color: green;
+
+  outline: none;
+}
 select option{
 
   border : none;
@@ -69,91 +93,54 @@ select option{
 
 
 }
-
-
-#arkanaImg{
-  position: fixed;
-
-  height: 260px;
-
-  width: auto;
-
-  top: 55vh;
-
-  left: 5vw;
-
-   z-index: 2;
-}
-
-#arkanaDiv{
-
-  position: fixed;
-
-  top: 90vh;
-
-  
-}
-
-
 </style>
 
-          
-   <div id='arkanaDiv'>
-      <div id='bubbleDiv'>
-         <p>A présent, crée un projet!! Nous t'avons simplifier la vie, nous allons simuler la création d'un projet.
-         </p>
-        <img id='arkanaImg' src='{{ asset("images/bubble.png") }}'>
-      </div>
+<br>
 
-     <div>
-        <img id='arkanaImg' src='{{ asset("images/scientist2.png") }}'>
-     </div>
-      
-    <div>
-  
-    
-  
 
   <div id='bgDiv'>
      
  
+ <img id='computerPng' src='{{ asset("images/panel.png") }}'>
 
- <img id='computerPng' src='{{ asset("images/mypc2.png") }}'>
-
+  
 
 <form id='myForm' method='post' action= '{{ path("demoProjectPath")}}'>
-
 </br>
 
 
-<label>Nom du projet</label> </br>
+<label style='font-size: 10px'>Statut: connecté</label> </br>
+
+<label  style='font-size: 6px'>Accès au formulaire restreint bY92 Accès au formulaire restreint bY9Accès au formulaire restreint bY9 Accès au formulaire restreint bY9 Accès au formulaire restreint bY9</br>Accès au formulaire restreint bY9</br>Accès au formulaire restreint bY9Accès au formulaire restreint bY9Accès au formulaire restreint bY9Accès au formulaire restreint bY9Accès au formulaire restreint bY9......</label></br>
 
 
-<input  onkeyup = 'initErrorMsg()' id='projectName' name = 'projectName'> </br>
 
 
-<label>Type de projet</label> </br>
+<label style='font-size:12px'>Nom du fichier :</label> <input  onkeyup = 'initErrorMsg()' id='projectName' name = 'projectName'> </br>
+
+
 
 <select name="totalLimit" id="projectForm">
-  <option value="test"> (2 min, test)</option>
+  <option>Type de projet</option>
+  <option value="test"> 10 min (demo)</option>
 
 </select>
 
 </br>
 
 
-<label>Durée à réaliser chaque jour</label> </br>
 
 <select name="dailyLimit" id="projectForm">
-  <option value="dailyLimit0">1 min (test)</option>
+  <option>Durée à réaliser chaque jour</option>
+  <option value="dailyLimit0">2 min (demo)</option>
+
 </select>
 
 </br>
-
-<label>Couleur de ta substance</label> </br>
 
 
 <select name="substanceColor">
+  <option>Couleur de ta substance</option>
   <option value="green">vert  </option>
   <option value="red">rouge</option>
   <option value="blue">bleu</option>
@@ -165,7 +152,7 @@ select option{
 
 
 
-<input onclick = 'checkProjectName(event)' type = 'submit' class = 'btn btn-success' name='newProject' value='Développer un projet'/>
+<input style='font-size: 14px' onclick = 'checkProjectName(event)' type = 'submit' name='newProject' value='ENTRER'/>
 
 <input type='hidden' name='myNewProject'>
 

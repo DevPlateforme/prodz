@@ -8,38 +8,6 @@
 {% block body %}
 <style>
 
-#idText{
-
-  position: absolute;
-
-  top: 10vh;
-
-  left: 33vw;
-}
-#idText2{
-
-  position: absolute;
-
-  top: 12vh;
-
-  left: 33vw;
-}
-#idText3{
-
-  position: absolute;
-
-  top: 15vh;
-
-  left: 33vw;
-}
-#idText4{
-
-  position: absolute;
-
-  top: 17vh;
-
-  left: 33vw;
-}
 
 #backDiv{
   width: 100vw;
@@ -90,52 +58,83 @@ body {
 #leftDiv{
   position:absolute; 
 
-  width:30%; 
+  width:32%; 
   height:90vh; 
-  right:69vw; 
-  top:9vh; 
+  right:66vw; 
+  top:6vh; 
 
   display: flex;
 
   flex-direction: column;
 
   justify-content: space-between;
+
   
-
-
 }
+
+
+#leftDivHeader{
+
+  height: 20%;
+
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: start;
+}
+
+
 
 
 #leftDiv1{
 
-border-radius: 5px;
+  border-radius: 5px;
+  margin-top: 3vh;
+  height: 35%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background:#161b3d;
+
+}
 
 
-margin-top: 3vh;
-height: 40%;
+#leftDiv1Title {
 
-width: 100%;
+  height: 10;
 
-display: flex;
+  width: 100%;
 
-flex-direction: row;
+  display: flex;
 
-justify-content: space-around;
+  justify-content: flex-start;
 
-align-items: center;
+  align-items: center;
 
-background:#161b3d;
+}
+
+#leftDiv1Title p {
+  
+  font-size: 11px;
+
+  color: green;
 
 
 }
 
 
+#leftDiv1 #leftDiv1Charts{
 
-#leftDiv1 div{
+height: 90%;
 
-height: 100%;
-
-width: 60%;
+width: 100%;
 
 display: flex;
 
@@ -143,26 +142,33 @@ justify-content: center;
 
 align-items: center;
 
-padding-right: 10%;
+padding-right: 5%;
 
+
+}
+
+#leftDiv1 #leftDiv1Charts div{
+
+height: 100%;
+
+width: 50%;
 
 }
 
 
 
-
 #leftDiv2{
 
+margin-top: 2vh;
 border-radius: 5px;
-
   
-height: 40%;
+height: 35%;
 
 width: 100%;
 
 display: flex;
 
-flex-direction: row;
+flex-direction: column;
 
 justify-content: space-around;
 
@@ -170,16 +176,22 @@ background:#161b3d;
 
 margin-bottom : 10vh;
 
-padding-left: 10%;
-
 }
 
-#leftDiv2 div{
+#leftDiv2Title{
+  height: 10%;
 
-height: 100%;
+  width: 100%;
+  display: flex;
 
-width: 42%;
+  justify-content: flex-start;
+}
 
+#leftDiv2Charts{
+
+height: 90%;
+
+width: 100%;
 
 display: flex;
 
@@ -187,13 +199,30 @@ justify-content: space-between;
 
 align-items: center;
 
-padding-right: 10%;
+padding-right: 5%;
 
 }
 
+
+#leftDiv2Charts div{
+
+height: 100%;
+
+width: 30%;
+
+display: flex;
+
+justify-content: space-between;
+
+align-items: center;
+
+}
+
+
+
 #rightDiv{
 
-  width: 30%; 
+  width: 28%; 
   height: 91vh; 
   position:absolute; 
   left:70vw; 
@@ -206,6 +235,7 @@ padding-right: 10%;
   justify-content: space-between;
 
   align-items: center;
+
 }
 
 
@@ -213,7 +243,7 @@ padding-right: 10%;
   
   margin-top: 3vh;
 
-  height:60%;
+  height:80%;
 
   width:80%;
   
@@ -379,30 +409,63 @@ flex-direction: column;
   }
 
 
- 
+
+
+
+
 
 </style>
 <br>
 
 
+  <div id='chartLink' style='position:absolute; bottom : 4vh; left:48vw; height: 5vh; width: 10vw;'>
+      
+   <a href='{{ path("showGraphPath", {"projectId": projectId }) }}'<button><i class="fas fa-chart-line fa-2x"></i></button></a>
+
+
+  </div>
+
 <div id="leftDiv">
 
+  <div id="leftDivHeader">
+    
+   <div id='idText' style='color:green; font-size: 10px'></div>
+   <div id='idText2' style='color:green; font-size: 10px'></div>
+   <div id='idText3' style='color:green; font-size: 10px'></div>
+   <div id='idText4' style='color:green; font-size: 10px'></div>
+      
+  </div>
+
     <div id='leftDiv1'>
+
+     <div id='leftDiv1Title'>
+
+        <p>Durée totale</p>
+
+    </div>
+
+    <div id='leftDiv1Charts'>
 
            <div>
              <canvas id="dailyCountChart1"></canvas>
            </div>
 
-             <div>
-               <canvas id="dailyCountChart2"></canvas>
-             </div>
+           <div>
+             <canvas id="dailyCountChart2"></canvas>
+           </div>
+
+    </div>
 
  
     </div>
 
     <div  id='leftDiv2'>
 
-    
+       <div id='leftDiv2Title'>
+          <p style='color: green; font-size: 12px'>Durée journalière</p>
+       </div>
+
+        <div id='leftDiv2Charts'>
            <div>
              <canvas id="totalCountChart1"></canvas>
            </div>
@@ -414,6 +477,7 @@ flex-direction: column;
              <div>
              <canvas id="totalCountChart3"></canvas>
             </div>
+         </div>
     
     </div>
      
@@ -453,12 +517,6 @@ flex-direction: column;
     </div>
 
 
-    <div id='rightDiv2'>
-      
-      <a href='{{ path("showGraphPath", {"projectId": projectId }) }}'<button><i class="fas fa-chart-line fa-3x"></i></button></a>
-
-
-    </div>
 
 
 </div>
@@ -471,14 +529,7 @@ flex-direction: column;
 
    <div>
 
-
-   <div id='idText' style='color:green; font-size: 10px'></div>
-   <div id='idText2' style='color:green; font-size: 10px'></div>
-   <div id='idText3' style='color:green; font-size: 10px'></div>
-   <div id='idText4' style='color:green; font-size: 10px'></div>
-
-   
-  <div style='display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 5vh'>
+   <div style='display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 5vh'>
      <img id ='flaskLogo' src='{{ asset("images/flask"~ substanceColor ~ ".png") }}'> 
      
      <div style='position: absolute; margin: auto' id='totalProgress'></div>
