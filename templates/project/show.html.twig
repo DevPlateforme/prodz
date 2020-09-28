@@ -6,8 +6,19 @@
 
 
 {% block body %}
+
 <style>
 
+
+
+@media all and (min-width: 2000px){
+
+
+}
+
+@media all and (max-width: 10000px){
+   
+    
 body{
   color: #43BE1C;
  font-family: "Source Code Pro", monospace;
@@ -58,7 +69,7 @@ outline: none;
 }
 #totalProgress{
 
-   font-size: 30px;
+   font-size: 26px;
 }
 body {
   width:100%;
@@ -422,9 +433,55 @@ flex-direction: column;
   }
 
 
+    
+  }
+   
 
 
 
+  @media all and (max-width: 500px){
+   
+    
+#middleDiv{
+
+  width: 100vw;
+}
+
+
+#leftDivHeader{
+
+position: fixed;
+
+top: 1vh;
+
+z-index: 7;
+}
+
+#rightDiv{
+
+  top: 220vh;
+
+  width: 100vw;
+
+  left : 0px;
+
+}
+
+
+#leftDiv{
+
+  top: 110vh;
+
+  width: 100vw;
+
+  left: 0px;
+  
+
+
+      }
+
+      
+   }
 
 
 </style>
