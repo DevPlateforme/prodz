@@ -164,7 +164,9 @@ class ProjectController extends AbstractController
         
         if($lastDay == null){
 
-            $comparison = 'none';
+            $comparison = 'firstDay';
+
+            $lastDayCount = 1;
 
 
         } else{
@@ -192,7 +194,7 @@ class ProjectController extends AbstractController
     
                     $comparison = -100;
                 } else if($lastDayCount == 0){
-                    $comparison = 'none';
+                    $comparison = 'zerozero';
                 }
             } 
  
@@ -211,7 +213,7 @@ class ProjectController extends AbstractController
 
         }
 
-        return $this->render('project/show.html.twig', ['pageReloaded' => $pageReloaded, 'interval' => $interval,  'user' => $user, 'username' => $user->getUserName(), 'projectId' => $projectId ,  'projectName' => $project->getProjectName(), 'dailyCount' => $dailyCount, 'dailyLimit' => $dailyLimit , 'dailyCountDone' => $dailyCountDone  , 'totalCount' => $totalCount, 'totalCountDone' => $totalCountDone ,  'totalLimit' => $totalLimit, 'substanceColor' => $substanceColor, 'comparison' => $comparison ]);
+        return $this->render('project/show.html.twig', ['pageReloaded' => $pageReloaded, 'interval' => $interval,  'user' => $user, 'username' => $user->getUserName(), 'projectId' => $projectId ,  'projectName' => $project->getProjectName(), 'dailyCount' => $dailyCount, 'dailyLimit' => $dailyLimit , 'dailyCountDone' => $dailyCountDone  , 'totalCount' => $totalCount, 'totalCountDone' => $totalCountDone ,  'totalLimit' => $totalLimit, 'substanceColor' => $substanceColor, 'comparison' => $comparison , 'lastDayCount' => $lastDayCount ]);
 
     }
 

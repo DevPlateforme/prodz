@@ -804,15 +804,23 @@ z-index: 7;
               window.onbeforeunload = function(){ storeValues()};
 
 
-              {%if comparison != 'none'%}
+         {%if comparison != 'firstDay'%}
+
+                {%if comparison == 'zerozero'%}
+
+                    displayComparisonGraph( comparisonChart , [0, 0], ['Hier', 'Aujourdhui'] , 'line', 2800);
+
+                {% else %}
 
                  displayComparisonGraph( comparisonChart , [0, {{comparison}}], ['Hier', 'Aujourdhui'] , 'line', 2800);
+                
+                {% endif %}
 
-              {%else%}
+         {%else%}
               
                 displayComparisonGraph( comparisonChart , [0, 0], ['Hier', 'Aujourdhui'] , 'line', 2800);
 
-             {% endif %}
+        {% endif %}
              
               displayGraph( totalCountHoursChart , [25, 35], ['Heures'] , 'doughnut', 2800);      
               displayGraph( totalCountMinutesChart , [35,60], ['Minutes'] , 'doughnut', 2800);
@@ -988,18 +996,18 @@ z-index: 7;
               displayGraph( dailyCountSecondsChart , [ tenthSecondsCount, tenthSecondsLeft], ['10th secondes'] , 'doughnut', 0);           
               displayGraph(topTimeChart, [20, 50], ['temps actuel', 'top'] , 'bar', 0);
              
-             if({{comparison}} != 'none'){
                 
+           if( '{{ comparison}}' != 'firstDay'){
+                     
                 //comparing the two values, to get a positive or negative number
-                 comparison = ( (( dailyCnt / {{comparison}}) - 1) * 100);
+                 comparison = ( (( dailyCnt / {{lastDayCount}}) - 1) * 100);
                  
                  console.log(comparison);
                  
                  displayComparisonGraph( comparisonChart , [0, comparison], ['Hier', 'Aujourdhui'] , 'line', 0);
 
-
-             }
-    
+  
+            }
 
        }
 
