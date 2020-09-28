@@ -165,6 +165,8 @@ class ProjectController extends AbstractController
         if($lastDay == null){
 
             $comparison = 'none';
+
+
         } else{
 
             $lastDayCount = $lastDay->getDailyCount();
@@ -190,14 +192,11 @@ class ProjectController extends AbstractController
     
                     $comparison = -100;
                 } else if($lastDayCount == 0){
-                    $comparison = 'noWorkTodayAndYesterday';
+                    $comparison = 'none';
                 }
             } 
-             
-    
-    
-
-        }
+ 
+         }
         
 
         if(isset($_POST['pageReload'])){
@@ -212,7 +211,7 @@ class ProjectController extends AbstractController
 
         }
 
-        return $this->render('project/show.html.twig', ['pageReloaded' => $pageReloaded, 'interval' => $interval,  'user' => $user, 'username' => $user->getUserName(), 'projectId' => $projectId ,  'projectName' => $project->getProjectName(), 'dailyCount' => $dailyCount, 'dailyLimit' => $dailyLimit , 'dailyCountDone' => $dailyCountDone  , 'totalCount' => $totalCount, 'totalCountDone' => $totalCountDone ,  'totalLimit' => $totalLimit, 'substanceColor' => $substanceColor, 'comparison' => $comparison]);
+        return $this->render('project/show.html.twig', ['pageReloaded' => $pageReloaded, 'interval' => $interval,  'user' => $user, 'username' => $user->getUserName(), 'projectId' => $projectId ,  'projectName' => $project->getProjectName(), 'dailyCount' => $dailyCount, 'dailyLimit' => $dailyLimit , 'dailyCountDone' => $dailyCountDone  , 'totalCount' => $totalCount, 'totalCountDone' => $totalCountDone ,  'totalLimit' => $totalLimit, 'substanceColor' => $substanceColor, 'comparison' => $comparison ]);
 
     }
 
@@ -294,16 +293,12 @@ class ProjectController extends AbstractController
                 
             }
 
-        
-
 
             $manager->remove($notifToDelete);
             $manager->flush();
 
             $manager->persist($user);
             $manager->flush();
-
-
 
 
             return new JsonResponse(['notifContentArray' =>  $notifContentArray, "notifIdArray" =>$notifIdArray ]); 
@@ -317,15 +312,8 @@ class ProjectController extends AbstractController
 
 
 
-    
-
-
-
 
     }
-
-
-
 
 
     

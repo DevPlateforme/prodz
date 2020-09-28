@@ -5,22 +5,391 @@
 {% block body %}
 <style>
 
-body{
-
-  color: green;
-
-  font-size: 15px;
-}
-
-@font-face {
-  font-family: Retro;
-  src: url({{asset('css/fonts/retro.ttf')}}) format('opentype');
-}
 
 body{
+ 
+  color: green;
+ font-family: "Source Code Pro", monospace;
+ font-family: "Exo 2", sans-serif;
+ text-shadow: 0 0 2px #379D17;
+
+  font-size: 17.5px;
+
+}
+
+
+#bellIcon{
+
+  text-shadow: none;
+}
+
+
+input{
+
+  border: none;
+
+  outline: none;
+
+  background: black;
+
 
   color: green;
+ font-family: "Source Code Pro", monospace;
+ font-family: "Exo 2", sans-serif;
+
+
 }
+
+#nameInput{
+style='font-size: 17.5px'
+
+}
+
+
+
+select{
+
+  background: black;
+
+  border: none;
+
+  color: green;
+ font-family: "Source Code Pro", monospace;
+ font-family: "Exo 2", sans-serif;
+  outline: none;
+
+}
+select option{
+
+  border : none;
+
+  border-radius: 10px;
+  
+}
+
+
+
+
+#option1{
+  font-size : 17.5px;
+}
+
+
+#option2{
+  font-size : 17.5px;
+}
+
+
+
+
+#option3{
+  font-size : 17.5px;
+}
+
+
+#option4{
+  font-size : 17.5px;
+}
+
+
+
+#option5{
+  font-size : 17.5px;
+} 
+
+
+#option6{
+  font-size : 17.5px;
+} 
+
+
+#option7{
+  font-size : 17.5px;
+} 
+
+
+#option8{
+  font-size : 17.5px;
+} 
+
+
+#option9{
+  font-size : 17.5px;
+} 
+
+
+#option10{
+  font-size : 17.5px;
+} 
+
+#option11{
+  font-size : 17.5px;
+} 
+
+#option12{
+  font-size : 17.5px;
+} 
+
+#option13{
+  font-size : 17.5px;
+} 
+
+#option14{
+  font-size : 17.5px;
+} 
+
+
+
+#bgDiv{
+  width: 100vw; 
+  height: 80vh; 
+  display: flex; 
+  justify-content: center;
+
+  align-items: center;
+  
+
+  overflow: hidden;
+
+}
+#computerPng{
+
+  position: absolute;
+  
+  margin-right: auto;
+
+  margin-top: 7vw;
+
+  height: auto;
+  
+  width: 65%;
+
+  z-index: 1;
+ 
+}
+
+#myForm{
+  position: absolute;
+  top: 20vh;
+  left: 39vw;
+  z-index: 2;
+
+  height: 60%;
+
+  width: 35%;
+
+  font-size: 40px;
+
+  
+}
+
+
+
+#connectedLabel{
+
+font-size: 13px;
+
+}
+
+
+
+
+
+body {
+ margin: 2rem 0;
+ background-position: top left, top right;
+ color: #14b51b;
+ font-family: "Source Code Pro", monospace;
+ font-family: "Exo 2", sans-serif;
+ text-shadow: 0 0 4px #14b51b;
+ &:after {
+  /* the video interlace effect overlaying everything - feel free to remove it */
+  background: linear-gradient(
+   0deg,
+   rgba(0, 0, 0, 0) 40%,
+   rgba(0, 0, 0, 0.2) 80%
+  );
+  background-size: 5px 3px;
+  display: block;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+ }
+}
+.container {
+ max-width: 1000px;
+ margin: 0 auto;
+}
+svg {
+ //outline: 1px red dashed;
+}
+
+.uiBack {
+ stroke: white;
+ stroke-opacity: 0.18;
+ stroke-width: 1;
+}
+.number-1 {
+ font-size: 1.5rem;
+ text-align: center;
+ span {
+  font-size: 2rem;
+  position: relative;
+  top: -2rem;
+  opacity: 1;
+  animation: beat 0.5s infinite;
+ }
+}
+
+.EKG {
+ background: url(https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2019/06/1559545453ping2.gif);
+ height: 17rem;
+
+ opacity: 0.035;
+}
+
+@keyframes beat {
+ 0% {
+  opacity: 1;
+ }
+ 70% {
+  opacity: 0.3;
+ }
+ 100% {
+  opacity: 1;
+ }
+}
+
+
+#ecgContainer{
+
+top: 20%;
+position: absolute;
+
+width: 46%;
+
+}
+
+
+
+
+
+
+#c {
+
+  position: absolute;
+
+  top: 60vh;
+
+  right: 71.3vw;
+
+  width: 27vw;
+
+    background: 
+        -webkit-linear-gradient(left, black 0%, white 100%),
+        -webkit-linear-gradient(left, black 0%, red   100%),
+        -webkit-linear-gradient(left, black 0%, lime  100%),
+        -webkit-linear-gradient(left, black 0%, #07f  100%);
+    background-size:
+        100% 25%;
+    background-position-x: 0;
+    background-position-y:
+        0,
+        33%,
+        66%,
+        100%;
+    background-repeat: repeat-x;
+    -webkit-animation-name: linemove;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+
+    opacity: 0.05;
+}
+
+@-webkit-keyframes linemove {
+    from {
+        background-position-x: 0;
+    }
+    to {
+        background-position-x:
+            500px,
+            500px,
+            500px,
+            500px;
+    }
+}
+
+
+
+
+#rightDiv{
+
+   position: absolute;
+
+   background: #161b3d;
+
+   left: 76vw;
+
+   top: 20vh;
+
+   width: 21vw;
+
+   height: 50vh;
+
+   display: flex;
+
+   flex-direction: column;
+
+   justify-content: space-around
+
+   align-items: center;
+
+  
+}
+
+
+#rightDiv div{ 
+
+   display: flex;
+
+   justify-content: flex-statt;
+
+   flex-wrap: wrap;
+
+   width: 95%;
+
+   font-size: 7px;
+
+   opacity: 0.4;
+}
+
+
+
+ 
+
+   
+  @media all and (max-width: 1800px){
+
+    body{
+
+  color: green;
+ font-family: "Source Code Pro", monospace;
+ font-family: "Exo 2", sans-serif;
+ text-shadow: 0 0 2px #379D17;
+
+  font-size: 17.5px;
+}
+
+
+#bellIcon{
+
+  text-shadow: none;
+}
+
 
 input{
 
@@ -33,10 +402,17 @@ input{
   background: black;
 
   color: green;
-
+ font-family: "Source Code Pro", monospace;
+ font-family: "Exo 2", sans-serif;
 
 }
 
+
+#nameInput{
+
+
+
+}
 select{
 
   background: black;
@@ -44,19 +420,91 @@ select{
   border: none;
 
   color: green;
-
+ font-family: "Source Code Pro", monospace;
+ font-family: "Exo 2", sans-serif;
   outline: none;
+
 }
-select option{
+select optgroup{
 
   border : none;
 
   border-radius: 10px;
   
 }
+
+
+#option1{
+
+  font-size: 17.5px;
+
+  
+}
+
+
+#option2{
+    font-size: 17.5px;
+
+}
+
+
+
+
+#option3{
+
+    font-size: 17.5px;
+
+}
+
+
+#option4{
+    font-size: 17.5px;
+
+}
+
+
+
+
+#option5{
+     font-size: 17.5px;
+
+}
+
+
+#option6{
+  font-size : 17.5px;
+} 
+
+
+#option7{
+  font-size : 17.5px;
+} 
+
+
+#option8{
+  font-size : 17.5px;
+} 
+
+
+#option9{
+  font-size : 17.5px;
+} 
+
+
+
+#option10{
+  font-size : 17.5px;
+} 
+
+
+
+
+
+
+
 #bgDiv{
   width: 100vw; 
-  height: 90vh; 
+  height: 80vh; 
   display: flex; 
   justify-content: center;
 
@@ -64,6 +512,7 @@ select option{
   
 
   overflow: hidden;
+
 }
 #computerPng{
 
@@ -71,7 +520,7 @@ select option{
   
   margin-right: auto;
 
-  margin-top: 2%;
+  margin-top: 2vw;
 
   height: auto;
   
@@ -83,19 +532,385 @@ select option{
 
 #myForm{
 
+  position: absolute;
+  
+  left: 39vw;
+  z-index: 2;
+  
   z-index: 2;
 
   margin-top: -5%;
 
   height: 60%;
 
-  width: 20%;
+  width: 30%;
+
+
+  font-size: 18.5px;
+}
+
+
+
+#connectedLabel{
+
+  width: 100%;
+
+  font-size: 10px;
 
 
 }
+
+body {
+ margin: 2rem 0;
+ background-position: top left, top right;
+ color: #14b51b;
+ font-family: "Source Code Pro", monospace;
+ font-family: "Exo 2", sans-serif;
+ text-shadow: 0 0 4px #14b51b;
+ &:after {
+  /* the video interlace effect overlaying everything - feel free to remove it */
+  background: linear-gradient(
+   0deg,
+   rgba(0, 0, 0, 0) 40%,
+   rgba(0, 0, 0, 0.2) 80%
+  );
+  background-size: 5px 3px;
+  display: block;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+ }
+}
+.container {
+ max-width: 1000px;
+ margin: 0 auto;
+}
+svg {
+ //outline: 1px red dashed;
+}
+
+.uiBack {
+ stroke: white;
+ stroke-opacity: 0.18;
+ stroke-width: 1;
+}
+.number-1 {
+ font-size: 1.5rem;
+ text-align: center;
+ span {
+  font-size: 2rem;
+  position: relative;
+  top: -2rem;
+  opacity: 1;
+  animation: beat 0.5s infinite;
+ }
+}
+
+.EKG {
+ background: url(https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2019/06/1559545453ping2.gif);
+ height: 9rem;
+
+ opacity: 0.035;
+}
+
+@keyframes beat {
+ 0% {
+  opacity: 1;
+ }
+ 70% {
+  opacity: 0.3;
+ }
+ 100% {
+  opacity: 1;
+ }
+}
+
+
+#ecgContainer{
+
+top: 15%;
+position: absolute;
+
+width: 46%;
+
+}
+
+
+
+
+
+
+#c {
+
+  position: absolute;
+
+  top: 60vh;
+
+  right: 66vw;
+
+  width: 30vw;
+
+    background: 
+        -webkit-linear-gradient(left, black 0%, white 100%),
+        -webkit-linear-gradient(left, black 0%, red   100%),
+        -webkit-linear-gradient(left, black 0%, lime  100%),
+        -webkit-linear-gradient(left, black 0%, #07f  100%);
+    background-size:
+        100% 25%;
+    background-position-x: 0;
+    background-position-y:
+        0,
+        33%,
+        66%,
+        100%;
+    background-repeat: repeat-x;
+    -webkit-animation-name: linemove;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+
+    opacity: 0.05;
+}
+
+@-webkit-keyframes linemove {
+    from {
+        background-position-x: 0;
+    }
+    to {
+        background-position-x:
+            500px,
+            500px,
+            500px,
+            500px;
+    }
+}
+
+
+
+
+#rightDiv{
+
+   position: absolute;
+
+   background: #161b3d;
+
+   left: 76vw;
+
+   top: 20vh;
+
+   width: 21vw;
+
+   height: 45vh;
+
+   display: flex;
+
+   flex-direction: column;
+
+   justify-content: space-around
+
+   align-items: center;
+
+  
+}
+
+
+#rightDiv div{ 
+
+   display: flex;
+
+   justify-content: flex-statt;
+
+   flex-wrap: wrap;
+
+   width: 95%;
+
+   font-size: 7px;
+
+   opacity: 0.4;
+   
+   }
+
+
+
+}
+
+
+
+  @media all and (max-width: 1500px){
+
+     #computerPng{
+         position:fixed ;
+  
+         height: auto;
+
+         margin-top: 8vh;
+
+         width: 71%;
+  
+         z-index: 1;
+ 
+     }
+  }
+
+  #c{
+     right: 71.3vw;
+
+     width: 27%;
+
+
+  }
+
+
+  @media all and (max-width: 1500px) and (max-height: 850px){
+   
+     #computerPng{
+         position:fixed ;
+  
+         height: auto;
+
+         margin-top: 2.5vh;
+
+         width: 60%;
+  
+         z-index: 1;
+ 
+     }
+  }
+   
+  @media all and (max-width: 500px){
+   
+
+#computerPng{
+
+  position:fixed ;
+  
+  height: auto;
+  
+  width: 170%;
+
+  z-index: 1;
+
+  right: -30.5vw;
+ 
+}
+
+#myForm{
+  
+  position: absolute;
+  z-index: 2;
+
+  top: 22vh;
+
+  left: 15vw;
+
+  height: 60%;
+
+  width: 60%;
+
+  font-size: 15px;
+
+  
+      }
+
+
+#connectedLabel{
+
+  width: 100%;
+
+  font-size: 10px;
+
+
+}
+
+#myLabel{
+
+  width: 100%;
+
+}
+
+
+#ecgContainer{
+
+ opacity: 0;
+
+}
+
+
+
+#rightDiv{
+
+  opacity: 0;
+}
+  
+  }
+
+
+
+
+
+
 </style>
 
 <br>
+
+
+
+<div id='rightDiv'> 
+
+   <div>Accès au formulaire betagammaalphaxxsd</div>
+   <div>Accès au formulaire beta</div>
+   <div>Accès au formulaire betartrtrtrtrtrtrtrgammaalphaxxsd</div>
+   <div>Parsage du pagckage m356624242542545 26262625255 5255255 ouverture....</div>
+   <div>Accès au formulaire betagammaalpyeryeererteyhaxxsd</div>
+   <div>Accès au formulaire betagammaalphaxxsererere ere ereueue byzyeyzy deieiei</div>
+   <div>Accès au formulamaalphaxxsd</div>
+   <div>Accès au formulaire betagammaalpheeereaxxsd</div>
+   <div>Accès auaxxsd</div>
+   <div>Accès au formulaire betagammaalpheererekjre rer eaxxsd</div>
+   <div>Accès au formulaire errer aalphaxxsd</div>
+   <div>Accès au formulaire betagammaalphaxxsd partitionage de la librairie...</div>
+   <div>Accès au package classifié b222245z55</div>
+   <div>Accès au formulaire uvudfyetyetzzuu verification du token d'accès....</div>
+   <div>Accès au formulaire uvurueeyeyy ouvertre de la librairie..</div>
+   <div>Accès au formulaire betagammaal</div>
+   <div>Accès au formulaire betagammaalphaxxsd</div>
+   <div>Accès au formulaire betagammaalphaxxsd</div>   
+   <div>Accès au formulaire betagammaalphaxxsd</div>
+   <div>Accès au formulaire betagammaalphaxxsd</div>
+   <div>Accès au formulaire betagammaalphaxxsd</div>
+   <div>Accès au formulaire betagammaalphaxxsd</div>
+   <div>Accès au formulaire betagammaalphaxxsd</div>   
+   <div>Accès au formulaire betagammaalphaxxsd</div>
+   <div>Accès au formulaire betagammaalphaxxsd</div>
+   <div>Accès au formulaire betagammaalphaxxsd</div>
+   <div>Accès au formulaire betagammaalphaxxsd</div>
+
+</div>
+
+
+
+<canvas id="c" width="500" height="200"></canvas>
+
+
+
+<div class="container" id='ecgContainer'>
+  <div class="grid">
+    <div class="col-9">
+     
+     <div class="EKG"></div>
+     <!-- Currently an animated GIF background  --> 
+    </div>
+   
+		<div class="col-3">
+			<div style='opacity: 0.1' class="number-1">136<span></span></div>
+		</div>
+  </div>
+</div>
+
+
 
 
   <div id='bgDiv'>
@@ -105,59 +920,62 @@ select option{
 
   
 
-<form id='myForm' method='post'>
+<form id='myForm' method='post' style='margin: auto;'>
 
 </br>
 
 
-<label style='font-size: 10px'>Statut: connecté</label> </br>
+<label id='connectedLabel'></label> </br>
 
-<label  style='font-size: 6px'>Accès au formulaire restreint bY92 Accès au formulaire restreint bY9Accès au formulaire restreint bY9 Accès au formulaire restreint bY9 Accès au formulaire restreint bY9</br>Accès au formulaire restreint bY9</br>Accès au formulaire restreint bY9Accès au formulaire restreint bY9Accès au formulaire restreint bY9Accès au formulaire restreint bY9Accès au formulaire restreint bY9......</label></br>
-
-
+<label  style='font-size: 6px' id='myLabel'></label></br>
 
 
-<label style='font-size:12px'>Nom du fichier :</label> <input  onkeyup = 'initErrorMsg()' id='projectName' name = 'projectName'> </br>
 
 
+<label style='text-shadow: none'>Nom du fichier :</label> <input style='width: 50%'  onkeyup = 'initErrorMsg()' id='projectName' name = 'projectName'> </br>
+
+
+<div>
 
 <select name="totalLimit" id="projectForm">
-  <option>Type de projet</option>
-  <option value="test"> (10 min, test)</option>
-  <option value="ponctual">Ponctuel (10 heures)</option>
-  <option value="midTerm">Moyen terme (50 heures)</option>
-  <option value="longTerm">Long terme (100 heures)</option>
+  <option id='option1'>Type de projet (durée)</option>
+  <option id='option2' value="test"> (10 min, test)</option>
+  <option id='option3' value="ponctual">Ponctuel (10 heures)</option>
+  <option id='option4' value="midTerm">Moyen terme (50 heures)</option>
+  <option id='option5' value="longTerm">Long terme (100 heures)</option>
 </select>
 
-</br>
+</div>
 
+<div>
 
 
 <select name="dailyLimit" id="projectForm">
-  <option>Durée à réaliser chaque jour</option>
-  <option value="dailyLimit0">2 min (test)</option>
-  <option value="dailyLimit1">10 min</option>
-  <option value="dailyLimit2">30 min</option>
-  <option value="dailyLimit3">1 h</option>
+  <option id='option6'>Durée à réaliser chaque jour</option>
+  <option id='option7' value="dailyLimit0">2 min (test)</option>
+  <option id='option8' value="dailyLimit1">10 min</option>
+  <option id='option9' value="dailyLimit2">30 min</option>
+  <option id='option10' value="dailyLimit3">1 h</option>
 </select>
 
-</br>
+</div>
 
+<div>
 
 <select name="substanceColor">
-  <option>Couleur de ta substance</option>
-  <option value="green">vert  </option>
-  <option value="red">rouge</option>
-  <option value="blue">bleu</option>
+  <option id='option11'>Couleur de ta substance</option>
+  <option id='option12' value="green">vert  </option>
+  <option id='option13' value="red">rouge</option>
+  <option id='option14' value="blue">bleu</option>
 </select>
 
+</div>
+
 </br>
-</br>
 
 
 
-
-<input style='font-size: 14px' onclick = 'checkProjectName(event)' type = 'submit' name='newProject' value='ENTRER'/>
+<input id='nameInput' onclick = 'checkProjectName(event)' type = 'submit' name='newProject' value='ENTRER'/>
 
 <input type='hidden' name='myNewProject'>
 
@@ -176,6 +994,104 @@ select option{
 
 
    {% block javascripts %}
+
+
+
+function drawLine(ctx, y, h) {
+    
+    function randHeight(position) {
+        var change  = h * (2/7);
+        var padding = h * (1/4);
+        var range   = h - (padding * 2);
+        if (!position) position = (Math.random() * range) + padding;
+        return clip(position + (Math.random() * (change * 2) - change), padding + y, range + padding + y);
+    }
+    
+    function clip(number, min, max) {
+        return Math.min(Math.max(number, min + (Math.random() * (max-min) * 0.2)), max - (Math.random() * (max-min) * 0.2));
+    }
+    
+    ctx.globalCompositeOperation = 'source-over';
+    
+    ctx.fillRect(0, y, ctx.canvas.width, h);
+    
+    ctx.globalCompositeOperation = 'destination-out';
+    
+    ctx.beginPath();
+    var lastPosition = randHeight();
+    ctx.moveTo(0, lastPosition);
+    for (var i = 0; i < ctx.canvas.width; i++) {
+        ctx.lineTo(i += Math.random() * 5, lastPosition = randHeight(lastPosition));
+    }
+    ctx.stroke();
+    
+}
+
+var canvas = document.getElementById('c');
+var ctx    = canvas.getContext('2d');
+
+var lines = 4;
+
+for (var i = 0; i < lines; i ++) {
+    drawLine(ctx, i * (canvas.height / lines), canvas.height / lines);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   window.onload = function(){
+
+        var i = 0;
+
+        var i2 = 0;
+
+            var txt= 'Statut: connecté'
+            var txt2 = 'Accès au formulaire restreint bY92Accès au formulaire'
+            
+            var speed = 25;
+            
+           
+            function txtwriting() {
+               if (i < txt.length) {
+               document.getElementById("connectedLabel").innerHTML += txt.charAt(i);
+               i++;
+               setTimeout(txtwriting, speed);
+            }
+         } 
+
+
+            function txtwriting2() {
+               if (i2 < txt2.length) {
+               document.getElementById("myLabel").innerHTML += txt2.charAt(i2);
+               i2++;
+               setTimeout(txtwriting2, speed);
+            }
+         } 
+
+        txtwriting();
+        txtwriting2();
+
+
+
+
+
+   }
 
 
    var projectName = document.getElementById('projectName');

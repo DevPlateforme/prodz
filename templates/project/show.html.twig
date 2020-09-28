@@ -8,6 +8,12 @@
 {% block body %}
 <style>
 
+body{
+  color: #43BE1C;
+ font-family: "Source Code Pro", monospace;
+ font-family: "Exo 2", sans-serif;
+ text-shadow: 0 0 2px #379D17;
+}
 
 #backDiv{
   width: 100vw;
@@ -20,17 +26,19 @@
 
 #middleDiv{
    width: 60%;
-  
    display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: center;
 
+   padding-top: 18vh;
+
+
 }
 
 
 #flaskLogo{
-   height: 200px;
+   height: 22vh;
    width: auto;
    
    
@@ -41,7 +49,11 @@
 background: none;
 border: none;
 outline: none;
-color: white;
+
+  color: #43BE1C;
+ font-family: "Source Code Pro", monospace;
+ font-family: "Exo 2", sans-serif;
+ text-shadow: 0 0 4px #379D17;
    
 }
 #totalProgress{
@@ -58,17 +70,19 @@ body {
 #leftDiv{
   position:absolute; 
 
-  width:32%; 
+  width:30%; 
   height:90vh; 
-  right:66vw; 
+  right:69vw; 
   top:6vh; 
 
   display: flex;
 
   flex-direction: column;
 
-  justify-content: space-between;
-
+  justify-content: space-around;
+  
+  align-items: center;
+  
   
 }
 
@@ -77,7 +91,7 @@ body {
 
   height: 20%;
 
-  width: 100%;
+  width: 95%;
 
   display: flex;
 
@@ -86,6 +100,8 @@ body {
   justify-content: center;
 
   align-items: start;
+  
+  
 }
 
 
@@ -96,19 +112,18 @@ body {
   border-radius: 5px;
   margin-top: 3vh;
   height: 35%;
-  width: 100%;
+  width: 95%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   background:#161b3d;
-
-}
+  }
 
 
 #leftDiv1Title {
 
-  height: 10;
+  height: 10%;
 
   width: 100%;
 
@@ -122,9 +137,8 @@ body {
 
 #leftDiv1Title p {
   
-  font-size: 11px;
+  font-size: 14px;
 
-  color: green;
 
 
 }
@@ -132,7 +146,7 @@ body {
 
 #leftDiv1 #leftDiv1Charts{
 
-height: 90%;
+height: 80%;
 
 width: 100%;
 
@@ -144,15 +158,14 @@ align-items: center;
 
 padding-right: 5%;
 
+margin-top: auto;
 
 }
 
+
 #leftDiv1 #leftDiv1Charts div{
 
-height: 100%;
-
 width: 50%;
-
 }
 
 
@@ -160,11 +173,13 @@ width: 50%;
 #leftDiv2{
 
 margin-top: 2vh;
+
+
 border-radius: 5px;
   
 height: 35%;
 
-width: 100%;
+width: 95%;
 
 display: flex;
 
@@ -189,13 +204,13 @@ margin-bottom : 10vh;
 
 #leftDiv2Charts{
 
-height: 90%;
+height: 70%;
 
 width: 100%;
 
 display: flex;
 
-justify-content: space-between;
+justify-content: center;
 
 align-items: center;
 
@@ -206,26 +221,23 @@ padding-right: 5%;
 
 #leftDiv2Charts div{
 
-height: 100%;
+width: 33.3%;
+}
 
-width: 30%;
 
-display: flex;
-
-justify-content: space-between;
-
-align-items: center;
+#leftDiv2Charts div canvas{
 
 }
 
 
 
+
 #rightDiv{
 
-  width: 28%; 
+  width: 33%; 
   height: 91vh; 
   position:absolute; 
-  left:70vw; 
+  left:68vw; 
   top:9vh; 
 
   display:flex;
@@ -236,14 +248,16 @@ align-items: center;
 
   align-items: center;
 
-}
+  margin-top: 5vh;
+
+ }
 
 
 #rightDiv1{
   
   margin-top: 3vh;
 
-  height:80%;
+  height:75%;
 
   width:80%;
   
@@ -253,21 +267,21 @@ align-items: center;
 
   justify-content: space-around;
 
-background:#161b3d;
+  background:#161b3d;
+  
 }
 
 
 #comparisonDiv{
 
-   height: 25%;
 
-   width: 100%;
+   width: 60%;
+
+   margin: auto;
 
 }
 
 #sequencesDiv{
-
-  margin-top: 27%;
 
   height: 25%;
 
@@ -281,9 +295,8 @@ background:#161b3d;
 
    justify-content: start;
 
-     background:#161b3d;
+   padding: 10%;
 
-     border-radius: 5px;
   }
 
 #sequencesDiv div{
@@ -305,9 +318,9 @@ flex-direction: column;
 
 
 #topTimeDiv{
-  height: 30%;
 
-  width: 100%;
+  width: 80%;
+  margin: auto;
 
 }
 
@@ -418,21 +431,16 @@ flex-direction: column;
 <br>
 
 
-  <div id='chartLink' style='position:absolute; bottom : 4vh; left:48vw; height: 5vh; width: 10vw;'>
-      
-   <a href='{{ path("showGraphPath", {"projectId": projectId }) }}'<button><i class="fas fa-chart-line fa-2x"></i></button></a>
 
-
-  </div>
 
 <div id="leftDiv">
 
   <div id="leftDivHeader">
     
-   <div id='idText' style='color:green; font-size: 10px'></div>
-   <div id='idText2' style='color:green; font-size: 10px'></div>
-   <div id='idText3' style='color:green; font-size: 10px'></div>
-   <div id='idText4' style='color:green; font-size: 10px'></div>
+   <div id='idText' style='font-size: 8px'></div>
+   <div id='idText2' style='font-size: 8px'></div>
+   <div id='idText3' style='font-size: 8px'></div>
+   <div id='idText4' style='font-size: 8px'></div>
       
   </div>
 
@@ -447,11 +455,11 @@ flex-direction: column;
     <div id='leftDiv1Charts'>
 
            <div>
-             <canvas id="dailyCountChart1"></canvas>
+             <canvas id="totalCountHoursChart"></canvas>
            </div>
 
            <div>
-             <canvas id="dailyCountChart2"></canvas>
+             <canvas id="totalCountMinutesChart"></canvas>
            </div>
 
     </div>
@@ -462,20 +470,20 @@ flex-direction: column;
     <div  id='leftDiv2'>
 
        <div id='leftDiv2Title'>
-          <p style='color: green; font-size: 12px'>Durée journalière</p>
+          <p style='font-size: 14px'>Durée journalière</p>
        </div>
 
         <div id='leftDiv2Charts'>
            <div>
-             <canvas id="totalCountChart1"></canvas>
+             <canvas id="dailyCountHoursChart"></canvas>
            </div>
 
              <div>
-               <canvas id="totalCountChart2"></canvas>
+               <canvas id="dailyCountMinutesChart"></canvas>
              </div>
 
              <div>
-             <canvas id="totalCountChart3"></canvas>
+             <canvas id="dailyCountSecondsChart"></canvas>
             </div>
          </div>
     
@@ -488,35 +496,33 @@ flex-direction: column;
 <div id="rightDiv">
 
 
-    <div id='rightDiv1'>
+   <div id='rightDiv1'>
 
        <div id='comparisonDiv'>
-
-              <canvas id="comparisonChart"></canvas>
-
+     
+            <canvas id="comparisonChart"></canvas>
+  
        </div>
            
-       <div id='sequencesDiv' style='color: green'>
+
+       <div id='sequencesDiv'>
 
               <div>
-               <p style='font-size: 10px'>Séquence moyenne</p>
+               <p style='font-size: 12px'>Séquence moyenne</p>
               </div>
            
               <div>
-                <p>11:22:33</p>
+                <p style='font-size: 12px'>11:22:33</p>
               </div>
-
        </div>
 
-      <div id='topTimeDiv'> 
+       <div id='topTimeDiv'> 
 
           <canvas id="topTimeChart"></canvas>
          
        </div>
 
-    </div>
-
-
+  </div>
 
 
 </div>
@@ -532,10 +538,10 @@ flex-direction: column;
    <div style='display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 5vh'>
      <img id ='flaskLogo' src='{{ asset("images/flask"~ substanceColor ~ ".png") }}'> 
      
-     <div style='position: absolute; margin: auto' id='totalProgress'></div>
+     <div style='color: white; position: absolute; margin: auto' id='totalProgress'></div>
       
     
-         <div class="mo-fire" id='fireLogo'>
+   <div class="mo-fire" id='fireLogo'>
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="125px" height="189.864px" viewBox="0 0 125 189.864" enable-background="new 0 0 125 189.864" xml:space="preserve">
         <path class="flame-main" fill="#F36E21" d="M76.553,186.09c0,0-10.178-2.976-15.325-8.226s-9.278-16.82-9.278-16.82s-0.241-6.647-4.136-18.465
@@ -563,9 +569,6 @@ flex-direction: column;
 
 
    
-   </br>
-   <button id="startBtn"><i class="fas fa-play-circle fa-3x"></i></button>
-   </br>
    
   <form id='projectDone' method='post' action= '{{path("totalCountDonePath")}}'>
    <input type='hidden' name = 'projectId' value = '{{ projectId}}'>
@@ -575,9 +578,14 @@ flex-direction: column;
       <input id='pageReload' type='hidden' name = 'pageReload'>
       
 </form>
-<div style='width: 43%; height: 30px; display: flex; align-items: center; justify-content: flex-start; border: 2px solid white; flex-direction: row; border-radius: 5px; margin: none; box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.3);'>
+
+<div style='width: 65%; height: 40%; display: flex; flex-direction: row; align-items: center; justify-content: space-around;'>
+
+<button id="startBtn"><i class="fas fa-power-off fa fa-1x"></i></button>
+
+<div style='width: 70%; height: 15%; display: flex; align-items: center; justify-content: flex-start; border: 2px solid white; flex-direction: row; border-radius: 5px; margin: none; box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.3);'>
       
-    <div id='myProgressBar' style='margin-top: 0.5px; background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/172299/bubbles-mask.gif);  width: 0%; height: 100%; display: flex;  '> 
+    <div id='myProgressBar' style='background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/172299/bubbles-mask.gif);  width: 0%; height: 100%; display: flex;  '> 
           
       {% if substanceColor == 'red' %}
        <div id='liquid' style=' height: 100%; width: 100%; background: rgb(255,147,147);
@@ -593,11 +601,18 @@ flex-direction: column;
       {% endif %}
  
       
- </div>
+   </div>
 
+   
 
- </div>
+  </div>
 
+  
+
+</div>
+
+   <a href='{{ path("showGraphPath", {"projectId": projectId }) }}'<button><i class="fas fa-chart-line fa-2x"></i></button></a>
+</div>
  
 </body>
 {% endblock %}
@@ -631,12 +646,36 @@ flex-direction: column;
       var fireLogo = document.getElementById('fireLogo');
       var myProgressBar = document.getElementById('myProgressBar');
       
+
+
+
+      var secondsCount = 0;
+      var tenthSecondsCount = 0;
+      
+       //starting values for the counters, diminishing overtime;
+
+           var secondsLeft = 60;
+
+           var tenthSecondsLeft = 1;
+      
+      //var used in the increaseCounts function, to update the comparison in real time
+      var comparison;
+      
       //charts;
       var comparisonChart = document.getElementById("comparisonChart");
-      var dailyCountChart1 = document.getElementById("dailyCountChart1");
-      var dailyCountChart2 =  document.getElementById("dailyCountChart2");
+       
+       var totalCountHoursChart = document.getElementById("totalCountHoursChart");
+
+       var totalCountMinutesChart = document.getElementById("totalCountMinutesChart");
         
-              
+      
+       var dailyCountHoursChart = document.getElementById("dailyCountHoursChart");
+
+       var dailyCountMinutesChart = document.getElementById("dailyCountMinutesChart");
+      
+       var dailyCountSecondsChart = document.getElementById("dailyCountSecondsChart");
+
+
       var done = false;
       var interval = "{{interval}}";
       var pageReloaded = {{ pageReloaded }}
@@ -657,10 +696,10 @@ flex-direction: column;
              var txt = ' statut: connecté'
              var txt2 = ' Projet blue beam'
              var txt3 = 'Date de création:25/09/2020'
-             var txt4 = 'Immatriculation: b75xv79bx7665v&678YT456'
+             var txt4 = 'Immatriculation: v&678YT456b75xv79bx7665v&67'
 
 
-            var speed = 30;
+            var speed = 10;
 
             function txt1writing() {
                if (i < txt.length) {
@@ -702,24 +741,28 @@ flex-direction: column;
 
 
 
-
-                        
                        
               totalProgress.innerHTML =  Math.floor( {{ (totalCount/totalLimit) * 100 }}) + ' %';
               myProgressBar.style.width = dailyCnt + '%';
               window.onbeforeunload = function(){ storeValues()};
 
-              var yesterdayCount = 85;
 
-              displayGraph( comparisonChart , [yesterdayCount, dailyCnt], ['Hier', 'Aujourdhui'] , 'line', 2000);
-                         
-                        
-              displayGraph( dailyCountChart1 , [25], ['Heures'] , 'doughnut', 2500);      
-              displayGraph( dailyCountChart2 , [35], ['Minutes'] , 'doughnut', 2500);
-              displayGraph( totalCountChart1 , [20], ['Heures'] , 'doughnut', 2500);
-              displayGraph( totalCountChart2 , [20], ['minutes'] , 'doughnut', 2500);
-              displayGraph( totalCountChart3 , [20], ['Secondes'] , 'doughnut', 2500);           
-              displayGraph(topTimeChart, [20, 50], ['temps actuel', 'top'] , 'bar', 2500);
+              {%if comparison != 'none'%}
+
+                 displayComparisonGraph( comparisonChart , [0, {{comparison}}], ['Hier', 'Aujourdhui'] , 'line', 2800);
+
+              {%else%}
+              
+                displayComparisonGraph( comparisonChart , [0, 0], ['Hier', 'Aujourdhui'] , 'line', 2800);
+
+             {% endif %}
+             
+              displayGraph( totalCountHoursChart , [25, 35], ['Heures'] , 'doughnut', 2800);      
+              displayGraph( totalCountMinutesChart , [35,60], ['Minutes'] , 'doughnut', 2800);
+              displayGraph( dailyCountHoursChart , [1, 4] , ['Heures'] , 'doughnut', 2800);
+              displayGraph( dailyCountMinutesChart , [10,60], ['minutes'] , 'doughnut', 2800);
+              displayGraph( dailyCountSecondsChart , [20, 60], ['Secondes'] , 'doughnut', 2800);           
+              displayGraph(topTimeChart, [20, 50], ['temps actuel', 'top'] , 'bar', 2800);
                   
                 
             }
@@ -728,13 +771,14 @@ flex-direction: column;
       
        
        function refreshAt(hours, minutes, seconds) {
-    var now = new Date();
-    var then = new Date();
-    if(now.getHours() > hours ||
+        var now = new Date();
+        var then = new Date();
+       if(now.getHours() > hours ||
        (now.getHours() == hours && now.getMinutes() > minutes) ||
         now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
         then.setDate(now.getDate() + 1);
-    }
+      }
+
     then.setHours(hours);
     then.setMinutes(minutes);
     then.setSeconds(seconds);
@@ -743,7 +787,7 @@ flex-direction: column;
     
     if((then - now) < 300000){    
          
-                   if(startBtn.innerHTML == '<i class="fas fa-pause-circle fa-3x"></i>'){
+         if(startBtn.innerHTML == '<i class="fas fa-pause-circle fa-1x"></i>'){
                       intervalInput.value = 'on';
                       console.log('on!!');
                           }
@@ -771,8 +815,7 @@ flex-direction: column;
           xrq.send('projectId=' + {{ projectId}} + '&totalCount=' + totalCnt +'&dailyCount=' + dailyCnt);
       }
        
-      
-   
+        
       var myInterval;
       startBtn.addEventListener('click', function(){
          countFunction();
@@ -782,18 +825,17 @@ flex-direction: column;
       var checkDailyCountInterval;
       function countFunction(){
   
-                      
-          if (startBtn.innerHTML == '<i class="fas fa-play-circle fa-3x"></i>'){
+
+          if (startBtn.innerHTML == '<i class="fas fa-power-off fa fa-1x"></i>'){
              myInterval = setInterval(function(){ increaseCounts()}, 100);
                              
                fireLogo.style.opacity = 1;
-             startBtn.innerHTML = '<i class="fas fa-pause-circle fa-3x"></i>';
+               startBtn.innerHTML = '<i class="fas fa-pause-circle fa-1x"></i>';
             
-             checkDailyCountInterval = setInterval(function(){ checkDailyCount()}, 1000); 
-             storeInterval = setInterval(function(){ storeValues()}, 2000);
+               checkDailyCountInterval = setInterval(function(){ checkDailyCount()}, 1000); 
+               storeInterval = setInterval(function(){ storeValues()}, 2000);
              
-          }
-          else {
+          } else {
  
              clearInterval(myInterval);
              clearInterval(checkDailyCountInterval);
@@ -801,13 +843,14 @@ flex-direction: column;
           
              fireLogo.style.opacity = 0;
             
-            startBtn.innerHTML = '<i class="fas fa-play-circle fa-3x"></i>';
+            startBtn.innerHTML = '<i class="fas fa-power-off fa fa-1x"></i>';
               
           }
       }
-function checkDailyCount(){
-     console.log(dailyCnt);
-     console.log({{dailyLimit}});
+
+    function checkDailyCount(){
+      console.log(dailyCnt);
+      console.log({{dailyLimit}});
          
      console.log(dailyCountDone);
      if (dailyCountDone == false){
@@ -830,7 +873,7 @@ function checkDailyCount(){
          }
       }
 }
-     
+    
       function increaseCounts(){ 
 
           console.log(dailyCnt);
@@ -844,13 +887,68 @@ function checkDailyCount(){
           }
      }
   
-          totalCnt+=2;
-          dailyCnt+=2;
+          totalCnt+=1;
+          dailyCnt+=1;
           myProgressBar.style.width = dailyCnt + '%';
            
           totalProgress.innerHTML =  Math.floor(((totalCnt/{{totalLimit}})*100))  + ' %';
+                   
+              
+              //timers and charts update
+             
+             if( secondsCount >= 59){
+
+               secondsCount = 0;
+               secondsLeft = 60;
+             } else{
+                secondsCount += 0.1;
+                secondsLeft -= 0.1;
+
+             }
+
+            if(tenthSecondsCount >= 0.9){
+                tenthSecondsCount = 0;
+                tenthSecondsLeft = 1;
+            } else{
+              tenthSecondsCount += 0.1;
+              tenthSecondsLeft -= 0.1;
+            }
+
+
+            var totalCountLeft = ({{totalLimit}} - totalCnt); 
+
+            if(dailyCnt >= {{ dailyLimit}}){
+
+              dailyCountLeft = 0;
+            }  else {
+
+              dailyCountLeft = {{ dailyLimit}} - dailyCnt ;
+             }
+              displayGraph( totalCountHoursChart , [totalCnt, totalCountLeft], ['Heures'] , 'doughnut', 0);      
+              displayGraph( totalCountMinutesChart , [ secondsCount,secondsLeft], ['Minutes'] , 'doughnut', 0);
+              displayGraph( dailyCountHoursChart , [dailyCnt, dailyCountLeft] , ['total'] , 'doughnut', 0);
+              displayGraph( dailyCountMinutesChart , [ secondsCount,secondsLeft], ['minutes'] , 'doughnut', 0);
+              displayGraph( dailyCountSecondsChart , [ tenthSecondsCount, tenthSecondsLeft], ['10th secondes'] , 'doughnut', 0);           
+              displayGraph(topTimeChart, [20, 50], ['temps actuel', 'top'] , 'bar', 0);
+             
+             if({{comparison}} != 'none'){
+                
+                //comparing the two values, to get a positive or negative number
+                 comparison = ( (( dailyCnt / {{comparison}}) - 1) * 100);
+                 
+                 console.log(comparison);
+                 
+                 displayComparisonGraph( comparisonChart , [0, comparison], ['Hier', 'Aujourdhui'] , 'line', 0);
+
+
+             }
+    
+
        }
-        
+
+
+     
+     
         function myfct(){
               if(done == false){
                 console.log('alright');
@@ -919,4 +1017,54 @@ var myChart = new Chart(chart , {
 }
 
 
-        {% endblock %}
+
+
+function displayComparisonGraph(chart, data, labels, type, animationTime){
+
+var myChart = new Chart(chart , {
+    type: type,
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'stats',
+            data: data, 
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            
+            borderWidth: 1
+        }]
+    },
+    options: {
+
+      animation: {
+        duration: animationTime
+      }
+
+      ,
+      
+        scales: {
+            yAxes: [{
+
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+}
+
+
+
+   {% endblock %}
