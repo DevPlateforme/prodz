@@ -13,7 +13,7 @@ body{
  font-family: "Exo 2", sans-serif;
  text-shadow: 0 0 2px #379D17;
 
-  font-size: 17.5px;
+  font-size: 16.5px;
 
 }
 
@@ -40,8 +40,20 @@ input{
 
 }
 
+
+#inputButton{
+
+  font-size: 18px;
+
+    width: 15%;
+
+    border: none;
+
+}
+ 
+
 #nameInput{
-style='font-size: 17.5px'
+style='font-size: 17.5px';
 
 }
 
@@ -170,7 +182,7 @@ select option{
 
 #myForm{
   position: absolute;
-  top: 20vh;
+  top: 23vh;
   left: 39vw;
   z-index: 2;
 
@@ -368,7 +380,13 @@ width: 46%;
 }
 
 
+#inputButton{
 
+  font-size: 18px;
+
+    width: 15%;
+
+}
  
 
    
@@ -376,14 +394,23 @@ width: 46%;
 
     body{
 
-  color: green;
- font-family: "Source Code Pro", monospace;
- font-family: "Exo 2", sans-serif;
- text-shadow: 0 0 2px #379D17;
+    color: green;
+    font-family: "Source Code Pro", monospace;
+    font-family: "Exo 2", sans-serif;
+    text-shadow: 0 0 2px #379D17;
+    font-size: 17.5px;
+   }
 
-  font-size: 17.5px;
+#inputButton{
+
+  font-size: 13px;
+
+   width: 15%;
+
+
+
+
 }
-
 
 #bellIcon{
 
@@ -395,11 +422,12 @@ input{
 
   border: none;
 
-  border-radius: 6px;
 
   outline: none;
 
   background: black;
+
+  font-size: 13px;
 
   color: green;
  font-family: "Source Code Pro", monospace;
@@ -408,23 +436,18 @@ input{
 }
 
 
-#nameInput{
 
-
-
-}
 select{
 
   background: black;
-
   border: none;
-
-  color: green;
- font-family: "Source Code Pro", monospace;
- font-family: "Exo 2", sans-serif;
+  color: #03a100;
+  font-family: "Source Code Pro", monospace;
+  font-family: "Exo 2", sans-serif;
   outline: none;
 
 }
+
 select optgroup{
 
   border : none;
@@ -546,7 +569,9 @@ select optgroup{
   width: 30%;
 
 
-  font-size: 18.5px;
+  font-size: 16px;
+
+  
 }
 
 
@@ -802,7 +827,7 @@ width: 46%;
   position: fixed;
   z-index: 2;
 
-  top: 22vh;
+  top: 23vh;
 
   left: 15vw;
 
@@ -811,6 +836,8 @@ width: 46%;
   width: 60%;
 
   font-size: 15px;
+
+  
 
   
       }
@@ -975,7 +1002,7 @@ width: 46%;
 
 
 
-<input id='nameInput' onclick = 'checkProjectName(event)' type = 'submit' name='newProject' value='ENTRER'/>
+<button id='inputButton' onclick = 'checkProjectName(event)' style='background:#038f1d' type = 'submit' name='newProject' /><i class="fas fa-arrow-right"></i></button>
 
 <input type='hidden' name='myNewProject'>
 

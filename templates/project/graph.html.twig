@@ -129,6 +129,51 @@ margin-left: 3vw;
 
     <div id="statsHeader">
        <h1> jour {{currentDay + 1}}, semaine {{currentWeek + 1}}</h1>
+     {% if bestDailyCount != 0 %}
+    
+         {%if bestDailyCount == 1  %}
+             <h1>Meilleur temps: {{ bestDailyCount }} minute </h1>
+         {% else %}
+            <h1>Meilleur temps: {{ bestDailyCount }} minutes </h1>
+      {% endif%}
+
+     {% else %}
+
+            <h1>Meilleur temps: moins d'une minute </h1>
+
+     {% endif%}
+
+     
+       <h1>Etat d'avancée : {{ projectState}} % </h1>
+      
+      {% if averageSequence < 1%}
+             <h1>Séquence moyenne: moins d'une minute </h1>
+
+      {% else %}
+         
+           {%if  averageSequence  == 1  %}
+             <h1>Séquence Moyenne {{  averageSequence }} minute </h1>
+           {% else %}
+            <h1>Séquence moyenne: {{  averageSequence }} minutes </h1>
+          {% endif%}
+
+    {%endif%}
+
+         {% if totalWork < 1%}
+       <h3>Temps travaillé au total : moins d'une minute </h3>
+
+      {% else %}
+          
+           {%if  totalWork  == 1  %}
+              <h3>Temps travaillé au total : {{totalWork}} minute</h3>
+           {% else %}
+              <h3>Temps travaillé au total : {{totalWork}} minutes</h3>
+          {% endif%}
+
+      
+      {% endif %}
+
+
     </div>
 
      <div id='backgroundDiv'>
@@ -411,7 +456,7 @@ function displayGraph(){
 				type: 'line',
 				mode: 'horizontal',
 				scaleID: 'y-axis-0',
-				value: '2',
+				value: '{{dailyLimit/60}}',
 				borderColor: 'red',
 				borderWidth: 1,
                 

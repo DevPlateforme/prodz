@@ -11,11 +11,6 @@
 
 
 
-@media all and (min-width: 2000px){
-
-
-}
-
 @media all and (max-width: 10000px){
    
     
@@ -24,6 +19,17 @@ body{
  font-family: "Source Code Pro", monospace;
  font-family: "Exo 2", sans-serif;
  text-shadow: 0 0 2px #379D17;
+}
+
+#liquidProgressBar{
+
+  width:65%;
+  height:40%;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-around;
+
 }
 
 #backDiv{
@@ -435,6 +441,24 @@ flex-direction: column;
 
     
   }
+
+  @media all and (min-width: 2400px){
+
+   
+      #flaskLogo{
+         height: 14vh;
+         width: auto;
+       }
+
+    #liquidProgressBar{
+
+      width:50%;
+      height:23%;
+}
+
+
+
+  }
    
 
 
@@ -569,7 +593,7 @@ z-index: 7;
               </div>
            
               <div>
-                <p style='font-size: 12px'>11:22:33</p>
+                <p id='averageSequenceHTML'style='font-size: 12px'></p>
               </div>
        </div>
 
@@ -636,7 +660,7 @@ z-index: 7;
       
 </form>
 
-<div style='width: 65%; height: 40%; display: flex; flex-direction: row; align-items: center; justify-content: space-around;'>
+<div id='liquidProgressBar'>
 
 <button id="startBtn"><i class="fas fa-power-off fa fa-1x"></i></button>
 
@@ -703,8 +727,10 @@ z-index: 7;
       var fireLogo = document.getElementById('fireLogo');
       var myProgressBar = document.getElementById('myProgressBar');
       
+      
+      //bestDailyCount
 
-
+      var bestDailyCount = {{ bestDailyCount }};
 
       var secondsCount = 0;
       var tenthSecondsCount = 0;
@@ -716,7 +742,16 @@ z-index: 7;
            var tenthSecondsLeft = 1;
       
       //var used in the increaseCounts function, to update the comparison in real time
-      var comparison;
+      var comparison = '{{ comparison }}';
+
+      //initial number of pauses, to calculate the average work sequencesDiv
+       
+       var numberOfPauses = {{numberOfPauses}};
+
+       //Average Sequence HTML
+
+       var  averageSequenceHTML = document.getElementById("averageSequenceHTML");
+
       
       //charts;
       var comparisonChart = document.getElementById("comparisonChart");
@@ -731,7 +766,7 @@ z-index: 7;
        var dailyCountMinutesChart = document.getElementById("dailyCountMinutesChart");
       
        var dailyCountSecondsChart = document.getElementById("dailyCountSecondsChart");
-
+        
 
       var done = false;
       var interval = "{{interval}}";
@@ -739,9 +774,30 @@ z-index: 7;
       if(interval == "on"){
          countFunction();
       }
-      
+            
+            window.onbeforeunload = function(){
+
+              if (startBtn.innerHTML == '<i class="fas fa-pause-circle fa-1x"></i>'){
+                   addPause();
+              }
+
+
+            }
+
             window.onload = function(){
 
+              window.addEventListener( "pageshow", function ( event ) {
+                        var historyTraversal = event.persisted || 
+                         ( typeof window.performance != "undefined" && 
+                              window.performance.navigation.type === 2 );
+                 if ( historyTraversal ) {
+                // Handle page restore.
+                 window.location.reload();
+                 }
+            });
+          
+           displayAverageSequence();
+            
             //intro text
 
              var i = 0;
@@ -801,10 +857,12 @@ z-index: 7;
                        
               totalProgress.innerHTML =  Math.floor( {{ (totalCount/totalLimit) * 100 }}) + ' %';
               myProgressBar.style.width = dailyCnt + '%';
-              window.onbeforeunload = function(){ storeValues()};
 
 
          {%if comparison != 'firstDay'%}
+
+                 displayGraph(topTimeChart, [dailyCnt, bestDailyCount], ['temps actuel', 'top'] , 'bar', 2800);
+
 
                 {%if comparison == 'zerozero'%}
 
@@ -819,15 +877,21 @@ z-index: 7;
          {%else%}
               
                 displayComparisonGraph( comparisonChart , [0, 0], ['Hier', 'Aujourdhui'] , 'line', 2800);
+              
+               //if first day , we don't display both comparison graphs
+              
+                displayGraph(topTimeChart, [0, 0], ['temps actuel', 'top'] , 'bar', 2800);
+
 
         {% endif %}
              
               displayGraph( totalCountHoursChart , [25, 35], ['Heures'] , 'doughnut', 2800);      
               displayGraph( totalCountMinutesChart , [35,60], ['Minutes'] , 'doughnut', 2800);
               displayGraph( dailyCountHoursChart , [1, 4] , ['Heures'] , 'doughnut', 2800);
-              displayGraph( dailyCountMinutesChart , [10,60], ['minutes'] , 'doughnut', 2800);
-              displayGraph( dailyCountSecondsChart , [20, 60], ['Secondes'] , 'doughnut', 2800);           
-              displayGraph(topTimeChart, [20, 50], ['temps actuel', 'top'] , 'bar', 2800);
+              displayGraph( dailyCountMinutesChart , [1,60], ['minutes'] , 'doughnut', 2800);
+              displayGraph( dailyCountSecondsChart , [1, 60], ['Secondes'] , 'doughnut', 2800);  
+
+
                   
                 
             }
@@ -869,11 +933,12 @@ z-index: 7;
          
      
      function storeValues(){
-       console.log("stored");
          
          xrq = new XMLHttpRequest();
          
          xrq.onload = function(){
+                  console.log("stored");
+
          }
           xrq.open('POST', '{{ path("storeCountsPath")}}', true);
           xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -899,6 +964,13 @@ z-index: 7;
             
                checkDailyCountInterval = setInterval(function(){ checkDailyCount()}, 1000); 
                storeInterval = setInterval(function(){ storeValues()}, 2000);
+
+               averageSequenceHTML.innerHTML = '';
+
+               averageSequenceHTML.innerHTML = 'nouvelle moyenne en cours de calcul.....';
+
+
+               
              
           } else {
  
@@ -906,9 +978,12 @@ z-index: 7;
              clearInterval(checkDailyCountInterval);
              clearInterval(storeInterval);
           
-             fireLogo.style.opacity = 0;
+            fireLogo.style.opacity = 0;
             
             startBtn.innerHTML = '<i class="fas fa-power-off fa fa-1x"></i>';
+
+
+            addPause();
               
           }
       }
@@ -937,7 +1012,7 @@ z-index: 7;
           xrq.send('projectId=' + {{ projectId}});
          }
       }
-}
+    }
     
       function increaseCounts(){ 
 
@@ -950,10 +1025,10 @@ z-index: 7;
           if(totalCnt >= {{ totalLimit}}){
                       myfct();
           }
-     }
+       }
   
-          totalCnt+=1;
-          dailyCnt+=1;
+          totalCnt+=0.1;
+          dailyCnt+=0.1;
           myProgressBar.style.width = dailyCnt + '%';
            
           totalProgress.innerHTML =  Math.floor(((totalCnt/{{totalLimit}})*100))  + ' %';
@@ -988,26 +1063,36 @@ z-index: 7;
             }  else {
 
               dailyCountLeft = {{ dailyLimit}} - dailyCnt ;
-             }
+           }
               displayGraph( totalCountHoursChart , [totalCnt, totalCountLeft], ['Heures'] , 'doughnut', 0);      
               displayGraph( totalCountMinutesChart , [ secondsCount,secondsLeft], ['Minutes'] , 'doughnut', 0);
               displayGraph( dailyCountHoursChart , [dailyCnt, dailyCountLeft] , ['total'] , 'doughnut', 0);
               displayGraph( dailyCountMinutesChart , [ secondsCount,secondsLeft], ['minutes'] , 'doughnut', 0);
               displayGraph( dailyCountSecondsChart , [ tenthSecondsCount, tenthSecondsLeft], ['10th secondes'] , 'doughnut', 0);           
-              displayGraph(topTimeChart, [20, 50], ['temps actuel', 'top'] , 'bar', 0);
-             
+
                 
            if( '{{ comparison}}' != 'firstDay'){
                      
-                //comparing the two values, to get a positive or negative number
+                //Only display comparisons graphs, if it's not the first day
+                
+
+                 if( comparison <= 100){
+
+                   
                  comparison = ( (( dailyCnt / {{lastDayCount}}) - 1) * 100);
                  
-                 console.log(comparison);
+                 console.log("comp" + comparison);
                  
                  displayComparisonGraph( comparisonChart , [0, comparison], ['Hier', 'Aujourdhui'] , 'line', 0);
+                 
+                 displayGraph(topTimeChart, [dailyCnt, bestDailyCount], ['temps actuel', 'top'] , 'bar', 0);
 
-  
-            }
+
+
+                 }               
+                  
+
+            } 
 
        }
 
@@ -1025,9 +1110,90 @@ z-index: 7;
                     done = true;
              }
         }
+    
+    
+      function addPause(){
+                
+               var xrq = new XMLHttpRequest;
+
+               xrq.onload = function(){
+
+                 console.log("pausesUpdated");
+
+                   numberOfPauses += 1;
+                  
+                   displayAverageSequence();
+
+                }
+               
+               xrq.open('GET', '{{ path("addPausePath", {"projectId": projectId }) }}', true );
+
+               xrq.send();
+
+              }
 
         
 
+function displayAverageSequence(){
+
+  var  averageSequence;
+  var averageSequenceHours;
+  var  averageSequenceMinutes;
+  var  averageSequenceSeconds;
+
+    if(dailyCnt == 0){
+       averageSequence = 0;
+       averageSequenceHours = 0;
+       averageSequenceMinutes = 0;
+       averageSequenceSeconds = 0;
+    } else{
+
+     
+     averageSequence = dailyCnt/numberOfPauses;
+
+     averageSequenceHours = Math.floor(averageSequence/360);
+
+     averageSequenceMinutes = Math.floor(((averageSequence) - (averageSequenceHours * 360))/60);
+
+     averageSequenceSeconds = Math.floor( averageSequence - (averageSequenceHours * 360) -  (averageSequenceMinutes*60) );
+     
+     averageSequenceHTML.innerHTML = '';
+
+    }
+
+     
+    
+      if(averageSequenceHours < 10){
+
+        averageSequenceHours = "0" +  averageSequenceHours;
+
+      }
+
+       
+     if(averageSequenceMinutes < 10){
+
+       averageSequenceMinutes = "0" +  averageSequenceMinutes;
+
+     } 
+     
+     if(averageSequenceSeconds < 10){
+
+       averageSequenceSeconds = "0" +  averageSequenceSeconds;
+
+     } 
+      
+      console.log(dailyCnt);
+
+      console.log(numberOfPauses);
+
+
+     
+     console.log(averageSequenceHours + ":" + averageSequenceMinutes + ':' + averageSequenceSeconds);
+
+     averageSequenceHTML.innerHTML += (averageSequenceHours + ":" + averageSequenceMinutes + ':' + averageSequenceSeconds);
+
+ 
+}
 
 
 function displayGraph(chart, data, labels, type, animationTime){

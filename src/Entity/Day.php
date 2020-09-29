@@ -27,6 +27,11 @@ class Day
      */
     public $dailyCount = 0;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numberOfPauses = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class Day
     public function setDailyCount(int $dailyCount): self
     {
         $this->dailyCount = $dailyCount;
+
+        return $this;
+    }
+
+    public function getNumberOfPauses(): ?int
+    {
+        return $this->numberOfPauses;
+    }
+
+    public function setNumberOfPauses(?int $numberOfPauses): self
+    {
+        $this->numberOfPauses = $numberOfPauses;
 
         return $this;
     }

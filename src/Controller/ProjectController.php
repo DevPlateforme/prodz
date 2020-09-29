@@ -136,6 +136,8 @@ class ProjectController extends AbstractController
 
         $totalCountDone = $project->getTotalCountDone();
 
+        $numberOfPauses = $project->weeks[$currentWeek]->days[$currentDay]->getNumberOfPauses();
+
 
         $pageReloaded = 'false';
 
@@ -212,8 +214,35 @@ class ProjectController extends AbstractController
 
 
         }
+ 
+   
+           $weeks = $project->getWeeks();
 
-        return $this->render('project/show.html.twig', ['pageReloaded' => $pageReloaded, 'interval' => $interval,  'user' => $user, 'username' => $user->getUserName(), 'projectId' => $projectId ,  'projectName' => $project->getProjectName(), 'dailyCount' => $dailyCount, 'dailyLimit' => $dailyLimit , 'dailyCountDone' => $dailyCountDone  , 'totalCount' => $totalCount, 'totalCountDone' => $totalCountDone ,  'totalLimit' => $totalLimit, 'substanceColor' => $substanceColor, 'comparison' => $comparison , 'lastDayCount' => $lastDayCount ]);
+           $bestDailyCount = 0;
+         
+           $totalNumberOfPauses = 0;
+
+           foreach($weeks as $week){
+           
+            $projectDays = $week->getDays();
+
+            foreach($projectDays as $day){
+
+                $numberOfPauses = $day->getNumberOfPauses();
+
+                $totalNumberOfPauses += $numberOfPauses;
+
+                if( $day->getDailyCount() > $bestDailyCount){
+
+                    $bestDailyCount =  $day->getDailyCount();
+                }
+                
+            }
+
+        }
+
+
+        return $this->render('project/show.html.twig', ['pageReloaded' => $pageReloaded, 'interval' => $interval,  'user' => $user, 'username' => $user->getUserName(), 'projectId' => $projectId ,  'projectName' => $project->getProjectName(), 'dailyCount' => $dailyCount, 'dailyLimit' => $dailyLimit , 'dailyCountDone' => $dailyCountDone  , 'totalCount' => $totalCount, 'totalCountDone' => $totalCountDone ,  'totalLimit' => $totalLimit, 'substanceColor' => $substanceColor, 'comparison' => $comparison , 'lastDayCount' => $lastDayCount, 'numberOfPauses'  => $numberOfPauses, 'bestDailyCount' => $bestDailyCount]);
 
     }
 
@@ -496,12 +525,9 @@ class ProjectController extends AbstractController
             $user->setAllDailyCountsDone($initialCountOfDailyObjective + 1);
 
 
-            $totalWork = 0;
-
             
             foreach($projects as $project){
 
-            $totalWork += $project->getTotalCount();
 
             $days = $project->getDaysFromCreation();
 
@@ -728,8 +754,6 @@ class ProjectController extends AbstractController
     
         //end of users loop
 
-
-        $user->setTotalWork($totalWork);
     
         $manager->persist($user);
 
@@ -787,12 +811,8 @@ class ProjectController extends AbstractController
             $user->setAllDailyCountsDone($initialCountOfDailyObjective + 1);
 
 
-            $totalWork = 0;
-
             
             foreach($projects as $project){
-
-            $totalWork += $project->getTotalCount();
 
             $days = $project->getDaysFromCreation();
 
@@ -1018,7 +1038,6 @@ class ProjectController extends AbstractController
         //end of users loop
 
 
-        $user->setTotalWork($totalWork);
     
         $manager->persist($user);
 
@@ -1280,6 +1299,37 @@ class ProjectController extends AbstractController
     }
 
 
+
+    
+    /**
+     * @Route("/project/addPause/{projectId}" , name="addPausePath")
+     */
+
+
+    public function addPause(EntityManagerInterface $manager, UserInterface $user, $projectId){
+   
+     $project = $this->getDoctrine()->getRepository(Project::class)->find($projectId);
+
+     $currentDay = $project->currentDay;
+     $currentWeek = $project->currentWeek;
+
+
+     $pauses = $project->weeks[$currentWeek]->days[$currentDay]->getNumberOfPauses();
+
+       
+     $project->weeks[$currentWeek]->days[$currentDay]->setNumberOfPauses($pauses + 1);
+     
+
+      $manager->persist($user);
+
+      $manager->flush();
+
+
+      return new JsonResponse(['updated' => 'ok']);
+
+   }
+
+
     
     /**
      * @Route("/project/nextDay" , name="nextDayPath")
@@ -1401,7 +1451,6 @@ class ProjectController extends AbstractController
         if($days != 0 ){
 
             $averageRespectOfCount = floor(($count/$days)*100);
-    
 
         } else {
 
@@ -1409,14 +1458,70 @@ class ProjectController extends AbstractController
         }
         
 
-        $totalWork = $project->getTotalCount();
+        
 
+        $weeks = $project->getWeeks();
+
+        //declare the variable, before looping on all projects to get this value
+        
+        $totalNumberOfPauses = 0;
+
+        $bestDailyCount = 0;
+
+        $totalWork = 0;
+
+
+
+        //loop on all dailyCounts for this project, to find the best one.
+
+        foreach($weeks as $week){
+           
+            $projectDays = $week->getDays();
+
+            foreach($projectDays as $day){
+
+                $numberOfPauses = $day->getNumberOfPauses();
+
+                $totalWork += $day->getDailyCount();
+
+                $totalNumberOfPauses += $numberOfPauses;
+
+                if( $day->getDailyCount() > $bestDailyCount){
+
+                    $bestDailyCount =  $day->getDailyCount();
+                }
+                
+            }
+
+        }
+
+          if($totalNumberOfPauses == 0){
+              $totalNumberOfPauses = 1;
+          }
+
+          $dailyLimit = $project->getDailyLimit();
+
+          $totalLimit = $project->getTotalLimit();
+
+          $totalCount = $project->getTotalCount();
+
+
+        
+          $averageSequence = floor(($totalWork/$totalNumberOfPauses)/60);
+
+
+          $totalWork = floor($totalWork/60);
+
+          $bestDailyCount = floor($bestDailyCount/60);
+
+        
+
+          $averageWorkTime = floor( (($totalWork/($days+1)))/60);
+
+          $projectState = floor(($totalCount/$totalLimit) * 100 );
     
 
-        $averageWorkTime = floor( (($totalWork/($days+1)))/60);
-    
-
-           return $this->render('project/graph.html.twig', ['currentDay' => $currentDay , 'currentWeek'=> $currentWeek , 'averageWorkTime' => $averageWorkTime ,  'averageDailyRespect' => $averageRespectOfCount , 'dynamic'=> $dynamic , 'projectId' => $projectId , 'displayedWeek' => $displayedWeek , 'nextWeekButton' => 'no' ,'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7]);
+           return $this->render('project/graph.html.twig', ['currentDay' => $currentDay , 'currentWeek'=> $currentWeek , 'averageWorkTime' => $averageWorkTime ,  'averageDailyRespect' => $averageRespectOfCount , 'dynamic'=> $dynamic , 'projectId' => $projectId , 'displayedWeek' => $displayedWeek , 'nextWeekButton' => 'no' ,'day1' => $day1 , 'day2' => $day2,'day3' => $day3,'day4' => $day4,'day5' => $day5,'day6' => $day6,'day7' => $day7, 'averageSequence' => $averageSequence , 'bestDailyCount' => $bestDailyCount, 'dailyLimit' => $dailyLimit, 'projectState' => $projectState , 'totalWork' => $totalWork]);
 
 
     }
