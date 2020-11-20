@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block title %}My project{% endblock %}
+
+{% block body %}
+
+   <body>
+
+      <style>
+
+
+  
+     #scientistImg{ 
+         position: absolute;
+
+         left: 30vw;
+
+         top: 52vh;
+          
+        height: 48vh;
+        width: auto;
+        
+       }
+
+
+      #bubbleImg{
+
+          position: absolute;
+
+          top: 8vh;
+
+          left: 37vw;
+
+
+          height: 50vh;
+
+          width: auto;
+
+      }
+
+      #continueBtn{
+
+          position: absolute;
+
+          top: 75vh;
+
+          right: 25vw;
+
+
+      }
+
+
+      
+
+   
+  @media all and (max-width: 500px){
+        
+
+        
+     #scientistImg{ 
+         position: absolute;
+         left: 0vw;
+         top: 52vh;          
+         height: 45vh;
+         width: auto;
+        
+       }
+
+
+      #bubbleImg{
+
+          position: absolute;
+          top: 5vh;
+          left: 10vw;
+          width: 80vw; 
+          height: auto;
+        
+        }
+
+      #continueBtn{
+
+          position: absolute;
+          top: 85vh;
+          right: 5vw;
+
+      }
+
+
+  } 
+  
+
+  
+  #scientistDiv{
+
+height: 90vh;
+
+width: 50vw;
+
+position: absolute;
+
+top: 10vh;
+
+width: 50vw;
+
+z-index: 7;
+
+display: flex;
+
+flex-direction: column;
+
+align-items: flex-start;
+
+}
+
+
+#scientistDiv div{
+
+height: 50%;
+
+width: 100%;
+
+}
+
+  #scientistDiv div img{
+     
+     height: 100%;
+
+     width: auto;
+
+  }
+
+
+
+
+
+
+      </style>
+
+
+
+             <img id='scientistImg' src='{{ asset("images/arkana.png") }}'>
+
+             <img id='bubbleImg' src='{{ asset("images/bubble.png") }}'>
+
+
+
+             <button id='continueBtn' class='btn btn-success'>Continuer</button>
+
+
+      
+  </body>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+
+
+
+{% endblock %}

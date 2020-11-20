@@ -26,6 +26,12 @@
 
        }
 
+   #nextDayButton{
+
+
+       margin-bottom: 5%;
+   }
+
    #firstDiv{
 
        display:flex; 
@@ -298,9 +304,10 @@
   
       <div style='height:50%; width:100%'>
 
-          <div style='height:30%; width: 100%; display: flex; justify-content: flex-start; align-items: center; margin-top: 1vh;'>
+          <div style='height:30%; width: 100%; display: flex; justify-content: space-around; align-items: center; margin-top: 1vh;'>
                                 <p>    <img id='starImg' style='height: 50px; width: auto' src='{{ asset("images/mail.png") }}'>Mailing : {{ app.user.mailing}} </p>
-
+                                <button id='nextDayButton' class='btn btn-warning'><i class="fas fa-sunset fa fa-1x"></i></button>
+                                
           </div>
 
 
@@ -392,6 +399,8 @@
 
 
   </div>
+
+  
 
 
 

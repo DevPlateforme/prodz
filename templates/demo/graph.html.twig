@@ -10,7 +10,6 @@
  
     width: 100vw;
 
-
     display: flex; 
 
     flex-direction : row;
@@ -49,6 +48,8 @@
 
 </style>
 
+  
+  
     <h1> jour {{currentDay + 1}}, semaine {{currentWeek + 1}}</h1>
 
      <div id='backgroundDiv'>
@@ -59,8 +60,8 @@
 
           <h3><div id='displayedWeekHTML'></div></h3> <br>
           <canvas id="myChart"></canvas>
-          <button onclick = 'lastWeekGraph()' id='lastWeekButton'>semaine précédente</button>
-          <button onclick= 'nextWeekGraph()'id='nextWeekButton'>semaine suivante</button>
+          <button class='btn btn-success' onclick = 'lastWeekGraph()' id='lastWeekButton'>semaine précédente</button>
+          <button class='btn btn-success' onclick= 'nextWeekGraph()'id='nextWeekButton'>semaine suivante</button>
 
      </div>
 

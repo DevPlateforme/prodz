@@ -34,131 +34,226 @@ use Symfony\Component\Mime\Email;
 class DemoController extends AbstractController
 {
    
+
+
+
+
+    /**
+     * @Route("/project/demo/new/{substanceColor}" , name="newDemoProjectPath")
+     */
+
+    
+    function newProjectDemo(UserInterface $user, EntityManagerInterface $manager, $substanceColor){
+            
+        $user->addProject($project = new Project());   
+
+        $project->setProjectName('projet top secret');
+        $project->setDailyLimit('dailyLimit3');
+        $project->setTotalLimit('midTerm');
+        $project->setSubstanceColor($substanceColor);
+    
+         
+
+
+
+        $project->addWeek($week = new Week());
+
+         //simulate a start at day 2
+
+         $project->setCurrentDay(1);
+
+      
+             
+            $week->addDay($firstDay = new Day());
+
+            //simulate the daily count of the first day at 20 minutes
+
+            $firstDay->setDailyCount(1200);
+            $firstDay->setNumberOfPauses(2);
+
+            $week->addDay(new Day());
+            $week->addDay(new Day());
+            $week->addDay(new Day());
+            $week->addDay(new Day());
+            $week->addDay(new Day());
+            $week->addDay(new Day());
+
+
+            $user->addNotification($notification = new Notification());
+
+            $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé : projet top secret. On va dire que tu as de la chance...tu ne perds de points de compétences, vu que ton compteur est déjà à 0...");
+
+
+            $manager->persist($user);
+ 
+            $manager->flush();
+
+
+
+           return $this->redirectToRoute('demoProjectPath', ['projectId' => $project->getId()] );
+
+    }
+
+
+
+    /**
+     * @Route("/project/demo/{projectId}" , name="demoProjectPath")
+     */
+
+    
+
+    function showDemoProject($projectId, UserInterface $user, EntityManagerInterface $manager){
+
+        
+        $project = $this->getDoctrine()->getRepository(Project::class)->find($projectId);
+
+        $currentWeek = $project->currentWeek;
+
+        $currentDay = $project->currentDay;
+
+        $substanceColor = $project->getSubstanceColor();
+
+        
+
+        $dailyLimit = $project->getDailyLimit();
+
+        $totalLimit = $project->getTotalLimit();
+
+        $dailyCount = $project->weeks[$currentWeek]->days[$currentDay]->getDailyCount();
+
+        $totalCount = $project->getTotalCount();
+
+        $dailyCountDone = $project->getDailyCountDone();
+
+        $totalCountDone = $project->getTotalCountDone();
+
+        $numberOfPauses = $project->weeks[$currentWeek]->days[$currentDay]->getNumberOfPauses();
+
+
+        $pageReloaded = 'false';
+
+        $interval = 'off';
+
+
+        //comparison with last day
+
+        
+       if ($project->currentDay != 0){
+
+            $lastDay  = $project->weeks[$currentWeek]->days[$currentDay - 1];
+
+        } else if($currentDay == 0){
+
+          if($currentWeek != 0){
+
+            $lastDay = $project->weeks[$currentWeek - 1]->days[6];
        
-    /**
-     * @Route("/project/demo/new" , name="newDemoProjectPath")
-     */
+          } else if ($currentWeek == 0){
 
-    
+           $lastDay = null;
+          } 
 
-
-    function newProjectDemo(){
-
-
-        return $this->render('demo/newProject.html.twig');
-
-    }
-    
-
-
-
-    /**
-     * @Route("/project/demo" , name="demoProjectPath")
-     */
-
-    
-
-    function demoProject(){
-
-
-        if(isset($_POST["projectName"])){
-
-                
-             $projectName = $_POST['projectName'];
-
-             $substanceColor = $_POST['substanceColor'];
-
-            
-           return $this->render("demo/project.html.twig", ['substanceColor' => $substanceColor , 'projectName' => $projectName]);
-
-          
         } 
-
-        return new JsonResponse(['erreur' => "il y'a eu un petit soucis.."]);
-
-    }
-
-
-
-
-    /**
-     * @Route("/project/demonotif/{notifNumber}" , name="demoNotifPath")
-     */
-
-
-
-    function demoNotifPath(UserInterface $user, EntityManagerInterface $manager, $notifNumber){
-
-        if($notifNumber == 0){
-
-            
-         $user->addNotification($notification = new Notification());
-
-         $notification->setContent("dommage...tu n'as pas atteint ton compte du jour  pour le projet nommé projet alpha, tu prend donc une pénalité de 50 points de compétence...on va dire que tu as de la chance, ton compte de points est déjà à zéro..."); 
-         
-         $user->setPinCount(1);
-
-
-
-
-        }else if($notifNumber == 1){
-
-         $user->addNotification($notification = new Notification());
-
-         $notification->setContent('Super, tu as atteint ton compte journalier, pour le projet nommé "projet alpha", tu gagnes 50 points de compétence!'); 
-         
-         $user->setPinCount(1);
-
         
-        } else if($notifNumber == 2){
+        if($lastDay == null){
 
+            $comparison = 'firstDay';
+
+            $lastDayCount = 1;
+
+
+        } else{
+
+            $lastDayCount = $lastDay->getDailyCount();
+
+
+            if($dailyCount != 0){
+                
+                //We check how far from 1 the difference between the two values is.
+                //If the number is higher than 1, then the dailycount is bigger than the day before
+                //If negative, then the last day lost
+                 
+                if($lastDayCount == 0){
+    
+                    $comparison = 100;
+                    
+                } else{
+                    $comparison = (($dailyCount/$lastDayCount)-1)*100;
+                }
+    
+            }else if($dailyCount == 0){
+    
+                if($lastDayCount != 0){
+    
+                    $comparison = -100;
+                } else if($lastDayCount == 0){
+                    $comparison = 'zerozero';
+                }
+            } 
+ 
+         }
         
-         $user->addNotification($notification = new Notification());
 
-         $notification->setContent('Super, tu as atteint ton compte journalier, pour le projet nommé "projet alpha", tu gagnes 50 points de compétence!'); 
-         
-         $user->addNotification($notification = new Notification());
+        if(isset($_POST['pageReload'])){
 
-         $notification->setContent("Bravo!! Tu gagnes 20 points de bonus de dynamique!! Tu as en effet travaillé 2 jours d'affilée sur ton projet"); 
-        
-         $user->setPinCount(2);
+            $pageReloaded = 'true';
 
+            if($_POST['interval'] == 'on'){
 
-        } else if($notifNumber == 3){
+                $interval = 'on';
+            }
 
-
-          
-        
-         $user->addNotification($notification = new Notification());
-
-         $notification->setContent('Super, tu as atteint ton compte journalier, pour le projet nommé "projet alpha", tu gagnes 50 points de compétence!'); 
-         
-
-         $user->addNotification($notification = new Notification());
-
-         $notification->setContent("Bravo!! Tu gagnes 30 points de bonus de dynamique!! Tu as en effet travaillé 3 jours d'affilée sur ton projet"); 
-        
-        
-         $user->addNotification($notification = new Notification());
-
-
-         $notification->setContent("Bravo!! Tu monte de niveau!! Tu passe au niveau : élément à fort potentiel"); 
-         
-         $user->setPinCount(3);
 
         }
-        
-        
+ 
+   
+           $weeks = $project->getWeeks();
 
-        $manager->persist($user);
+           $bestDailyCount = 0;
+         
+           $totalNumberOfPauses = 0;
 
-        $manager->flush();
+           foreach($weeks as $week){
+           
+            $projectDays = $week->getDays();
+
+            foreach($projectDays as $day){
+
+                $numberOfPauses = $day->getNumberOfPauses();
+
+                $totalNumberOfPauses += $numberOfPauses;
+
+                if( $day->getDailyCount() > $bestDailyCount){
+
+                    $bestDailyCount =  $day->getDailyCount();
+                }
+                
+            }
+
+        }
 
 
-        return new JsonResponse(['ok' => 'notif created' ]);
+        return $this->render('demo/project.html.twig', ['pageReloaded' => $pageReloaded, 'interval' => $interval,  'user' => $user, 'username' => $user->getUserName(), 'projectId' => $projectId ,  'projectName' => $project->getProjectName(), 'dailyCount' => $dailyCount, 'dailyLimit' => $dailyLimit , 'dailyCountDone' => $dailyCountDone  , 'totalCount' => $totalCount, 'totalCountDone' => $totalCountDone ,  'totalLimit' => $totalLimit, 'substanceColor' => $substanceColor, 'comparison' => $comparison , 'lastDayCount' => $lastDayCount, 'numberOfPauses'  => $numberOfPauses, 'bestDailyCount' => $bestDailyCount]);
+   
+    }
 
-        
-  }
+
+
+  
+
+    /**
+     * @Route("/d1" , name="demoStep1Path")
+     */
+
+
+     function demo1Step1(){
+
+
+        return $this->render('demo/demoStep1.html.twig');
+
+
+
+     }
 
 
 }

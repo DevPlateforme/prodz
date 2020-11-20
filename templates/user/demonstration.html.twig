@@ -5,7 +5,95 @@
         
        
        <style>
+  
+       #headerDiv{
 
+         margin-top: 15vh;
+
+       }
+
+
+       #headerDiv{
+
+         margin-top: 15vh;
+        padding: 20px;
+
+         font-size: 23px;
+
+         display: flex;
+
+         flex-direction: column;
+
+         height: 20vh;
+
+
+       }
+      
+    
+
+       h1{
+
+         font-size: 25x;
+       }
+
+
+
+
+       #scientistImg{
+
+          position: absolute;
+
+          bottom:20px;
+
+          left: 31vw;
+
+          width: auto;
+
+          height: 35vh;
+
+          z-index: 2;
+       }
+       
+       #roundImg{
+
+          position: absolute;
+
+          top: 40vh;
+
+          left: 32vw;
+
+          height: 60vh;
+
+         width: auto;
+
+         z-index: 1;
+
+       }
+
+
+       
+
+   
+  @media all and (max-width: 500px){
+        
+       #headerDiv{
+
+         margin-top: 14vh;
+
+        padding: 20px;
+
+         font-size: 23px;
+
+         display: flex;
+
+         flex-direction: column;
+
+         height: 20vh;
+
+
+       }
+       
+   
        #scientistImg{
 
           position: absolute;
@@ -25,17 +113,29 @@
 
           position: absolute;
 
-          top: 40vh;
+          top: 44vh;
 
-          left: 27vw;
+          left: 0vw;
 
-          height: 60vh;
+          width: 94vw;
 
-         width: auto;
+           height: auto;
 
          z-index: 1;
 
        }
+
+       .headerText{
+
+         font-size: 20px;
+       }
+
+       
+
+
+
+
+  }
       
 
 
@@ -46,16 +146,29 @@
 
 
      {% block body %}
-      
+       
+     <div id='headerDiv'>
+         
+        <div>
+          <h1 class ='headerText'>Bienvenue!!!</h1>
+        </div>
+       
+         <div>
 
-       <h1>Bienvenue!!!</h1>
+           <h1 class = 'headerText' >Je m'appelle Arkana, je suis en charge de te présenter brièvement ton nouveau laboratoire. </h1>
+          
+        </div>
+
+     
 
 
-      <h1>Je m'appelle Arkana, je suis en charge de te présenter brièvement ton nouveau laboratoire. </h1>
-      
-      En bref, cette appli te permet de créer un ensemble de projets, te permettant de traquer ton temps. 
-      </h1>
+        <div>
 
+               <a href='{{ path("demoStep1Path") }}'><button class='btn btn-success' style='outline: none'>Commencer</button></a>
+
+        </div>
+
+     </div>
      
 
       <img id='scientistImg' src='{{ asset("images/arkana.png") }}'>
@@ -66,7 +179,6 @@
       
 
 
-       <a href='{{ path("newDemoProjectPath") }}'><button class='btn btn-success' style='outline: none'>Commencer</button></a>
 
 
   

@@ -6,7 +6,7 @@
 <style>
 
 
-.avatarImg{
+a{
     position: absolute;
 
     top: 18vh;
@@ -16,6 +16,8 @@
     width: 40vw;  
     opacity: 0;
 
+    z-index: 1;
+
 
 }
 
@@ -23,6 +25,8 @@
 #img1{
 
     opacity: 1;
+
+    z-index: 3;
 }
 
 #avatarHeader{
@@ -78,13 +82,13 @@ button{
 
 
 
-<a href='{{ path("storeAvatarPath", {"avatar": "man1"}) }}'><img id='img1' class='avatarImg'  src='{{ asset("images/man1.png") }}' ></a>
-<a href='{{ path("storeAvatarPath", {"avatar": "man2"}) }}' ><img id='img2' class='avatarImg'  src='{{ asset("images/man2.png") }}' ></a>
-<a href='{{ path("storeAvatarPath", {"avatar": "man3"}) }}' id='man3' ><img id='img3' class='avatarImg' src='{{ asset("images/man3.png") }}' ></a>
-<a href='{{ path("storeAvatarPath", {"avatar": "man4"}) }}' id='man4'><img id='img4' class='avatarImg' src='{{ asset("images/man4.png") }}' ></a>
-<a href='{{ path("storeAvatarPath", {"avatar": "woman1"}) }}' id='woman1'><img id='img5' class='avatarImg'  id='woman1' src='{{ asset("images/woman1.png") }}' ></a>
-<a href='{{ path("storeAvatarPath", {"avatar": "woman2"}) }}' id='woman2' ><img id='img6' class='avatarImg' src='{{ asset("images/woman2.png") }}'></a>
-<a href='{{ path("storeAvatarPath", {"avatar": "woman3"}) }}' id='woman3'><img id='img7' class='avatarImg'  src='{{ asset("images/woman3.png") }}'></a>
+<a href='{{ path("storeAvatarPath", {"avatar": "man1"}) }}' id='img1' ><img class='avatarImg'  src='{{ asset("images/man1.png") }}' ></a>
+<a href='{{ path("storeAvatarPath", {"avatar": "man2"}) }}' id='img2' ><img class='avatarImg'  src='{{ asset("images/man2.png") }}' ></a>
+<a href='{{ path("storeAvatarPath", {"avatar": "man3"}) }}' id='img3' ><img  class='avatarImg' src='{{ asset("images/man3.png") }}' ></a>
+<a href='{{ path("storeAvatarPath", {"avatar": "man4"}) }}' id='img4'><img class='avatarImg' src='{{ asset("images/man4.png") }}' ></a>
+<a href='{{ path("storeAvatarPath", {"avatar": "woman1"}) }}'id='img5'><img  class='avatarImg'  id='woman1' src='{{ asset("images/woman1.png") }}' ></a>
+<a href='{{ path("storeAvatarPath", {"avatar": "woman2"}) }}' id='img6'  ><img class='avatarImg' src='{{ asset("images/woman2.png") }}'></a>
+<a href='{{ path("storeAvatarPath", {"avatar": "woman3"}) }}' id='img7'><img  class='avatarImg'  src='{{ asset("images/woman3.png") }}'></a>
 
 
 
@@ -95,10 +99,11 @@ button{
 {%block javascripts %}
 
 
-var displayedImage =1;
+var displayedImage = 1;
 
 function rightButtonClick(){
   document.getElementById("img"+displayedImage).style.opacity = 0;
+  
 
   if(displayedImage == 7){
       displayedImage = 1;
@@ -114,6 +119,8 @@ function rightButtonClick(){
 function leftButtonClick(){
 
   document.getElementById("img"+displayedImage).style.opacity = 0;
+  document.getElementById("img"+displayedImage).style.zIndex = 1;
+
 
   if(displayedImage == 1){
       displayedImage = 7;
@@ -122,6 +129,8 @@ function leftButtonClick(){
   }
 
    document.getElementById("img"+displayedImage).style.opacity = 1;
+   document.getElementById("img"+displayedImage).style.zIndex = 3;
+
 
 }
 

@@ -5,10 +5,6 @@
 {% block body %}
 <style>
 
-#statsHeader{
-
-    margin-top: 10vh;
- }
 
  #backgroundDiv{
 
@@ -32,6 +28,12 @@
 #backgroundDiv div{
 
     margin-top: 20px;
+}
+
+
+#displayedWeekHTML{
+
+    color: green;
 }
 
 
@@ -125,56 +127,107 @@ margin-left: 3vw;
 
   }
 
+
+  #statsHeader{
+
+      margin-top: 11vh;
+
+      height: 10vh;
+
+      color: green;
+
+      font-size: 15px;
+
+      display: flex;
+
+      flex-direction: row;
+
+      justify-content: center;
+
+  }
+
+    #statsHeader div{
+
+
+      margin-left: 1%;
+
+  }
+
+
+  h5{
+
+      font-size: 16px;
+  }
+
+  
+
 </style>
 
-    <div id="statsHeader">
-       <h1> jour {{currentDay + 1}}, semaine {{currentWeek + 1}}</h1>
+<div id="statsHeader">
+    <div>
+       <h5>  <i class="far fa-calendar-alt"></i>  jour {{currentDay + 1}} : semaine {{currentWeek + 1}}</h5>
+    </div>
+
+    <div>
      {% if bestDailyCount != 0 %}
     
          {%if bestDailyCount == 1  %}
-             <h1>Meilleur temps: {{ bestDailyCount }} minute </h1>
+             <h5><i class="fas fa-clock"></i> Meilleur temps: {{ bestDailyCount }} minute </h5>
          {% else %}
-            <h1>Meilleur temps: {{ bestDailyCount }} minutes </h1>
+            <h5> <i class="fas fa-clock"></i> Meilleur temps: {{ bestDailyCount }} minutes </h5>
       {% endif%}
 
      {% else %}
 
-            <h1>Meilleur temps: moins d'une minute </h1>
+            <h5> <i class="fas fa-clock"></i> Meilleur temps: moins d'une minute </h5>
 
      {% endif%}
 
-     
-       <h1>Etat d'avancée : {{ projectState}} % </h1>
+      </div>
+
+      <div>
+
+       <h5> <i class="fas fa-spinner"></i> Etat d'avancée : {{ projectState}} % </h5>
       
+      </div>
+
+      <div>
+
       {% if averageSequence < 1%}
-             <h1>Séquence moyenne: moins d'une minute </h1>
+             <h5><i class="fas fa-tachometer-alt-average"></i> Séquence moyenne: moins d'une minute </h5>
 
       {% else %}
          
            {%if  averageSequence  == 1  %}
-             <h1>Séquence Moyenne {{  averageSequence }} minute </h1>
-           {% else %}
-            <h1>Séquence moyenne: {{  averageSequence }} minutes </h1>
-          {% endif%}
+             <h5> <i class="fas fa-tachometer-alt-average"></i> Séquence Moyenne {{  averageSequence }} minute </h5>
+            {% else %}
+            <h5> <i class="fas fa-tachometer-alt-average"></i> Séquence moyenne: {{  averageSequence }} minutes </h5>
+            {% endif%}
 
-    {%endif%}
+      {%endif%}
+      
+      </div>
+
+
+      <div>
 
          {% if totalWork < 1%}
-       <h3>Temps travaillé au total : moins d'une minute </h3>
+       <h5><i class="fas fa-user-clock"></i>Temps travaillé au total : moins d'une minute </h5>
 
       {% else %}
           
            {%if  totalWork  == 1  %}
-              <h3>Temps travaillé au total : {{totalWork}} minute</h3>
+              <h5><i class="fas fa-user-clock"></i>Temps travaillé au total : {{totalWork}} minute</h5>
            {% else %}
-              <h3>Temps travaillé au total : {{totalWork}} minutes</h3>
+              <h5><i class="fas fa-user-clock"></i>Temps travaillé au total : {{totalWork}} minutes</h5>
           {% endif%}
 
       
       {% endif %}
+   
+   </div>
 
-
-    </div>
+ </div>
 
      <div id='backgroundDiv'>
        
@@ -182,10 +235,10 @@ margin-left: 3vw;
 
        <div id='firstDivG1'>
 
-          <h3><div id='displayedWeekHTML'></div></h3> <br>
+          <h5><div id='displayedWeekHTML'></div></h5> <br>
           <canvas id="myChart"></canvas>
-          <button onclick = 'lastWeekGraph()' id='lastWeekButton'>semaine précédente</button>
-          <button onclick= 'nextWeekGraph()'id='nextWeekButton'>semaine suivante</button>
+          <button style='opacity:0' class='btn btn-info' onclick = 'lastWeekGraph()' id='lastWeekButton'><i class="fas fa-arrow-left"></i></button>
+          <button style='opacity:0' class='btn btn-info' onclick= 'nextWeekGraph()'id='nextWeekButton'><i class="fas fa-arrow-right"></i></button>
 
      </div>
 

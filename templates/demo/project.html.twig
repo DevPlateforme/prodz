@@ -4,19 +4,305 @@
 
 {% block title %}My project{% endblock %}
 
+
 {% block body %}
+
 <style>
 
+
+
+@media all and (max-width: 10000px){
+   
+    
 body{
-  
+  color: #43BE1C;
+ font-family: "Source Code Pro", monospace;
+ font-family: "Exo 2", sans-serif;
+ text-shadow: 0 0 2px #379D17;
+}
+
+#liquidProgressBar{
+
+  width:65%;
+  height:40%;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-around;
 
 }
 
-#backgroundDiv{
+#backDiv{
+  width: 100vw;
+  height: 90vh;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+}
 
-   width: 100vw;
 
+#middleDiv{
+   width: 60%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+
+   padding-top: 18vh;
+
+
+}
+
+
+#flaskLogo{
+   height: 22vh;
+   width: auto;
+   
+   
+}
+
+#startBtn{
+
+background: none;
+border: none;
+outline: none;
+
+  color: #43BE1C;
+ font-family: "Source Code Pro", monospace;
+ font-family: "Exo 2", sans-serif;
+ text-shadow: 0 0 4px #379D17;
+   
+}
+#totalProgress{
+
+   font-size: 26px;
+}
+body {
+  width:100%;
+  position:relative;
+  padding:0;
+  margin:0;
+}
+
+#leftDiv{
+  position:absolute; 
+
+  width:30%; 
+  height:90vh; 
+  right:69vw; 
+  top:6vh; 
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-around;
   
+  align-items: center;
+  
+  
+}
+
+
+#leftDivHeader{
+
+  height: 20%;
+
+  width: 95%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: start;
+  
+  
+}
+
+
+
+
+#leftDiv1{
+
+  border-radius: 5px;
+  margin-top: 3vh;
+  height: 35%;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background:#161b3d;
+  }
+
+
+#leftDiv1Title {
+
+  height: 10%;
+
+  width: 100%;
+
+  display: flex;
+
+  justify-content: flex-start;
+
+  align-items: center;
+
+}
+
+#leftDiv1Title p {
+  
+  font-size: 14px;
+
+
+
+}
+
+
+#leftDiv1 #leftDiv1Charts{
+
+height: 80%;
+
+width: 100%;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+padding-right: 5%;
+
+margin-top: auto;
+
+}
+
+
+#leftDiv1 #leftDiv1Charts div{
+
+width: 50%;
+}
+
+
+
+#leftDiv2{
+
+margin-top: 2vh;
+
+
+border-radius: 5px;
+  
+height: 35%;
+
+width: 95%;
+
+display: flex;
+
+flex-direction: column;
+
+justify-content: space-around;
+
+background:#161b3d;
+
+margin-bottom : 10vh;
+
+}
+
+#leftDiv2Title{
+  height: 10%;
+
+  width: 100%;
+  display: flex;
+
+  justify-content: flex-start;
+}
+
+#leftDiv2Charts{
+
+height: 70%;
+
+width: 100%;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+padding-right: 5%;
+
+}
+
+
+#leftDiv2Charts div{
+
+width: 33.3%;
+}
+
+
+#leftDiv2Charts div canvas{
+
+}
+
+
+
+
+#rightDiv{
+
+  width: 33%; 
+  height: 91vh; 
+  position:absolute; 
+  left:68vw; 
+  top:9vh; 
+
+  display:flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-top: 5vh;
+
+ }
+
+
+#rightDiv1{
+  
+  margin-top: 3vh;
+
+  height:75%;
+
+  width:80%;
+  
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-around;
+
+  background:#161b3d;
+  
+}
+
+
+#comparisonDiv{
+
+
+   width: 60%;
+
+   margin: auto;
+
+}
+
+#sequencesDiv{
+
+  height: 25%;
+
+   width: 100%;
 
    display: flex;
 
@@ -24,89 +310,74 @@ body{
 
    align-items: center;
 
+   justify-content: start;
+
+   padding: 10%;
+
+  }
+
+#sequencesDiv div{
+
+height: 30%;
+
+width: 5O%;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center:
+
+flex-direction: column;
+
+
 }
 
 
+#topTimeDiv{
 
-#flaskLogo{
-
-   height: 200px;
-
-   width: auto;
-
-   
-
-   
-}
-
-
-#chartLink{
-
-position: absolute;
-
-top: 75vh;
-
-right: 6vw;
-
-}
-
-
-#startBtn{
-
-position: absolute;
-
-top: 75vh;
-
-left: 48vw;
-
-background: none;
-
-border: none;
-
-outline: none;
-
-color: white;
-
-   
-}
-
-#totalProgress{
-   position: absolute;
-
-   top: 43%;
-
-   left: 48%;
-
-   font-size: 30px;
-
+  width: 80%;
+  margin: auto;
 
 }
 
 
 
 
-body {
-  width: 100%;
-  position: relative;
-  padding: 0;
-  margin: 0;
-}
+
+
+#rightDiv2{
+  margin-bottom: 10vh;
+  height:10%;
+
+  width:80%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background:#161b3d;
+
+  }
+
 .mo-fire {
-
-     opacity:0;
-
-  width: 60px;
+  opacity: 0;
+  width: 23%;
   height: auto;
-  position: absolute;
+  display: flex;
 
-  margin-top: -25px;
+  margin-right: 6%;
+  
 
-  margin-left: 130px;
+  justify-content: flex-start;
+
+  align-items: center;
 }
 .mo-fire svg {
   width: 100%;
   height: auto;
-  position: relative
 }
 .flame {
   animation-name: flamefly;
@@ -124,7 +395,6 @@ body {
   animation-duration: 5s;
   animation-delay: 1s;
 }
-
 .flame-main {
   animation-name: flameWobble;
   animation-duration: 3s;
@@ -169,37 +439,243 @@ body {
   }
 
 
+    
+  }
+
+  @media all and (min-width: 2400px){
+
+   
+      #flaskLogo{
+         height: 14vh;
+         width: auto;
+       }
+
+    #liquidProgressBar{
+
+      width:50%;
+      height:23%;
+}
 
 
+
+  }
+   
+
+
+
+  @media all and (max-width: 500px){
+   
+    
+#middleDiv{
+
+  width: 100vw;
+}
+
+
+#leftDivHeader{
+
+position: fixed;
+
+top: 1vh;
+
+z-index: 7;
+}
+
+#rightDiv{
+
+  top: 220vh;
+
+  width: 100vw;
+
+  left : 0px;
+
+}
+
+
+#leftDiv{
+
+  top: 110vh;
+
+  width: 100vw;
+
+  left: 0px;
+  
+
+
+      }
+
+      
+   }
+
+
+
+  #scientistDiv{
+
+    height: 90vh;
+
+    width: 50vw;
+
+    position: absolute;
+
+    top: 10vh;
+
+    width: 50vw;
+
+    z-index: 7;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+  }
+
+
+  #scientistDiv div{
+
+    height: 50%;
+
+    width: 100%;
+
+    }
+
+      #scientistDiv div img{
+         
+         height: 100%;
+
+         width: auto;
+
+      }
 
 
 
 </style>
-
 <br>
+    
+  <div id='scientistDiv'>
+
+  <div>
+     <img id='bubbleImg' src='{{ asset("images/bubble.png") }}'>
+  </div>
 
 
+     <div>
+          <img id='scientistImg' src='{{ asset("images/arkana.png") }}'>
+    </div>
 
-<div id='backgroundDiv'>
-
- <i class="far fa-clipboard fa fa-2x"></i>
-
-  <h1>Project Blue Beam </h1>
+ </div>
 
 
-  <h5>Jour 1 semaine 4 </h5>
+<div id="leftDiv">
 
+  <div id="leftDivHeader">
+    
+   <div id='idText' style='font-size: 8px'></div>
+   <div id='idText2' style='font-size: 8px'></div>
+   <div id='idText3' style='font-size: 8px'></div>
+   <div id='idText4' style='font-size: 8px'></div>
+      
+  </div>
+
+    <div id='leftDiv1'>
+
+     <div id='leftDiv1Title'>
+
+        <p>Durée totale</p>
+
+    </div>
+
+    <div id='leftDiv1Charts'>
+
+           <div>
+             <canvas id="totalCountHoursChart"></canvas>
+           </div>
+
+           <div>
+             <canvas id="totalCountMinutesChart"></canvas>
+           </div>
+
+    </div>
+
+ 
+    </div>
+
+    <div  id='leftDiv2'>
+
+       <div id='leftDiv2Title'>
+          <p style='font-size: 14px'>Durée journalière</p>
+       </div>
+
+        <div id='leftDiv2Charts'>
+           <div>
+             <canvas id="dailyCountHoursChart"></canvas>
+           </div>
+
+             <div>
+               <canvas id="dailyCountMinutesChart"></canvas>
+             </div>
+
+             <div>
+             <canvas id="dailyCountSecondsChart"></canvas>
+            </div>
+         </div>
+    
+    </div>
+     
+
+
+</div>
+
+<div id="rightDiv">
+
+
+   <div id='rightDiv1'>
+
+       <div id='comparisonDiv'>
+     
+            <canvas id="comparisonChart"></canvas>
+  
+       </div>
+           
+
+       <div id='sequencesDiv'>
+
+              <div>
+               <p style='font-size: 12px'>Séquence moyenne</p>
+              </div>
+           
+              <div>
+                <p id='averageSequenceHTML'style='font-size: 12px'></p>
+              </div>
+       </div>
+
+       <div id='topTimeDiv'> 
+
+          <canvas id="topTimeChart"></canvas>
+         
+       </div>
+
+  </div>
+
+
+</div>
+
+
+<div id='backDiv'>
+
+
+<div id='middleDiv'>
 
    <div>
-   
+
+   <div style='display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 5vh'>
      <img id ='flaskLogo' src='{{ asset("images/flask"~ substanceColor ~ ".png") }}'> 
      
-
-     <div id='totalProgress'></div>
-
-     
-
-    <div class="mo-fire" id='fireLogo'>
+     <div style='color: white; position: absolute; margin: auto' id='totalProgress'></div>
+      
+    
+   <div class="mo-fire" id='fireLogo'>
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="125px" height="189.864px" viewBox="0 0 125 189.864" enable-background="new 0 0 125 189.864" xml:space="preserve">
         <path class="flame-main" fill="#F36E21" d="M76.553,186.09c0,0-10.178-2.976-15.325-8.226s-9.278-16.82-9.278-16.82s-0.241-6.647-4.136-18.465
@@ -218,278 +694,661 @@ body {
         <path class="flame one" fill="#F36E21" d="M55.592,126.854c0,0-3.819,13.29,2.699,16.945C64.038,141.48,55.907,132.263,55.592,126.854z"/>
         <path class="flame two" fill="#F36E21" d="M54.918,104.595c0,0-3.959,6.109-1.24,8.949C56.93,113.256,52.228,107.329,54.918,104.595z"/>
     </svg>
-
-
   </div>
-
  </div>
 
 
+  </div>
+     
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
    
-
-   </br>
-
-   <button id="startBtn"><i class="fas fa-play-circle fa-3x"></i></button>
-   </br>
-
-
-   <button onclick='simulateDay()'>Simuler un jour</button>
-
-
-
-
-
-<div style='width: 28%; height: 34px; display: flex; align-items: center; justify-content: flex-start; border: 2px solid white; flex-direction: row; border-radius: 5px; margin: none; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);'>
+   
+  <form id='projectDone' method='post' action= '{{path("totalCountDonePath")}}'>
+   <input type='hidden' name = 'projectId' value = '{{ projectId}}'>
+  </form>
+<form id ="intervalForm" action= '{{ path("showProjectPath", {"projectId": projectId })}}' method="post" >
+      <input id='intervalInput' type='hidden' name = 'interval' value = 'off'>
+      <input id='pageReload' type='hidden' name = 'pageReload'>
       
-    <div id='myProgressBar' style='margin-top: 0.5px; background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/172299/bubbles-mask.gif);  width: 0%; height: 100%; display: flex;  '> 
+</form>
+
+<div id='liquidProgressBar'>
+
+<button id="startBtn"><i class="fas fa-power-off fa fa-1x"></i></button>
+
+<div style='width: 70%; height: 15%; display: flex; align-items: center; justify-content: flex-start; border: 2px solid white; flex-direction: row; border-radius: 5px; margin: none; box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.3);'>
+      
+    <div id='myProgressBar' style='background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/172299/bubbles-mask.gif);  width: 0%; height: 100%; display: flex;  '> 
           
       {% if substanceColor == 'red' %}
        <div id='liquid' style=' height: 100%; width: 100%; background: rgb(255,147,147);
         background: linear-gradient(to bottom, rgba(255,147,147,1) 5%, rgba(250,68,68,1) 17%, rgba(242,23,23,1) 31%, rgba(255,50,50,1) 67%, rgba(251,114,114,1) 89%, rgba(255,143,143,1) 96%);opacity: 0.75 ; display: flex; justify-content: center; flex-direction: row';><div id='progressText' style=' font-size: 15px; width: 10%; height: 100%; display:flex; justify-content:flex-end; margin-bottom: 80px; margin-right: 24.5px; border-radius: 10px'>
       </div>
       {% elseif substanceColor == 'green' %}
-
        <div id='liquid' style=' height: 100%; width: 100%; background:rgb(194,238,200); background: linear-gradient(to bottom, rgba(194,238,200,1) 7%, rgba(158,245,181,1) 14%, rgba(41,215,118,1) 31%, rgba(45,223,128,1) 67%, rgba(213,255,226,1) 100%) ;opacity: 0.75 ; display: flex; justify-content: center; flex-direction: row';><div id='progressText' style=' font-size: 15px; width: 10%; height: 100%; display:flex; justify-content:flex-end; margin-bottom: 80px; margin-right: 24.5px; border-radius: 10px'>
       </div>
-
       {% elseif substanceColor == 'blue' %}
               
          <div id='liquid' style=' height: 100%; width: 100%; background: rgb(204,222,235); background: linear-gradient(to bottom, rgba(204,222,235,1) 7%, rgba(119,206,212,1) 14%, rgba(78,174,205,1) 31%, rgba(52,193,191,1) 67%, rgba(213,255,226,1) 100%);;opacity: 0.75 ; display: flex; justify-content: center; flex-direction: row';><div id='progressText' style=' font-size: 15px; width: 10%; height: 100%; display:flex; justify-content:flex-end; margin-bottom: 80px; margin-right: 24.5px; border-radius: 10px'>
       </div>
-
       {% endif %}
  
       
- </div>
+   </div>
 
+   
 
-<button id='chartLink'><i class="fas fa-chart-line fa-3x"></i></button>
+  </div>
 
+  
 
+</div>
 
+   <a href='{{ path("showGraphPath", {"projectId": projectId }) }}'<button><i class="fas fa-chart-line fa-2x"></i></button></a>
+</div>
+ 
 </body>
-
 {% endblock %}
 
+
       {% block javascripts %}
- 
-      var liquid = document.getElementById("liquid");
-      var startBtn = document.getElementById('startBtn'); 
+
       
-      var dailyCnt = 0;
-      var totalCnt = 0;
-      var dailyLimit = 15;
-      var totalLimit = 60;
+       console.log('{{ comparison }}');
+
+
+       
+       var liquid = document.getElementById("liquid");
+     
+         //setInterval (function(){refreshAt(23,55,0)}, 10000000) ;
+         
+         
+         setInterval (function(){storeValues()}, 600000) ;
+      
+            
+        
+      var startBtn = document.getElementById('startBtn'); 
+      var dailyCnt = {{dailyCount}};
+      var totalCnt = {{ totalCount }};
       var totalProgress = document.getElementById('totalProgress');
-      var dailyCountDone = false;
-      var totalCountDone = false;
+      var dailyCountDone = {{dailyCountDone}};
+      var totalCountDone = {{totalCountDone}};
       var intervalInput = document.getElementById('intervalInput');
       var intervalForm = document.getElementById('intervalForm');
       var projectDone = document.getElementById('projectDone');
       var fireLogo = document.getElementById('fireLogo');
       var myProgressBar = document.getElementById('myProgressBar');
-      var notifNumber = 0;
-              
+      
+      
+      //bestDailyCount
+
+      var bestDailyCount = {{ bestDailyCount }};
+
+      var secondsCount = 0;
+      var tenthSecondsCount = 0;
+      
+       //starting values for the counters, diminishing overtime;
+
+           var secondsLeft = 60;
+
+           var tenthSecondsLeft = 1;
+      
+      //var used in the increaseCounts function, to update the comparison in real time
+      var comparison = '{{ comparison }}';
+
+      //initial number of pauses, to calculate the average work sequencesDiv
+       
+       var numberOfPauses = {{numberOfPauses}};
+
+       //Average Sequence HTML
+
+       var  averageSequenceHTML = document.getElementById("averageSequenceHTML");
+
+      
+      //charts;
+      var comparisonChart = document.getElementById("comparisonChart");
+       
+       var totalCountHoursChart = document.getElementById("totalCountHoursChart");
+
+       var totalCountMinutesChart = document.getElementById("totalCountMinutesChart");
+        
+      
+       var dailyCountHoursChart = document.getElementById("dailyCountHoursChart");
+
+       var dailyCountMinutesChart = document.getElementById("dailyCountMinutesChart");
+      
+       var dailyCountSecondsChart = document.getElementById("dailyCountSecondsChart");
+        
+
       var done = false;
+      var interval = "{{interval}}";
+      var pageReloaded = {{ pageReloaded }}
+      if(interval == "on"){
+         countFunction();
+      }
+            
+            window.onbeforeunload = function(){
 
-
-
-
-            window.onload = function(){
-
-                         totalProgress.innerHTML =  Math.floor( '0%');
-
-                          myProgressBar.style.width = dailyCnt + '%';
+              if (startBtn.innerHTML == '<i class="fas fa-pause-circle fa-1x"></i>'){
+                   addPause();
+              }
 
 
             }
-           
 
-      
- 
-  
+            window.onload = function(){
 
-     
-   
-        
-      startBtn.addEventListener('click', function(){
+              window.addEventListener( "pageshow", function ( event ) {
+                        var historyTraversal = event.persisted || 
+                         ( typeof window.performance != "undefined" && 
+                              window.performance.navigation.type === 2 );
+                 if ( historyTraversal ) {
+                // Handle page restore.
+                 window.location.reload();
+                 }
+            });
+          
+           displayAverageSequence();
+            
+            //intro text
 
-         countFunction();
-
-      });
-
-
-
-      //interval, checking regularly if the dailyyCount is done
-
-      var checkDailyCountInterval;
-
-      var myInterval;
+             var i = 0;
+             var i2 = 0;
+             var i3 = 0;
+             var i4 = 0;
 
 
-      function countFunction(){
+             var txt = ' statut: connecté'
+             var txt2 = ' Projet blue beam'
+             var txt3 = 'Date de création:25/09/2020'
+             var txt4 = 'Immatriculation: v&678YT456b75xv79bx7665v&67'
+
+
+            var speed = 10;
+
+            function txt1writing() {
+               if (i < txt.length) {
+               document.getElementById("idText").innerHTML += txt.charAt(i);
+               i++;
+               setTimeout(txt1writing, speed);
+            }
+         }  
+
+             function txt2writing() {
+               if (i2 < txt2.length) {
+               document.getElementById("idText2").innerHTML += txt2.charAt(i2);
+               i2++;
+               setTimeout(txt2writing, speed);
+            }
+         }
+
+          function txt3writing() {
+               if (i3 < txt3.length) {
+               document.getElementById("idText3").innerHTML += txt3.charAt(i3);
+               i3++;
+               setTimeout(txt3writing, speed);
+            }
+         }
 
          
-          if (startBtn.innerHTML == '<i class="fas fa-play-circle fa-3x"></i>'){
+          function txt4writing() {
+               if (i4 < txt4.length) {
+               document.getElementById("idText4").innerHTML += txt4.charAt(i4);
+               i4++;
+               setTimeout(txt4writing, speed);
+            }
+         } 
 
+          txt1writing();
+          txt2writing();
+          txt3writing();
+          txt4writing();
+
+
+
+                       
+              totalProgress.innerHTML =  Math.floor( {{ (totalCount/totalLimit) * 100 }}) + ' %';
+              myProgressBar.style.width = dailyCnt + '%';
+
+
+         {%if comparison != 'firstDay'%}
+
+                 displayGraph(topTimeChart, [dailyCnt, bestDailyCount], ['temps actuel', 'top'] , 'bar', 2800);
+
+
+                {%if comparison == 'zerozero'%}
+
+                    displayComparisonGraph( comparisonChart , [0, 0], ['Hier', 'Aujourdhui'] , 'line', 2800);
+
+                {% else %}
+
+                 displayComparisonGraph( comparisonChart , [0, {{comparison}}], ['Hier', 'Aujourdhui'] , 'line', 2800);
+                
+                {% endif %}
+
+         {%else%}
+              
+                displayComparisonGraph( comparisonChart , [0, 0], ['Hier', 'Aujourdhui'] , 'line', 2800);
+              
+               //if first day , we don't display both comparison graphs
+              
+                displayGraph(topTimeChart, [0, 0], ['temps actuel', 'top'] , 'bar', 2800);
+
+
+        {% endif %}
+             
+              displayGraph( totalCountHoursChart , [25, 35], ['Total'] , 'doughnut', 2800);      
+              displayGraph( totalCountMinutesChart , [35,60], ['Min'] , 'doughnut', 2800);
+              displayGraph( dailyCountHoursChart , [1, 4] , ['Total'] , 'doughnut', 2800);
+              displayGraph( dailyCountMinutesChart , [1,60], ['Min'] , 'doughnut', 2800);
+              displayGraph( dailyCountSecondsChart , [1, 60], ['Sc'] , 'doughnut', 2800);  
+
+
+                  
+                
+            }
+            
+
+      
+       
+       function refreshAt(hours, minutes, seconds) {
+        var now = new Date();
+        var then = new Date();
+       if(now.getHours() > hours ||
+       (now.getHours() == hours && now.getMinutes() > minutes) ||
+        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
+        then.setDate(now.getDate() + 1);
+      }
+
+    then.setHours(hours);
+    then.setMinutes(minutes);
+    then.setSeconds(seconds);
+     
+        console.log(then - now);
+    
+    if((then - now) < 300000){    
+         
+         if(startBtn.innerHTML == '<i class="fas fa-pause-circle fa-1x"></i>'){
+                      intervalInput.value = 'on';
+                      console.log('on!!');
+                          }
+        
+                  console.log('letsgo');
+                  storeValues();
+                  intervalForm.submit();
+            }
+      
+ }
+  
+     
+   
+         
+     
+     function storeValues(){
+         
+         xrq = new XMLHttpRequest();
+         
+         xrq.onload = function(){
+                  console.log("stored");
+
+         }
+          xrq.open('POST', '{{ path("storeCountsPath")}}', true);
+          xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          xrq.send('projectId=' + {{ projectId}} + '&totalCount=' + totalCnt +'&dailyCount=' + dailyCnt);
+      }
+       
+        
+      var myInterval;
+      startBtn.addEventListener('click', function(){
+         countFunction();
+      })
+      var storeInterval;
+      //interval, checking regularly if the dailyyCount is done
+      var checkDailyCountInterval;
+      function countFunction(){
+  
+
+          if (startBtn.innerHTML == '<i class="fas fa-power-off fa fa-1x"></i>'){
              myInterval = setInterval(function(){ increaseCounts()}, 100);
                              
                fireLogo.style.opacity = 1;
-
-             startBtn.innerHTML = '<i class="fas fa-pause-circle fa-3x"></i>';
-
+               startBtn.innerHTML = '<i class="fas fa-pause-circle fa-1x"></i>';
             
-             checkDailyCountInterval = setInterval(function(){ checkDailyCount()}, 1000); 
+               checkDailyCountInterval = setInterval(function(){ checkDailyCount()}, 1000); 
+               storeInterval = setInterval(function(){ storeValues()}, 2000);
 
-          
-          }
+               averageSequenceHTML.innerHTML = '';
 
-          else {
+               averageSequenceHTML.innerHTML = 'nouvelle moyenne en cours de calcul.....';
+
+
+               
+             
+          } else {
  
              clearInterval(myInterval);
-
              clearInterval(checkDailyCountInterval);
-
+             clearInterval(storeInterval);
           
-             fireLogo.style.opacity = 0;
-
+            fireLogo.style.opacity = 0;
             
-            startBtn.innerHTML = '<i class="fas fa-play-circle fa-3x"></i>';
+            startBtn.innerHTML = '<i class="fas fa-power-off fa fa-1x"></i>';
+
+
+            addPause();
               
           }
+      }
 
-    }
-
-
-function simulateDay(){
-
-        xrq = new XMLHttpRequest();
-
-           xrq.onload = function(){
+    function checkDailyCount(){
+      console.log(dailyCnt);
+      console.log({{dailyLimit}});
+         
+     console.log(dailyCountDone);
+     if (dailyCountDone == false){
+               
+        if(dailyCnt >= {{dailyLimit}}) {
+           
+          xrq = new XMLHttpRequest();
+          xrq.onload = function(){
                
                console.log('done');
              
-                updateNotifs();
-
-                updatePin();
-
-                notifNumber += 1;
-
-
+              updateNotifs();
+              updatePin();
+             console.log(JSON.parse(this.responseText).pin);
+             dailyCountDone = true;
           }
-
-         var url ='{{ path("demoNotifPath", { "notifNumber" : "notifNumber" }) }}'
-
-         url = url.replace("notifNumber", notifNumber);
-          xrq.open('GET', url , true);
-
-
-          xrq.send();
-}
-
-
-function checkDailyCount(){
-
-               
-        if(dailyCnt >= dailyLimit) {
-
-           if (dailyCountDone == false){
-
-           console.log('daily count done');
-
-          
-           xrq = new XMLHttpRequest();
-
-           xrq.onload = function(){
-               
-               console.log('done');
-             
-               updateNotifs();
-
-               updatePin();
-
-               console.log(JSON.parse(this.responseText).pin);
-
-               dailyCountDone = true;
-
-          }
-
-
-
-         var url ='{{ path("demoNotifPath", { "notifNumber" : "notifNumber" }) }}'
-
-           url = url.replace("notifNumber", notifNumber);
-          xrq.open('GET', url , true);
-
-          xrq.send();
-
+          xrq.open('POST', '{{ path("dailyCountDonePath")}}', true);
+          xrq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          xrq.send('projectId=' + {{ projectId}});
          }
-
-
-            
-
-           dailyCountDone = true;
-
-
-          }
-
-
-}
-
-
-
-
-
-     
-
-
-
+      }
+    }
+    
       function increaseCounts(){ 
 
-   
+          console.log(dailyCnt);
 
+          console.log({{ dailyLimit }});
+
+
+        if( ({{ totalLimit }}- totalCnt) <= 5 ){
+          if(totalCnt >= {{ totalLimit}}){
+                      myfct();
+          }
+       }
+  
           totalCnt+=0.1;
-
           dailyCnt+=0.1;
+          myProgressBar.style.width = dailyCnt + '%';
+           
+          totalProgress.innerHTML =  Math.floor(((totalCnt/{{totalLimit}})*100))  + ' %';
+                   
+              
+              //timers and charts update
+             
+             if( secondsCount >= 59){
+
+               secondsCount = 0;
+               secondsLeft = 60;
+             } else{
+                secondsCount += 0.1;
+                secondsLeft -= 0.1;
+
+             }
+
+            if(tenthSecondsCount >= 0.9){
+                tenthSecondsCount = 0;
+                tenthSecondsLeft = 1;
+            } else{
+              tenthSecondsCount += 0.1;
+              tenthSecondsLeft -= 0.1;
+            }
 
 
-          myProgressBar.style.width = ((dailyCnt/dailyLimit)*100) + '%';
+            var totalCountLeft = ({{totalLimit}} - totalCnt); 
 
-        
+            if(dailyCnt >= {{ dailyLimit}}){
+
+              dailyCountLeft = 0;
+            }  else {
+
+              dailyCountLeft = {{ dailyLimit}} - dailyCnt ;
+           }
+              displayGraph( totalCountHoursChart , [totalCnt, totalCountLeft], ['total'] , 'doughnut', 0);      
+              displayGraph( totalCountMinutesChart , [ secondsCount,secondsLeft], ['Min'] , 'doughnut', 0);
+              displayGraph( dailyCountHoursChart , [dailyCnt, dailyCountLeft] , ['total'] , 'doughnut', 0);
+              displayGraph( dailyCountMinutesChart , [ secondsCount,secondsLeft], ['Min'] , 'doughnut', 0);
+              displayGraph( dailyCountSecondsChart , [ tenthSecondsCount, tenthSecondsLeft], ['sc'] , 'doughnut', 0);           
+
+                
+           if( '{{ comparison}}' != 'firstDay'){
+                     
+                //Only display comparisons graphs, if it's not the first day
+                
+
+                 if( comparison <= 100){
+
+                   
+                 comparison = ( (( dailyCnt / {{lastDayCount}}) - 1) * 100);
+                 
+                 console.log("comp" + comparison);
+                 
+                 displayComparisonGraph( comparisonChart , [0, comparison], ['Hier', 'Aujourdhui'] , 'line', 0);
+                 
+                 displayGraph(topTimeChart, [dailyCnt, bestDailyCount], ['temps actuel', 'top'] , 'bar', 0);
 
 
-          totalProgress.innerHTML =  Math.floor(((totalCnt/totalLimit)*100))  + ' %';
+
+                 }               
+                  
+
+            } 
 
        }
 
 
+     
+     
+        function myfct(){
+              if(done == false){
+                console.log('alright');
+             
+                   console.log('ok');
+                    clearInterval(myInterval);
+                    storeValues();
+                    projectDone.submit();
+                    done = true;
+             }
+        }
+    
+    
+      function addPause(){
+                
+               var xrq = new XMLHttpRequest;
 
+               xrq.onload = function(){
 
+                 console.log("pausesUpdated");
+
+                   numberOfPauses += 1;
+                  
+                   displayAverageSequence();
+
+                }
+               
+               xrq.open('GET', '{{ path("addPausePath", {"projectId": projectId }) }}', true );
+
+               xrq.send();
+
+              }
 
         
-        function myfct(){
 
-              if(done == false){
+function displayAverageSequence(){
 
-                    clearInterval(myInterval);
+  var  averageSequence;
+  var averageSequenceHours;
+  var  averageSequenceMinutes;
+  var  averageSequenceSeconds;
+
+    if(dailyCnt == 0){
+       averageSequence = 0;
+       averageSequenceHours = 0;
+       averageSequenceMinutes = 0;
+       averageSequenceSeconds = 0;
+    } else{
+
+     
+     averageSequence = dailyCnt/numberOfPauses;
+
+     averageSequenceHours = Math.floor(averageSequence/360);
+
+     averageSequenceMinutes = Math.floor(((averageSequence) - (averageSequenceHours * 360))/60);
+
+     averageSequenceSeconds = Math.floor( averageSequence - (averageSequenceHours * 360) -  (averageSequenceMinutes*60) );
+     
+     averageSequenceHTML.innerHTML = '';
+
+    }
+
+     
+    
+      if(averageSequenceHours < 10){
+
+        averageSequenceHours = "0" +  averageSequenceHours;
+
+      }
+
+       
+     if(averageSequenceMinutes < 10){
+
+       averageSequenceMinutes = "0" +  averageSequenceMinutes;
+
+     } 
+     
+     if(averageSequenceSeconds < 10){
+
+       averageSequenceSeconds = "0" +  averageSequenceSeconds;
+
+     } 
+      
+      console.log(dailyCnt);
+
+      console.log(numberOfPauses);
 
 
-                    done = true;
+     
+     console.log(averageSequenceHours + ":" + averageSequenceMinutes + ':' + averageSequenceSeconds);
+
+     averageSequenceHTML.innerHTML += (averageSequenceHours + ":" + averageSequenceMinutes + ':' + averageSequenceSeconds);
+
+ 
+}
 
 
-             }
+function displayGraph(chart, data, labels, type, animationTime){
 
+var myChart = new Chart(chart , {
+    type: type,
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'stats',
+            data: data, 
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            
+            borderWidth: 1
+        }]
+    },
+    options: {
 
+      animation: {
+        duration: animationTime
+      }
 
+      ,
+      
+        scales: {
+            yAxes: [{
+
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
         }
+    }
+});
+
+
+}
 
 
 
-        {% endblock %}
+
+function displayComparisonGraph(chart, data, labels, type, animationTime){
+
+var myChart = new Chart(chart , {
+    type: type,
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'stats',
+            data: data, 
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            
+            borderWidth: 1
+        }]
+    },
+    options: {
+
+      animation: {
+        duration: animationTime
+      }
+
+      ,
+      
+        scales: {
+            yAxes: [{
+
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+}
+
+
+
+   {% endblock %}
