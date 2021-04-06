@@ -426,7 +426,7 @@ class ProjectController extends AbstractController
         } else  if($user->getCompetencyPoints() >= 100  && $user->getCompetencyPoints() < 150){
 
             $user->setLevel('loup de Wall Street');
-        } else if($user->getCompetencyPoints() >= 150){
+        } else if($user->getCompetencyPoints() >= 1000){
 
             $user->setLevel('Jeff Bezzos');
         } else {
@@ -576,7 +576,7 @@ class ProjectController extends AbstractController
 
                        $user->setCompetencyPoints($user->getCompetencyPoints()-50);
 
-                       $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "tu perds 50 points de compétence!");
+                       $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé ". $project->getProjectName() . "tu perds 50 points de compétence!");
 
 
                       } else{
@@ -584,13 +584,13 @@ class ProjectController extends AbstractController
 
                         $user->setCompetencyPoints(0);
 
-                        $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "tu perds 50 points de compétence, et ton compteur est donc à 0...!");
+                        $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé ". $project->getProjectName() . " . Tu perds 50 points de compétence, et ton compteur est donc à 0...!");
  
                       }
 
                   } else{
 
-                    $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "on va dire que tu as de la chance...tu ne perds de points de compétences, vu que ton compteur est déjà à 0...");
+                    $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé ". $project->getProjectName() . " . On va dire que tu as de la chance...tu ne perds de points de compétences, vu que ton compteur est déjà à 0...");
 
 
                   }
@@ -703,7 +703,7 @@ class ProjectController extends AbstractController
         } else  if($user->getCompetencyPoints() >= 100  && $user->getCompetencyPoints() < 150){
 
             $user->setLevel('loup de Wall Street');
-        } else if($user->getCompetencyPoints() >= 150){
+        } else if($user->getCompetencyPoints() >= 1000){
 
             $user->setLevel('Jeff Bezzos');
         } else {
@@ -861,7 +861,7 @@ class ProjectController extends AbstractController
 
                        $user->setCompetencyPoints($user->getCompetencyPoints()-50);
 
-                       $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "tu perds 50 points de compétence!");
+                       $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé ". $project->getProjectName() . " tu perds 50 points de compétence!");
 
 
                       } else{
@@ -869,13 +869,13 @@ class ProjectController extends AbstractController
 
                         $user->setCompetencyPoints(0);
 
-                        $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "tu perds 50 points de compétence, et ton compteur est donc à 0...!");
+                        $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé ". $project->getProjectName() . " tu perds 50 points de compétence, et ton compteur est donc à 0...!");
  
                       }
 
                   } else{
 
-                    $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé". $project->getProjectName() . "on va dire que tu as de la chance...tu ne perds de points de compétences, vu que ton compteur est déjà à 0...");
+                    $notification->setContent("Dommage...tu n'as pas atteint ton compte journalier, pour le projet nommé ". $project->getProjectName() . " on va dire que tu as de la chance...tu ne perds de points de compétences, vu que ton compteur est déjà à 0...");
 
 
                   }
@@ -988,7 +988,7 @@ class ProjectController extends AbstractController
         } else  if($user->getCompetencyPoints() >= 100  && $user->getCompetencyPoints() < 150){
 
             $user->setLevel('loup de Wall Street');
-        } else if($user->getCompetencyPoints() >= 150){
+        } else if($user->getCompetencyPoints() >= 1000){
 
             $user->setLevel('Jeff Bezzos');
         } else {
@@ -1117,7 +1117,7 @@ class ProjectController extends AbstractController
         } else if($user->getCompetencyPoints() >= 100  && $user->getCompetencyPoints() < 150){
 
             $user->setLevel('loup de Wall Street');
-        } else if($user->getCompetencyPoints() >= 150){
+        } else if($user->getCompetencyPoints() >= 1000){
 
             $user->setLevel('Jeff Bezzos');
         } else {
@@ -1381,6 +1381,8 @@ class ProjectController extends AbstractController
 
 
         }
+
+        
 
 
 

@@ -1137,7 +1137,7 @@ z-index: 7;
 function displayAverageSequence(){
 
   var  averageSequence;
-  var averageSequenceHours;
+  var  averageSequenceHours;
   var  averageSequenceMinutes;
   var  averageSequenceSeconds;
 
@@ -1161,6 +1161,8 @@ function displayAverageSequence(){
 
     }
 
+
+
      
     
       if(averageSequenceHours < 10){
@@ -1174,23 +1176,24 @@ function displayAverageSequence(){
 
        averageSequenceMinutes = "0" +  averageSequenceMinutes;
 
+       alert('avg' +averageSequenceMinutes);
+
      } 
      
      if(averageSequenceSeconds < 10){
 
        averageSequenceSeconds = "0" +  averageSequenceSeconds;
 
+              alert('avg' +averageSequenceSeconds);
+
+
      } 
-      
-      console.log(dailyCnt);
-
-      console.log(numberOfPauses);
-
+ 
 
      
-     console.log(averageSequenceHours + ":" + averageSequenceMinutes + ':' + averageSequenceSeconds);
 
      averageSequenceHTML.innerHTML += (averageSequenceHours + ":" + averageSequenceMinutes + ':' + averageSequenceSeconds);
+
 
  
 }
