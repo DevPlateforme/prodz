@@ -593,7 +593,7 @@ z-index: 7;
               </div>
            
               <div>
-                <p id='averageSequenceHTML'style='font-size: 12px'></p>
+                <p id='averageSequenceHTML'style='font-size: 12px'>nouvelle moyenne en cours de calcul...</p>
               </div>
        </div>
 
@@ -796,7 +796,7 @@ z-index: 7;
                  }
             });
           
-           displayAverageSequence();
+           //displayAverageSequence();
             
             //intro text
 
@@ -965,9 +965,9 @@ z-index: 7;
                checkDailyCountInterval = setInterval(function(){ checkDailyCount()}, 1000); 
                storeInterval = setInterval(function(){ storeValues()}, 2000);
 
-               averageSequenceHTML.innerHTML = '';
+               //averageSequenceHTML.innerHTML = '';
 
-               averageSequenceHTML.innerHTML = 'nouvelle moyenne en cours de calcul.....';
+               //averageSequenceHTML.innerHTML = 'nouvelle moyenne en cours de calcul.....';
 
 
                
@@ -1122,7 +1122,7 @@ z-index: 7;
 
                    numberOfPauses += 1;
                   
-                   displayAverageSequence();
+                   //displayAverageSequence();
 
                 }
                
@@ -1146,8 +1146,8 @@ function displayAverageSequence(){
        averageSequenceHours = 0;
        averageSequenceMinutes = 0;
        averageSequenceSeconds = 0;
-    } else{
 
+    } else{
      
      averageSequence = dailyCnt/numberOfPauses;
 
@@ -1176,7 +1176,6 @@ function displayAverageSequence(){
 
        averageSequenceMinutes = "0" +  averageSequenceMinutes;
 
-       alert('avg' +averageSequenceMinutes);
 
      } 
      
@@ -1184,7 +1183,6 @@ function displayAverageSequence(){
 
        averageSequenceSeconds = "0" +  averageSequenceSeconds;
 
-              alert('avg' +averageSequenceSeconds);
 
 
      } 
